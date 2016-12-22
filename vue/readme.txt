@@ -62,6 +62,17 @@ v-for="item of lists"  通过对象的列表进行遍历
 
 整数迭代  v-for="n in 10"
 
+组件迭代 需要把数据绑定到组件上
+<my-component
+  v-for="(item, index) in items"
+  v-bind:item="item"
+  v-bind:index="index">
+</my-component>
+
+
+注意：
+1.通过索引修改数组的某一项时并不会触发视图更新
+可以通过set触发
 
 
 5.动画的关键在于
@@ -96,6 +107,20 @@ props:{
 
 10.既然有计算属性，watch属性存在的意义？
 当数据发生改变的时候，不需要计算属性，而是做一些简单的操作，比如异步获取数据，就很有用。
+
+
+11.事件
+当需要传递数据和原生事件对象的时候 如下使用：
+:click="handler('arg1',$event)"
+
+事件修饰符
+.stop
+.prevent
+.capture  使用事件捕获方式 从最顶端的document上的事件开始执行
+.self     在元素本身执行才可以，在子元素上不行
+.once   执行一次 就解除绑定事件
+
+理解了为什么大部分浏览器都是使用时间冒泡的方式，因为点击的都是具体的元素，最好不要葱body上开始执行事件
 
 
 
