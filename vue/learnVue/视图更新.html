@@ -24,7 +24,9 @@
 			vue如何批量设置属性？
 			在设置的时候不会立即更新视图，什么时候更新的？如何收集的？
 			列表的元素排序怎么实现的？
-
+			
+			http://www.cnblogs.com/dh-dh/p/5606596.html
+			
 		 -->
 
 		<dl>
@@ -63,10 +65,9 @@
 			},2000);
 
 			var str="即为{{name}}dqwe {{age}}dfasdf";
-			var reg=/\{\{(\.*)\}\}/g;
+			var reg=/\{\{(\w*)\}\}/g;
 			var k=str.replace(reg,function(a,b){
-				console.log(a,b);
-				return "<<"+a+">>"
+				return "<<"+b+">>"
 			});
 
 		</script>
