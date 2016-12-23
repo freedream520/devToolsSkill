@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"> 
+		<meta content="yes" name="apple-touch-fullscreen"> 
+		<meta content="telephone=no,email=no" name="format-detection"> 	
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="x5-fullscreen"content="true"/>
+		<meta name="full-screen"content="yes">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>无标题</title>
+		<style>
+			*{padding:0;margin: 0;}
+			dl{margin: 20px;}
+			dt{line-height: 40px;}
+			dd{line-height: 20px;}
+		</style>
+	</head>
+	<body>
+		<!-- 
+		
+			vue如何批量设置属性？
+			在设置的时候不会立即更新视图，什么时候更新的？如何收集的？
+			列表的元素排序怎么实现的？
+
+		 -->
+
+		<dl>
+			<dt id="nickname"></dt>
+			<dd id="age"></dd>
+		</dl>
+
+		<script>
+			var o={};
+			Object.defineProperty(o,"nickname",{
+				get:function(){
+					var html=document.getElementById("nickname").innerHTML;
+					return html;
+				},
+				set:function(newVal){
+					html=document.getElementById("nickname").innerHTML=newVal;
+				},
+			});
+
+			Object.defineProperty(o,"age",{
+				get:function(){
+					var html=document.getElementById("age").innerHTML;
+					return html;
+				},
+				set:function(newVal){
+					html=document.getElementById("age").innerHTML=newVal;
+				},
+			});
+
+			o.nickname="习大大";
+			o.age=55;
+
+			setTimeout(function(){
+				o.nickname="哈哈哈";
+				o.age=123;
+			},2000);
+
+			var str="即为{{name}}dqwe {{age}}dfasdf";
+			var reg=/\{\{(\.*)\}\}/g;
+			var k=str.replace(reg,function(a,b){
+				console.log(a,b);
+				return "<<"+a+">>"
+			});
+
+		</script>
+	</body>
+</html>
+	
