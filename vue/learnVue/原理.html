@@ -33,8 +33,126 @@
 			<dt id="nickname"></dt>
 			<dd id="age"></dd>
 		</dl>
+		
+		<!-- 属性绑定 插值绑定 -->
+		<div id="mvvm">
+			{{title}}
+			<div>
+				<p v-text="name" :class="name test" v-bind:src="src" v-on:click="clickHandle" @hove="hoverHandle"></p>
+				<p >{{age}}</p>
+				<div >
+					<ul>
+						<li>{{age}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
 
 		<script>
+
+			/*	
+			原理解读：https://segmentfault.com/a/1190000006599500
+
+
+			指令类型：
+			
+			v-text
+			:class v-bind:class (src href style 等原始属性) 
+			v-on:click  @click
+			
+			*/
+			function Compile(query){
+				// 1.把子节点放到一个fragment里面提高性能  react的虚拟dom应该是这个原理
+				// 2.编译节点（元素节点和文本节点）
+
+				this.$root=this.isElement(query)?query:document.querySelector(query);
+				this.$fragement=this.node2Fragement(this.$root);
+				this.compileElement(this.$fragement);
+				// this.$root.append(this.$fragement);
+			}
+
+			Compile.prototype={
+				isElement:function(node){
+					return node&&node.nodeName&&node.nodeType!=3;
+				},
+				isTextNode:function(node){
+					return node&&node.nodeType==3;
+				},
+				isDirective:function(key){
+					var reg=/v\-|\:/;
+					return reg.test(key);
+				},
+				isEventDirective:function(key){
+					var reg=/v\-on|@/;
+					return reg.test(key);
+				},
+				node2Fragement:function(el){
+					var fragement=document.createDocumentFragment();
+					[].slice.call(el.childNodes).forEach(function(child){
+						fragement.appendChild(child);
+					});
+					return fragement;
+				},
+				compileElement:function(node){
+					var self=this;
+					var root=node;
+					var childnodes=root.childNodes;
+					var reg=/\{\{(.*)\}\}/;
+
+					[].slice.call(childnodes).forEach(function(node){
+						var contentText=node.textContent;
+						if(self.isElement(node)){
+							self.compileAttribute(node);
+						}
+						if(self.isTextNode(node)&&reg.test(contentText)){
+							self.compileText(node);
+						}
+						if(node.childNodes&&node.childNodes.length>0){
+							self.compileElement(node);
+						}
+					});
+				},
+				compileAttribute:function(node){
+					var self=this;
+					var attrs=node.attributes;
+					console.log(attrs);
+					[].slice.call(attrs).forEach(function(attr){
+						var name=attr.name;
+						var value=attr.value;
+						if(self.isDirective(name)){
+							if(self.isEventDirective(name)){//事件处理指令
+
+							}
+							else{
+
+							}
+						}
+					});
+				},
+				compileText:function(textNode){
+					var text=textNode.textContent;
+					var reg=/\{\{(.*)\}\}/;
+					var m=text.match(reg);
+					var key=m[1];
+				}
+			};
+
+			compileUtil={
+				text:function(){
+
+				},
+				html:function(){
+
+				}
+			};
+
+			var compile=new Compile("#mvvm");
+
+
+
+
+
 			var o={};
 			Object.defineProperty(o,"nickname",{
 				get:function(){
@@ -70,6 +188,8 @@
 				return "<<"+b+">>"
 			});
 
+
+			
 		</script>
 	</body>
 </html>
