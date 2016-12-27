@@ -29,16 +29,12 @@
 			
 		 -->
 
-		<dl>
-			<dt id="nickname"></dt>
-			<dd id="age"></dd>
-		</dl>
 		
 		<!-- 属性绑定 插值绑定 -->
 		<div id="mvvm">
 			{{title}}
 			<div>
-				<p v-text="name" :class="name test" v-bind:src="src" v-on:click="clickHandle" @hove="hoverHandle"></p>
+				<p v-text="name" :class="class1 class2" v-bind:src="src" v-on:click="clickHandle" @hove="hoverHandle"></p>
 				<p >{{age}}</p>
 				<div >
 					<ul>
@@ -57,19 +53,19 @@
 
 			指令类型：
 			
-			v-text
-			:class v-bind:class (src href style 等原始属性) 
+			v-text v-html
+			:class v-bind:class (src href style class 等原始属性) 
 			v-on:click  @click
 			
 			*/
-			function Compile(query){
-				// 1.把子节点放到一个fragment里面提高性能  react的虚拟dom应该是这个原理
+			function Compile(query,vm){
+				// 1.把子节点放到一个fragment里面提高性能，元素未插入dom之前都是在内存中进行操作  react的虚拟dom应该是这个原理
 				// 2.编译节点（元素节点和文本节点）
-
+				this.$vm=vm;
 				this.$root=this.isElement(query)?query:document.querySelector(query);
 				this.$fragement=this.node2Fragement(this.$root);
 				this.compileElement(this.$fragement);
-				// this.$root.append(this.$fragement);
+				this.$root.append(this.$fragement);
 			}
 
 			Compile.prototype={
@@ -80,12 +76,37 @@
 					return node&&node.nodeType==3;
 				},
 				isDirective:function(key){
-					var reg=/v\-|\:/;
+					var reg=/v\-|\:|@/;
 					return reg.test(key);
 				},
 				isEventDirective:function(key){
 					var reg=/v\-on|@/;
 					return reg.test(key);
+				},
+				eventName:function(key){
+					var regOn=/v\-on\:(.*)/;
+					var regAt=/@(.*)/;
+					if(regOn.test(key)){
+						return key.match(regOn)[1].trim();
+					}
+					else if(regAt.test(key)){
+						return key.match(regAt)[1].trim();
+					}
+				},
+				dirName:function(key){
+					var dirV=/v\-(.*)/;
+					var dirM=/\:(.*)/;
+					if(dirV.test(key)){
+						var dirBind=/v\-bind\:(.*)/;
+						if(dirBind.test(key)){
+							return key.match(dirBind)[1].trim();
+						}
+						return key.match(dirV)[1].trim();
+					}
+					else{
+						return key.match(dirM)[1].trim();
+					}
+					
 				},
 				node2Fragement:function(el){
 					var fragement=document.createDocumentFragment();
@@ -116,16 +137,16 @@
 				compileAttribute:function(node){
 					var self=this;
 					var attrs=node.attributes;
-					console.log(attrs);
 					[].slice.call(attrs).forEach(function(attr){
 						var name=attr.name;
-						var value=attr.value;
+						var exp=attr.value;
 						if(self.isDirective(name)){
 							if(self.isEventDirective(name)){//事件处理指令
-
+								var eventName=self.eventName(name);
 							}
 							else{
-
+								var dirName=self.dirName(name);
+								compileUtil[dirName]&&compileUtil[dirName](node,self.$vm,exp);
 							}
 						}
 					});
@@ -138,54 +159,65 @@
 				}
 			};
 
-			compileUtil={
-				text:function(){
-
+			var compileUtil={
+				text:function(node,vm,exp){
+					this.bind(node,vm,exp,"text")
 				},
-				html:function(){
+				html:function(node,vm,exp){
+					this.bind(node,vm,exp,"html")
+				},
+				class:function(node,vm,exp){
+					this.bind(node,vm,exp,"class")
+				},
+				style:function(node,vm,exp){
+					this.bind(node,vm,exp,"style")
+				},
+				if:function(node,vm,exp){
+					this.bind(node,vm,exp,"if")
+				},
+				show:function(node,vm,exp){
+					this.bind(node,vm,exp,"show")
+				},
+				src:function(node,vm,exp){
+					this.bind(node,vm,exp,"src")
+				},
+				bind:function(node,vm,exp,dir){
+					console.log("dir:"+dir);
+					var updateFn=updater[dir+"Updater"];
+					updateFn&&updateFn(node,vm[exp]);//初始化所有的
 
 				}
 			};
 
-			var compile=new Compile("#mvvm");
-
-
-
-
-
-			var o={};
-			Object.defineProperty(o,"nickname",{
-				get:function(){
-					var html=document.getElementById("nickname").innerHTML;
-					return html;
+			var updater={
+				textUpdater:function(node,value){
+					node.textContent=typeof value!=undefined?value:""
 				},
-				set:function(newVal){
-					html=document.getElementById("nickname").innerHTML=newVal;
-				},
-			});
 
-			Object.defineProperty(o,"age",{
-				get:function(){
-					var html=document.getElementById("age").innerHTML;
-					return html;
-				},
-				set:function(newVal){
-					html=document.getElementById("age").innerHTML=newVal;
-				},
-			});
+			};
 
-			o.nickname="习大大";
-			o.age=55;
 
-			setTimeout(function(){
-				o.nickname="哈哈哈";
-				o.age=123;
-			},2000);
+			// var compile=new Compile("#mvvm");
 
-			var str="即为{{name}}dqwe {{age}}dfasdf";
-			var reg=/\{\{(\w*)\}\}/g;
-			var k=str.replace(reg,function(a,b){
-				return "<<"+b+">>"
+
+
+
+			var MVVM=function(options){
+				this.$options=options;
+				this.$vm=this;
+				this.$el=this.$options.el;
+				var data=this.$data=this.$options.data||{};
+				this.$compile=new Compile(this.$options.el,this);
+
+			}
+
+			vm=new MVVM({
+				el:"#mvvm",
+				data:{
+					title:"实现mvvm框架",
+					name:"习大大",
+					age:55
+				}
 			});
 
 
