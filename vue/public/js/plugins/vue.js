@@ -2,6 +2,12 @@
  * Vue.js v2.0.2
  * (c) 2014-2016 Evan You
  * Released under the MIT License.
+ 框架的基本结构
+
+ 定义规范类型，对外如何导出
+ 小utils
+ 配置项
+
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -39,7 +45,7 @@ function makeMap (
   str,
   expectsLowerCase
 ) {
-  var map = Object.create(null);
+  var map = Object.create(null);//为什么要这样生成，而不是用字面量的方式写呢？
   var list = str.split(',');
   for (var i = 0; i < list.length; i++) {
     map[list[i]] = true;
@@ -76,6 +82,7 @@ function hasOwn (obj, key) {
 
 /**
  * Check if value is primitive
+ 是否是原始数据，原始数据只有字符串和数字，其他的数据类型都是对象
  */
 function isPrimitive (value) {
   return typeof value === 'string' || typeof value === 'number'
@@ -94,6 +101,9 @@ function cached (fn) {
 
 /**
  * Camelize a hyphen-delmited string.
+ 不用的参数可以用下划线代替
+ //replace的第二个参数可以是函数，可以处理匹配过后的结果
+replace第一项如果是正则，而且匹配了多个选项，那么替换的是哪一个？
  */
 var camelizeRE = /-(\w)/g;
 var camelize = cached(function (str) {
@@ -137,6 +147,7 @@ function bind$1 (fn, ctx) {
 
 /**
  * Convert an Array-like object to a real Array.
+ 可以是字符串  也可以是对象   还可以是数组
  */
 function toArray (list, start) {
   start = start || 0;
@@ -150,6 +161,7 @@ function toArray (list, start) {
 
 /**
  * Mix properties into target object.
+ 这里只是一个简单的功能，并没有深度copy
  */
 function extend (to, _from) {
   for (var key in _from) {
@@ -179,6 +191,7 @@ function isPlainObject (obj) {
 
 /**
  * Merge an Array of Objects into a single Object.
+ 把包含了对象的的数组复制到目标对象中
  */
 function toObject (arr) {
   var res = {};
@@ -197,6 +210,8 @@ function noop () {}
 
 /**
  * Always return false.
+ 为何要这么写？
+ 避免被赋值？
  */
 var no = function () { return false; };
 
@@ -212,6 +227,9 @@ function genStaticKeys (modules) {
 /**
  * Check if two values are loosely equal - that is,
  * if they are plain objects, do they have the same shape?
+ 宽松的相等，不判定类型
+ 如何判定两个对象相等？
+
  */
 function looseEqual (a, b) {
   /* eslint-disable eqeqeq */
@@ -288,6 +306,9 @@ var config = {
 
   /**
    * List of asset types that a component can own.
+   asset ：资产
+   一个组件可以拥有的字段
+
    */
   _assetTypes: [
     'component',
@@ -297,6 +318,13 @@ var config = {
 
   /**
    * List of lifecycle hooks.
+
+   生命周期钩子
+   生成
+   插入 
+   更新
+   销毁
+
    */
   _lifecycleHooks: [
     'beforeCreate',
@@ -313,6 +341,7 @@ var config = {
 
   /**
    * Max circular updates allowed in a scheduler flush cycle.
+   一个生命周期允许更新的最大次数
    */
   _maxUpdateCount: 100,
 
@@ -326,6 +355,10 @@ var config = {
 
 /**
  * Check if a string starts with $ or _
+ reserved 预定的
+
+为什么要这样写？装逼吗 直接str[0]=="_" ||str[0]=="$"不行么？
+
  */
 function isReserved (str) {
   var c = (str + '').charCodeAt(0);
@@ -334,6 +367,8 @@ function isReserved (str) {
 
 /**
  * Define a property.
+ 为什么要这样定义，直接赋值不可以么？
+
  */
 function def (obj, key, val, enumerable) {
   Object.defineProperty(obj, key, {
@@ -363,10 +398,14 @@ function parsePath (path) {
   }
 }
 
-/*  */
+/* 
+typeof window 为 "[object Window]"
+
+ */
 /* globals MutationObserver */
 
-// can we use __proto__?
+// can we use __proto__?  难道不是每一个对象都有这个属性么？
+
 var hasProto = '__proto__' in {};
 
 // Browser environment sniffing
