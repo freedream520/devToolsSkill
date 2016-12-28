@@ -25,6 +25,8 @@
 			在设置的时候不会立即更新视图，什么时候更新的？如何收集的？
 			列表的元素排序怎么实现的？
 			
+			v-show指令怎么设置元素展示  block 会导致元素布局发生改变
+
 			http://www.cnblogs.com/dh-dh/p/5606596.html
 			
 		 -->
@@ -35,15 +37,19 @@
 			{{title}}
 			<div>
 				<p v-text="name" :class="class1 class2" v-bind:src="src" v-on:click="clickHandle" @hove="hoverHandle"></p>
+				<p v-html="html"></p>
+				<p v-show="show">测试v-show</p>
 				<p >{{age}}</p>
+				<img :src="src" >
 				<div >
 					<ul>
 						<li>{{age}}</li>
+						<li v-text="obj.attr1"></li>
+						<li v-text="obj.attr2"></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-
 
 		<script>
 
@@ -140,6 +146,7 @@
 					[].slice.call(attrs).forEach(function(attr){
 						var name=attr.name;
 						var exp=attr.value;
+						console.log(exp);
 						if(self.isDirective(name)){
 							if(self.isEventDirective(name)){//事件处理指令
 								var eventName=self.eventName(name);
@@ -152,10 +159,13 @@
 					});
 				},
 				compileText:function(textNode){
+					var self=this;
 					var text=textNode.textContent;
 					var reg=/\{\{(.*)\}\}/;
 					var m=text.match(reg);
-					var key=m[1];
+
+					var exp=m[1];
+					compileUtil["text"]&&compileUtil["text"](textNode,self.$vm,exp);
 				}
 			};
 
@@ -184,44 +194,136 @@
 				bind:function(node,vm,exp,dir){
 					console.log("dir:"+dir);
 					var updateFn=updater[dir+"Updater"];
-					updateFn&&updateFn(node,vm[exp]);//初始化所有的
+					var value=this._getVMVal(vm,exp);
+					updateFn&&updateFn(node,value);//初始化所有的
 
+					new Watcher(vm,exp,function(value,newValue){
+						updateFn(node,value)
+					});
+				},
+				_getVMVal:function(vm,exp){//根据指令表达式获取对应的值  后期需要加上过滤器或者简单的表达式
+					var expArr=exp.split(".");
+					var value=vm.$data;;
+					expArr.forEach(function(key){
+						value=value[key]
+					});
+					return value;
 				}
 			};
 
 			var updater={
 				textUpdater:function(node,value){
-					node.textContent=typeof value!=undefined?value:""
+					node.textContent=value||""
 				},
-
+				htmlUpdater:function(node,value){
+					node.innerHTML=value||""
+				},
+				classUpdater:function(node,value){
+					
+				},
+				styleUpdater:function(node,value){
+					
+				},
+				ifUpdater:function(node,value){
+					
+				},
+				showUpdater:function(node,value){
+					node.style.display=value?"block":"none";
+				},
+				srcUpdater:function(node,value){
+					node.setAttribute("src",value||"");
+				},
 			};
 
+			function Watcher(vm,exp,cb){
+				
+			}
 
 			// var compile=new Compile("#mvvm");
 
+			function observe(data){
 
+				if(!data || typeof data!="object"){
+					return ;
+				}
+
+				Object.keys(data).forEach(function(key){
+					var value=data[key];
+					observe(value);
+					definePro(data,key,value);
+				});
+
+				function definePro(data,key,value){
+					Object.defineProperty(data,key,{
+						enumerable: true, // 可枚举
+			        	configurable: false, // 不能再define
+			        	get:function(){
+			        		return value
+			        	},
+			        	set:function(newValue){
+			        		console.log("检测到变化了：",value,newValue);
+			        		if(value==newValue){
+			        			return ;
+			        		}
+			        		value=newValue;
+			        		
+			        	}
+					});
+				};
+			}
 
 
 			var MVVM=function(options){
+				var self=this;
 				this.$options=options;
 				this.$vm=this;
 				this.$el=this.$options.el;
 				var data=this.$data=this.$options.data||{};
+
+				//数据代理 实现vm.xxx  = > vm.$data.xxx
+				Object.keys(data).forEach(function(key){
+					self._proxy(key);
+				});
+
+				observe(data,this);
 				this.$compile=new Compile(this.$options.el,this);
 
 			}
+
+			MVVM.prototype={
+				$watch:function(){
+
+				},
+				_proxy:function(key){
+					var self=this;
+					Object.defineProperty(self,key,{
+						get:function(){
+							return self.$data[key]
+						},
+						set:function(newVal){
+							 self.$data[key] = newVal;
+						}
+					});
+				}
+			};
 
 			vm=new MVVM({
 				el:"#mvvm",
 				data:{
 					title:"实现mvvm框架",
+					html:"<h3>i am a h3</h3>",
 					name:"习大大",
-					age:55
+					age:55,
+					show:false,
+					src:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=214931719,1608091472&fm=116&gp=0.jpg",
+					obj:{
+						attr1:"attr1",
+						attr2:"attr2",
+					},
+					arr:["A","B","C"]
 				}
 			});
 
-
-			
 		</script>
 	</body>
 </html>
