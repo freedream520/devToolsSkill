@@ -74,8 +74,6 @@
 						}
 					}
 				});
-				console.log(selectedFoodsArr);
-				// selectedFoodsArr.push({selectedNum:1,price:10});
 				return selectedFoodsArr;
 			},
 		},

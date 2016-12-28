@@ -5,6 +5,7 @@
 			<p class="pos-rel">
 				<span class="iconfont icon-gouwuche icon-logo" :class="{'active':count>0}"></span>
 				<label class="count" v-text="count" v-show="count>0"></label>
+				<i class="ball" v-for="ball in balls"></i>
 			</p>
 		</div>
 		<p class="cart-money" :class="{'active':acount>0}">
@@ -25,7 +26,13 @@
 	export default {
 		data(){
 			return {
-				
+				balls:[
+					{show:false},
+					{show:false},
+					{show:false},
+					{show:false}
+				],
+				acount:0
 			}
 		},
 		methods:{
@@ -74,7 +81,7 @@
 				return acount;
 			},
 			payMsg(){
-				if(!this.acount){
+				if(this.acount==0.0||!this.acount){
 					return `¥${this.minAcount}元起送`;
 				}
 				else{
@@ -85,7 +92,7 @@
 						if( (diffStr.split(".")[1]+"").length>1){
 							diff=diff.toFixed(1);
 						}
-						return ` 还差¥${diff}元起送`;
+						return `还差¥${diff}元起送`;
 					}
 					else{
 						return "结算";
@@ -156,6 +163,20 @@
 					color: #fff;
 					@include borderRadius($lh / 2);
 					padding:0 pxToRem(15);
+				}
+				.ball{
+					$size:pxToRem(40);
+					display: block;
+					width: $size;
+					height: $size;
+					@include borderRadius(50%);
+					background-color: $theme-blue;
+					opacity: 0;
+					position: absolute;
+					top:50%;
+					left:50%;
+					margin-top:- $size / 2;
+					margin-left:- $size / 2;
 				}
 			}
 		}
