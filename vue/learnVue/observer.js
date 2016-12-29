@@ -49,10 +49,19 @@ function observe(value, vm) {
     return new Observer(value);
 };
 
+/*
+depend => Dep.target.addDep(this)   Dep.target=watcher  this=dep 把dep实例传给watcher
+
+watcher中调用了dep的addSub  把watcher添加到了sub中
+
+
+*/
+
 
 var uid = 0;
 
-function Dep() {
+
+function Dep() {//是个依赖订阅器  
     this.id = uid++;
     this.subs = [];
 }
@@ -63,7 +72,7 @@ Dep.prototype = {
     },
 
     depend: function() {
-        Dep.target.addDep(this);
+        Dep.target.addDep(this);//此处Dep.target为一个watcher实例  addDep中实现了addSub
     },
 
     removeSub: function(sub) {

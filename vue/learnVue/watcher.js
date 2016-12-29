@@ -3,7 +3,7 @@ function Watcher(vm, exp, cb) {
     this.vm = vm;
     this.exp = exp;
     this.depIds = {};
-    this.value = this.get();
+    this.value = this.get();//触发了observer中的geter getter中触发了 Dep.depend() 
 }
 
 Watcher.prototype = {
@@ -38,7 +38,7 @@ Watcher.prototype = {
             this.depIds[dep.id] = dep;
         }
     },
-    get: function() {
+    get: function() {//这个函数十分重要 是watcher中的关键  设置了Dep.target  然后由于取值触发了observer中的geter get中会设置dep依赖，当set的时候notify就有了可执行的依赖
         Dep.target = this;
         var value = this.getVMVal();
         Dep.target = null;
