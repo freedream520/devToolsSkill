@@ -43,6 +43,7 @@
     "vue-html-loader": "^1.2.3",
     "vue-loader": "^10.0.2",
     "vue-template-compiler": "^2.1.4",
+    "vuex": "^2.1.1",
     "webpack": "^1.13.3"
   },
   "dependencies": {
