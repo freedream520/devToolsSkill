@@ -1,22 +1,32 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+  <div>
+    <h4 v-text="title"></h4>
+    <v-footer></v-footer>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+  // require("style!css!scss!./assets/css/base.scss");
 
-export default {
-  name: 'app',
-  components: {
-    Hello
+  import footer from "components/footer/footer.vue";
+
+  export default {
+    data:function(){
+      return {
+        title:"vue栈"
+      }
+    },
+    components:{
+      "v-footer":footer
+    }
   }
-}
 </script>
 
 <style>
+  import("style!css!scss!./assets/css/base.scss");
+</style>
+
+<style scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

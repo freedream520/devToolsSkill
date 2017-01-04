@@ -110,6 +110,10 @@ props:{
 vue1.0可以通过派发事件，2.0已经废弃了events事件派发？怎么解决呢？
 
 
+11.组件内部的template内部只能包含一个div
+
+
+
 9.两个基础属性 firstname lastname   一个计算属性  fullname
 当firstname和lastname都发生改变 那么fullname也会发生改变，如果要想让fullname发生改变，firstname和lastname也自动发生改变，需要为fullname设置一个setter
 具体可以看文档的教程部分？
