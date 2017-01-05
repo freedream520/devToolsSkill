@@ -4,23 +4,11 @@ vue.use(Vuex);
 const store=new Vuex.Store({
 	state:{
 		count:0,
-		footer:[
-			{
-				name:"首页"
-			},
-			{
-				name:"理财"
-			},
-			{
-				name:"发现"
-			},
-			{
-				name:"我的"
-			},
-		]
+		userName:"习大大"
 	},
 	mutations: {
-	   ADD (state) {
+	   ADD (state,...arg) {
+	   	console.log(arg);
 	     	state.count++;
 	   }
 	}
