@@ -1,13 +1,12 @@
 <template>
   <div>
-    <h4 v-text="title"></h4>
+    <v-header></v-header>
     <v-footer></v-footer>
   </div>
 </template>
 
 <script>
-  // require("style!css!scss!./assets/css/base.scss");
-
+  import header from "components/header/header.vue";
   import footer from "components/footer/footer.vue";
 
   export default {
@@ -17,22 +16,21 @@
       }
     },
     components:{
+      "v-header":header,
       "v-footer":footer
     }
   }
 </script>
 
-<style>
-  import("style!css!scss!./assets/css/base.scss");
+<style lang="sass">
+  @import "./assets/css/base.scss";
+  body{
+    background-color: #f8f8f8;
+    position: relative;
+    padding-bottom: pxToRem(100);
+  }
 </style>
 
-<style scoped>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped lang="sass">
+
 </style>

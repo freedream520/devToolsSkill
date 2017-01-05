@@ -33,7 +33,7 @@ module.exports={
 		alias:{
 			"components":path.resolve(__dirname,"./src/components/"),
 			"vue" : path.resolve(__dirname,'./node_modules/vue/dist/vue'),
-			"flexible":path.resolve(__dirname,'./public/js/plugins/flexible/flexible'),
+			"flexible":path.resolve(__dirname,'./src/assets/js/plugins/flexible/flexible'),
 		}
 	},
 	plugins: [
