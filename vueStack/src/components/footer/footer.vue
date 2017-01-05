@@ -26,7 +26,7 @@
 		methods:{
 			add:function(){
 				alert("click");
-				this.$store.commit("add");
+				this.$store.dispatch("ADD",this.$store.state);
 			}
 		}
 	}

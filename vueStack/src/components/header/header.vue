@@ -12,13 +12,16 @@
     data:function(){
       return {
         title:"头部",
-        count:this.$store.state.count
       }
     },
     methods:{
       add(){
-        alert("add");
-        this.$store.dispatch("add");
+        this.$store.commit("ADD");
+      }
+    },
+    computed:{
+      count:function(){
+        return this.$store.state.count
       }
     },
     components:{

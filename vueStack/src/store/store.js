@@ -20,9 +20,8 @@ const store=new Vuex.Store({
 		]
 	},
 	mutations: {
-	   add (state) {
-	   	alert("dispatch");
-	     	state.count+=1;
+	   ADD (state) {
+	     	state.count++;
 	   }
 	}
 });
