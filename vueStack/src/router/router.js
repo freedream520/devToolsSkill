@@ -3,6 +3,7 @@ import vueRouter from 'vue-router';
 
 import VUE from "components/vue";
 import Router from "components/router";
+import RouterA from "components/RouterA"
 import Vuex from "components/vuex";
 import Animate from "components/animate";
 
@@ -19,10 +20,16 @@ const routes=[
 	},
 	{
 		path:"/router",
-		component:Router
+		component:Router,
+		children:[
+			{
+				path:"routerA",
+				component:RouterA
+			}
+		]
 	},
 	{
-		path:"/Vuex",
+		path:"/vuex",
 		component:Vuex
 	},
 	{
@@ -33,4 +40,8 @@ const routes=[
 
 const router=new vueRouter({routes:routes});
 
+router.beforeEach(function(to,from,next){
+	console.log(to,from);
+	next();
+});
 export default router;
