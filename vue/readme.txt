@@ -122,6 +122,10 @@ vue1.0可以通过派发事件，2.0已经废弃了events事件派发？怎么�
 
 
 
+关于vue-router
+
+1.如何像a链接一样跳转到一个页面后还可以返回？而不是在指定的地方渲染组件
+
 
 
 9.两个基础属性 firstname lastname   一个计算属性  fullname

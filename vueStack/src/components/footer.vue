@@ -2,8 +2,10 @@
 	<div class="footer">
 		<ul>
 			<li v-for="nav in items" class="text-center">
-				<img src="">
-				<p v-text="nav.text"></p>
+				<router-link :to="nav.link">
+					<i class="iconfont" :class="nav.icon"></i>
+					<p v-text="nav.text"></p>
+				</router-link>
 			</li>
 		</ul>
 	</div>
@@ -15,10 +17,10 @@
 		data:function(){
 			return {
 				items:[
-					{text:"首页",link:"",icon:""},
-					{text:"理财",link:"",icon:""},
-					{text:"发现",link:"",icon:""},
-					{text:"我的",link:"",icon:""},
+					{text:"首页",icon:"icon-shouye",link:"/home"},
+					{text:"理财",icon:"icon-wodedingdan",link:"/finance"},
+					{text:"发现",icon:"icon-wodeyouhuiquan",link:"/discovery"},
+					{text:"我的",icon:"icon-wodejuhuasuan",link:"/me"},
 				],
 				count:this.$store.state.count
 			}
@@ -33,7 +35,9 @@
 </script>
 
 <style lang="sass" scoped>
-	@import "../../assets/css/_ignore/mixin";
+
+	@import "../assets/css/_ignore/mixin";
+	@include DPR(".footer ul li i.iconfont",18px);
 
 	.footer{
 		$H:pxToRem(100);
@@ -55,6 +59,10 @@
 					width: $size;
 					height: $size;
 					margin:pxToRem(10) 0;
+				}
+				i.iconfont{
+					display: block;
+					margin:pxToRem(10) auto;
 				}
 				p{
 					line-height: pxToRem(40)

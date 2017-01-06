@@ -1,6 +1,10 @@
+
 <template>
   <div>
     <h4 v-text="title"></h4>
+    <p>
+      <i class="iconfont icon-ordinaryorder"></i>
+    </p>
     <p v-text="userName"></p>
      <p v-text="count"></p>
     <p v-on:click="add">点击添加</p>
@@ -12,7 +16,7 @@
   export default {
     data:function(){
       return {
-        title:"头部",
+        title:"首页",
       }
     },
     methods:{
