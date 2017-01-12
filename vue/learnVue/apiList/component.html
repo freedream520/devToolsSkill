@@ -25,8 +25,9 @@
 			<component :is="testA" :text="'绑定 => 引用调用'"></component>
 			<component :is="testB" :text="'绑定 => 组件id调用'"></component>
 			<component is="bbb" :text="'组件id调用'"></component>
+			<div is="bbb" :text="'通过原生dom元素引用 = > 适用于table中的自定义元素，因为table中的元素在xunidom中不能被查找到'"></div>
 			<bbb :text="'组件id作为标签名 调用'"></bbb>
-			<v-test :text="'局部组件注册调用'"></v-test>
+			<v-test text="局部组件注册调用，注意该组件的数据为非绑定传递，这种没法动态传递"></v-test>
 			<v-test ></v-test>
 		</div>
 
