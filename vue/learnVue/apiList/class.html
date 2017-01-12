@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"> 
+		<meta content="yes" name="apple-touch-fullscreen"> 
+		<meta content="telephone=no,email=no" name="format-detection"> 	
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="x5-fullscreen"content="true"/>
+		<meta name="full-screen"content="yes">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>class</title>
+		<script src="../../public/js/plugins/vue.js"></script>
+	</head>
+	<body>
+		<div id="test" :class="[{active:active},'aaa',['bbb',{'age':age==10}]]" >
+			<p :class="className">字符串引用绑定</p>
+			class复杂绑定
+		</div>
+		<script>
+			vm=new Vue({
+				el:"#test",
+				data:{
+					active:true,
+					age:10,
+					className:"stringBind"
+				}
+			});
+		</script>
+	</body>
+</html>
+	

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"> 
+		<meta content="yes" name="apple-touch-fullscreen"> 
+		<meta content="telephone=no,email=no" name="format-detection"> 	
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="x5-fullscreen"content="true"/>
+		<meta name="full-screen"content="yes">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>component</title>
+		<script src="../../public/js/plugins/vue.js"></script>
+	</head>
+	<body>
+
+		<script type="text/component" id="compA">
+			<div v-text="text"></div>
+		</script>
+		
+		
+		<div id="test" >
+			<h4>组件的调用方式</h4>
+			<component :is="testA" :text="'绑定 => 引用调用'"></component>
+			<component :is="testB" :text="'绑定 => 组件id调用'"></component>
+			<component is="bbb" :text="'组件id调用'"></component>
+			<bbb :text="'组件id作为标签名 调用'"></bbb>
+			<v-test :text="'局部组件注册调用'"></v-test>
+			<v-test ></v-test>
+		</div>
+
+		<script>
+			//注册的组件 可以有组件id和组件引用
+			//组件的内容可以通过id引用也可以通过组件的引用变量引用
+
+			Vue.component("bbb",{template:"#compA"});
+
+			// aaa是组件引用  bbb是组件id
+			const aaa=Vue.component("bbb",{
+				template:"#compA",
+				props:{
+					text:{
+						type:String,
+						default:"test"
+					}
+				}
+			});
+
+
+			vm=new Vue({
+				el:"#test",
+				data:{
+					active:true,
+					age:10,
+					className:"stringBind",
+					testA:aaa,
+					testB:"bbb"
+				},
+				components:{
+					"v-test":aaa
+				}
+			});
+		</script>
+	</body>
+</html>
+	
