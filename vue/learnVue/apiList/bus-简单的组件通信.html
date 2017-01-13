@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"> 
+		<meta content="yes" name="apple-touch-fullscreen"> 
+		<meta content="telephone=no,email=no" name="format-detection"> 	
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="x5-fullscreen"content="true"/>
+		<meta name="full-screen"content="yes">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>bus-简单的组件通信</title>
+		<script src="../../public/js/plugins/vue.js"></script>
+		<style>
+			#test{
+				border:1px solid #d8d8d8;
+			}
+			.child{
+				border:1px solid #f93;
+				margin:10px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="test"  >
+			<h4>简单的组件通信 (点击组件2，可以和组件1进行通信)</h4>
+			<child1></child1>
+			<child2></child2>
+		</div>
+		
+		<script type="text/template" id="child1">
+			<div class="child">
+				<p v-text="count"></p>
+				<button >子组件1</button>
+			</div>
+		</script>
+		
+		<script type="text/template" id="child2">
+			<div class="child">
+				<p v-text="count"></p>
+				<button v-on:click="click">子组件2 => 点击查看效果</button>
+			</div>
+		</script>
+		
+		
+
+		<script>
+			var bus=new Vue();
+
+			Vue.component("child1",{
+				template:"#child1",
+				data:function(){
+					return {
+						count:0
+					}
+				},
+				created:function(){
+					var self=this;
+					bus.$on("add",function(num){
+						self.count=num*2;
+					})
+				},
+				watch:{
+					count:function(newVal,old){
+						console.log(newVal,old);
+					}
+				}
+			});
+
+			Vue.component("child2",{
+				template:"#child2",
+				data:function(){
+					return {
+						count:0
+					}
+				},
+				methods:{
+					click:function(){
+						var num=Math.round(100*Math.random());
+						this.count=num;
+						bus.$emit("add",num)
+					}
+				}
+			});
+
+			vm=new Vue({
+				el:"#test",
+				data:{
+					active:true,
+					age:10,
+					className:"stringBind"
+				}
+			});
+		</script>
+	</body>
+</html>
+	
