@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"> 
+		<meta content="yes" name="apple-touch-fullscreen"> 
+		<meta content="telephone=no,email=no" name="format-detection"> 	
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="x5-fullscreen"content="true"/>
+		<meta name="full-screen"content="yes">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>slot</title>
+		<script src="../../public/js/plugins/vue.js"></script>
+	</head>
+	<body>
+		<div id="test" >
+			<h4>slot将父组件的特定内容引用到子组件内</h4>
+			<p slot="fromFather">父组件的slot模板</p>
+			<child></child>
+		</div>
+
+		<script type="text/template" id="child">
+			<div>
+				<h5>这是个子组件</h5>
+				<slot name="fromFather"></slot>
+			</div>
+		</script>
+		
+		
+		<script>
+			Vue.component("child",{
+				template:"#child"
+			});
+
+			vm=new Vue({
+				el:"#test",
+				data:{
+					active:true,
+					age:10,
+					className:"stringBind"
+				}
+			});
+		</script>
+	</body>
+</html>
+	
