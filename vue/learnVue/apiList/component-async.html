@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"> 
+		<meta content="yes" name="apple-touch-fullscreen"> 
+		<meta content="telephone=no,email=no" name="format-detection"> 	
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="x5-fullscreen"content="true"/>
+		<meta name="full-screen"content="yes">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>异步组件</title>
+		<script src="../../public/js/plugins/vue.js"></script>
+	</head>
+	<body>
+		<div id="test" >
+			<h4>父组件标题</h4>
+			<child></child>
+		</div>
+		<script>
+			Vue.component("child",function(resolve,reject){
+				setTimeout(function(){
+					resolve({
+						template:"<p>延时组件</p>"
+					});
+				},2000);
+			});
+
+
+			vm=new Vue({
+				el:"#test",
+				data:{
+					
+				}
+			});
+		</script>
+	</body>
+</html>
+	

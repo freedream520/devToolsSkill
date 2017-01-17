@@ -24,7 +24,9 @@ const routes=[
 		children:[
 			{
 				path:"routerA",
-				component:RouterA
+				component:function(resolve,reject){
+					require(['components/RouterA'],resolve);
+				}
 			}
 		]
 	},

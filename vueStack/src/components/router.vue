@@ -2,7 +2,7 @@
   <div>
     <h4 v-text="title" class="text-center"></h4>
     <div>
-      <h4>应用举例</h4>
+      <h4 class="text-center">应用举例</h4>
       <ul>
         
       </ul>
