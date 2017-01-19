@@ -12,31 +12,46 @@ Vue.use(vueRouter);
 const routes=[
 	{
 		path:"/",
-		component:VUE
+		component:function(resolve,reject){
+			resolve(VUE);
+		}
+
 	},
 	{
 		path:"/vue",
-		component:VUE
+		component:function(resolve){
+			resolve(VUE);
+		}
 	},
 	{
 		path:"/router",
 		component:Router,
 		children:[
 			{
-				path:"routerA",
+				path:"/router/routerA",
 				component:function(resolve,reject){
 					require(['components/RouterA'],resolve);
+				}
+			},
+			{
+				path:"/router/routerB",
+				component:function(resolve,reject){
+					require(['components/RouterB'],resolve);
 				}
 			}
 		]
 	},
 	{
 		path:"/vuex",
-		component:Vuex
+		component:function(resolve,reject){
+			resolve(Vuex);
+		}
 	},
 	{
 		path:"/animate",
-		component:Animate
+		component:function(resolve,reject){
+			resolve(Animate);
+		}
 	}
 ];
 

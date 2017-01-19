@@ -10,6 +10,8 @@ module.exports={
 	output:{
 		path:"./dist/js/",
 		filename:"[name].min.js",
+		publicPath:"./dist/js/",
+		chunkFilename:"common/[id].build.js?[chunkhash]"//非主文件的命名规则
 	},
 	module:{
 		loaders:[
