@@ -15,14 +15,15 @@
       }
     },
     created:function(){
-      var url="http://m.maizuo.com/v4/api/film/now-playing";
+      
       var url="https://m.qbm360.com/api/getBorrowList.html?currentPage=1&pernum=10000&requestType=new&brokers=0";
+      var url="http://m.maizuo.com/v4/api/film/now-playing";
 
       var param={
         page:this.page,
         count:this.page*this.count
       };
-      this.$http.jsonp(url).then(function(response){
+      this.$http.get(url,param).then(function(response){
         console.log(response,response.body);
         alert(123);
       },function(error){
