@@ -10,8 +10,8 @@ module.exports={
 	output:{
 		path:"./dist/js/",
 		filename:"[name].min.js",
-		publicPath:"./dist/js/",
-		chunkFilename:"common/[id].build.js?[chunkhash]"//非主文件的命名规则
+		publicPath:"./dist/js",//公共文件存储位置 和下面的chunkFilename貌似没有关系  和图片的引用路径有关系
+		chunkFilename:"[id].common.js?[chunkhash]"//非主文件的命名规则
 	},
 	module:{
 		loaders:[
@@ -46,6 +46,7 @@ module.exports={
       }
     }),
     new webpack.optimize.DedupePlugin(),//插件去重
-    new ExtractTextPlugin("style.css")
+    new ExtractTextPlugin("style.css"),
+    // new webpack.optimize.CommonsChunkPlugin('common.js'),//公共模块的提取
   ],
 }

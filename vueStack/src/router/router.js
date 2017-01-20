@@ -57,8 +57,8 @@ const routes=[
 
 const router=new vueRouter({routes:routes});
 
-router.beforeEach(function(to,from,next){
-	console.log(to,from);
-	next();
-});
+// router.beforeEach(function(to,from,next){
+// 	console.log(to,from);
+// 	next();
+// });
 export default router;
