@@ -20,11 +20,12 @@
         page:this.page,
         count:this.page*this.count
       };
-      this.$http.get(url,param).then(function(response){
+      this.$http.get(url,{"page":1,count:10}).then(function(response){
         console.log(response);
-        
+        alert(123);
       },function(error){
         console.log(error);
+        alert("error");
       });
 
 
