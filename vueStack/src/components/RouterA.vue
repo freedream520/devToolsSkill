@@ -11,6 +11,11 @@
       <li>4.es6精通 （深入浅出es6）</li>
       <li>5.webpack精通 （问题收集，解决方案整理）</li>
     </ul>
+    <ul>
+      <li>可以做的事情</li>
+      <li>1.看sagmentdefault上面的关于node、es6、vue的文章部分</li>
+      <li></li>
+    </ul>
   </div>
 </template>
 
@@ -45,6 +50,7 @@
     }
   }
   ul{
+    margin-top:pxToRem(50);
     li{
       line-height: pxToRem(50);
       margin:pxToRem(20) 0;
