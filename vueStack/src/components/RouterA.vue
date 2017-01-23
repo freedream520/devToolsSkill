@@ -11,6 +11,7 @@
     </dl>
     <dl>
       <dt>vue-router</dt>
+      <dd><a href="https://segmentfault.com/a/1190000008082838" class="fc-link">单页面router教程</a></dd>
       <dd>router-link-active会根据router的名字匹配  /vue 和 /vuex 会同时拥有激活的类名</dd>
     </dl>
     <dl>
