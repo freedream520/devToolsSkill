@@ -10,6 +10,9 @@
       <li>3.node精通 （深入浅出nodejs）</li>
       <li>4.es6精通 （深入浅出es6）</li>
       <li>5.webpack精通 （问题收集，解决方案整理）</li>
+      <li>6.单元测试的编写</li>
+      <li>7.node作为中转站渲染页面</li>
+      <li>8.</li>
     </ul>
     <ul>
       <li>可以做的事情</li>
