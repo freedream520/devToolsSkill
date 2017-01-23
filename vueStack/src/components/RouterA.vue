@@ -9,13 +9,12 @@
       <dt>node</dt>
       <dd>node基础（深入浅出nodejs）</dd>
       <dd>node连接mysql数据库</dd>
-      <dd>node作为中转站渲染页面</dd>
+      <dd>实现前后端分离，node作为作为中间服务器（渲染页面、转发请求....）</dd>
       <dd></dd>
     </dl>
     <ul>
       <li>1.java熟悉，免得被忽悠 （启动服务，返回页面和静态资源，简单的sql查询）</li>
       <li>2.vue精通 （饿了么教程看明白，想通透）</li>
-      <li>3.node精通 </li>
       <li>4.es6精通 （深入浅出es6）</li>
       <li>5.webpack精通 （问题收集，解决方案整理）</li>
       <li>6.单元测试的编写</li>
