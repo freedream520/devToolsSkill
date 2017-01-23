@@ -2,18 +2,24 @@
   <div class="a-wrap">
     <h4 v-text="title"></h4>
     <dl>
-      <dd>1.router-link-active会根据router的名字匹配  /vue 和 /vuex 会同时拥有激活的类名</dd>
+      <dt>vue-router</dt>
+      <dd>router-link-active会根据router的名字匹配  /vue 和 /vuex 会同时拥有激活的类名</dd>
+    </dl>
+    <dl>
+      <dt>node</dt>
+      <dd>node基础（深入浅出nodejs）</dd>
+      <dd>node连接mysql数据库</dd>
+      <dd>node作为中转站渲染页面</dd>
+      <dd></dd>
     </dl>
     <ul>
       <li>1.java熟悉，免得被忽悠 （启动服务，返回页面和静态资源，简单的sql查询）</li>
       <li>2.vue精通 （饿了么教程看明白，想通透）</li>
-      <li>3.node精通 （深入浅出nodejs）</li>
+      <li>3.node精通 </li>
       <li>4.es6精通 （深入浅出es6）</li>
       <li>5.webpack精通 （问题收集，解决方案整理）</li>
       <li>6.单元测试的编写</li>
-      <li>7.node作为中转站渲染页面</li>
       <li>8.自动生成api文档</li>
-      <li>9.</li>
     </ul>
     <ul>
       <li>可以做的事情</li>
@@ -47,10 +53,20 @@
 
 <style scoped lang="sass">
   @import "../assets/css/_ignore/mixin";
+
   @include DPR(".a-wrap",16px);
+  @include DPR(".a-wrap dl dd",14px);
+  .a-wrap{
+    padding-bottom: pxToRem(200);
+  }
   dl{
     dt{
-      line-height: pxToRem(30);
+      line-height: pxToRem(40);
+      font-weight: 600;
+      margin:pxToRem(20) 0;
+    }
+    dd{
+      line-height: pxToRem(40);
     }
   }
   ul{
