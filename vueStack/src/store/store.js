@@ -15,7 +15,7 @@ const state={
 const mutations={
    ADD(state,payload) {
    	console.log(payload);
-     	state.count++;
+     	state.count+=payload;
    }
 };
 
