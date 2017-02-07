@@ -16,7 +16,7 @@
       <dd>4.日历组件</dd>
       <dd>5.区域联动组件</dd>
       <dd>6.表单校验</dd>
-      <dd></dd>
+      <dd>7.ui组件 Mint-ui</dd>
     </dl>
     <p v-text="userName"></p>
     <h4>区域滚动</h4>
