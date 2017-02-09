@@ -25,11 +25,22 @@
         <li v-for="item in items" v-text="item.name"></li>
       </ul>
     </div>
+
+    <h4>表单校验</h4>
+    <div class="validator-area" id="validatorArea">
+      <ul>
+        <li>
+          <input type="text" name="tel">
+          <span></span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll';
+
   export default {
     data:function(){
       return {
@@ -43,7 +54,7 @@
       }
     },
     created:function(){
-      let count=20;
+      let count=10;
       for(var i=0;i<count;i++){
         var name="区域滚动"+i+"--"+Math.round(Math.random()*100);
         this.items.push({name:name});
@@ -90,7 +101,7 @@
   .area-scroll{
     $itemH:pxToRem(60);
     border:1px solid #f93;
-    height: $itemH * 10;
+    height: $itemH * 5;
     @include boxSizing(border-box);
     overflow: hidden;
     li{
