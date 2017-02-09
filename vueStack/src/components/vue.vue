@@ -19,39 +19,97 @@
       <dd>7.ui组件 Mint-ui</dd>
     </dl>
     <p v-text="userName"></p>
-    <h4>区域滚动</h4>
-    <div class="area-scroll" id="scroll">
+    <h4>区域滚动Y（兼下拉刷新）</h4>
+    <div class="area-scroll" id="scrollY">
       <ul>
+        <li v-for="item in items" v-text="item.name"></li>
+      </ul>
+      <p class="title text-center" ref="ytitle" v-text="refreshText"></p>
+      <!-- <p>加载更多</p> -->
+    </div>
+    <h4>区域滚动X</h4>
+    <div class="area-scroll" id="scrollX">
+      <ul class="x">
         <li v-for="item in items" v-text="item.name"></li>
       </ul>
     </div>
 
     <h4>表单校验</h4>
     <div class="validator-area" id="validatorArea">
-      <ul>
-        <li>
-          <input type="text" name="tel">
-          <span></span>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll';
-
+  //probeType 1 scroll事件会截流 2 scroll事件实实更新 3
   export default {
     data:function(){
       return {
         title:"首页",
+        refreshText:"下拉刷新",
+        refreshing:false,
         items:[]
       }
     },
     methods:{
       add(){
         this.$store.commit("ADD",2);
-      }
+      },
+      refreshData:function(){
+        var self=this;
+        var name="刷新的数据  "+(this.items.length+1);
+        this.items.push({name:name});
+        this.refreshing=false;
+        self.refreshText="下拉刷新";
+
+        self.$nextTick(function(){
+          self.refreshing=false;
+          self.scrollY.refresh();
+        });
+
+      },
+      createScrollY:function(){
+        var self=this;
+        var scrollDomY=document.getElementById("scrollY");
+        var titleH=80;
+
+        let scrollY=self.scrollY = new BScroll(scrollDomY, {//options
+          startX: 0,
+          startY: 0,
+          probeType:3,//
+        });
+
+        var pos_y=0;
+        //如何确保一次scroll只更新一次数据？
+        
+        scrollY.on("scroll",function(pos){
+          
+          var y=pos_y=pos.y;
+          
+        });
+        scrollDomY.addEventListener("touchend",function(){
+          if(pos_y>titleH&&!self.refreshing){
+            self.refreshText="刷新中. . .";
+            self.refreshing=true;
+            self.refreshData();
+            
+          }
+        });
+        scrollY.on("scrollEnd",function(pos){
+         
+        });
+      },
+      createScrollX:function(){
+        var scrollDomX=document.getElementById("scrollX");
+        let scrollX = new BScroll(scrollDomX, {//options
+          startX: 0,
+          startY: 0,
+          scrollY:false,
+          scrollX:true
+        });
+
+      },
     },
     created:function(){
       let count=10;
@@ -61,11 +119,9 @@
       }
     },
     mounted:function(){
-      var scrollDom=document.getElementById("scroll");
-      let scroll = new BScroll(scrollDom, {//options
-        startX: 0,
-        startY: 0
-      });
+      this.createScrollY();//生成Y轴方向的滚动区域
+      this.createScrollX();//生成X轴方向的滚动区域
+
     },
     computed:{
       count:function(){
@@ -104,11 +160,37 @@
     height: $itemH * 5;
     @include boxSizing(border-box);
     overflow: hidden;
+    position: relative;
+    background-color: #fff;
+    .title{
+      position: absolute;
+      top:0;
+      left:0;
+      z-index: 1;
+      width: 100%;
+      line-height: pxToRem(80);
+      height:pxToRem(80);
+    }
+    ul{
+      position: relative;
+      z-index: 2;
+      background-color: #fff;
+    }
     li{
       border-top:1px solid #e8e8e8;
       line-height: $itemH;
       text-indent: pxToRem(40);
       @include boxSizing(border-box);
+      &:first-child{
+        border-top:0;
+      };
+    }
+    .x{
+      width: 800px;
+      li{
+        display: inline-block;
+        width: 200px;
+      }
     }
   }
 </style>
