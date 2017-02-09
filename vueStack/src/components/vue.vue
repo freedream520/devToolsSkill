@@ -10,12 +10,12 @@
     </dl>
     <dl>
       <dt>常见的组件</dt>
-      <dd>1.区域滚动 better-scroll</dd>
+      <dd>1.区域滚动：better-scroll（可以使用npm install的方式安装）</dd>
       <dd>2.无限滚动</dd>
-      <dd>3.滑动组件</dd>
+      <dd>3.滑动组件（swiper组件，有非zepto和jquery的独立版本，实现轮播和栅格滑动）</dd>
       <dd>4.日历组件</dd>
       <dd>5.区域联动组件</dd>
-      <dd>6.表单校验</dd>
+      <dd>6.表单校验（vue-validator）</dd>
       <dd>7.ui组件 Mint-ui</dd>
     </dl>
     <p v-text="userName"></p>
