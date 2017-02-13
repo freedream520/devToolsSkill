@@ -67,6 +67,7 @@
     bottom: 0;
     left:0;
     background-color: #fff;
+    z-index:10;
     ul{
       height: 100%;
       display: flex;

@@ -33,6 +33,13 @@
         <li v-for="item in items" v-text="item.name"></li>
       </ul>
     </div>
+    
+    <h4>区域区块滚动</h4>
+    <div class="snap-scroll" id="scrollSnap">
+      <ul class="snap">
+        <li v-for="item in snaps" :style="{background:item.color}"></li>
+      </ul>
+    </div>
 
     <h4>表单校验</h4>
     <div class="validator-area" id="validatorArea">
@@ -49,7 +56,8 @@
         title:"首页",
         refreshText:"下拉刷新",
         refreshing:false,
-        items:[]
+        items:[],
+        snaps:[{color:"#f93"},{color:"#f66"},{color:"#3f3"}],
       }
     },
     methods:{
@@ -72,23 +80,52 @@
       createScrollY:function(){
         var self=this;
         var scrollDomY=document.getElementById("scrollY");
+        var scrollDomUl=scrollDomY.getElementsByTagName("ul")[0];
         var titleH=80;
 
-        let scrollY=self.scrollY = new BScroll(scrollDomY, {//options
+        let scrollY=window.scrolly=self.scrollY = new BScroll(scrollDomY, {//options
           startX: 0,
           startY: 0,
           probeType:3,//
+          // useTransition:false
         });
 
         var pos_y=0;
+        var touchEnd=false;
         //如何确保一次scroll只更新一次数据？
         
         scrollY.on("scroll",function(pos){
-          
+          touchEnd=false;
           var y=pos_y=pos.y;
-          
+          if(y>=titleH){
+            self.refreshText="松开刷新"
+          }else{
+            self.refreshText="下拉刷新"
+          }
+          if(touchEnd&&pos_y==titleH){
+            console.log("scrollTo");
+            scrollY.scrollTo(0,titleH);
+          }
         });
+
         scrollDomY.addEventListener("touchend",function(){
+          console.log("end",pos_y);
+          touchEnd=true;
+          if(pos_y>=titleH){
+            // scrollY.scrollTo(0,titleH);
+            console.log(scrollDomUl);
+
+            setTimeout(function(){
+              scrollDomUl.style.transform="translate(0px,"+titleH+"px) translateZ(0px)";
+            },0);
+            
+            console.log(scrollDomUl);
+          }
+        });
+
+
+        scrollY.on("scrollCancel",function(){
+          console.log("scrollCancel");
           if(pos_y>titleH&&!self.refreshing){
             self.refreshText="刷新中. . .";
             self.refreshing=true;
@@ -108,8 +145,18 @@
           scrollY:false,
           scrollX:true
         });
-
       },
+      createScrollSnap:function(){//适用于
+        var scrollDomSnap=document.getElementById("scrollSnap");
+        let scrollX = new BScroll(scrollDomSnap, {//options
+          startX: 0,
+          startY: 0,
+          scrollY:false,
+          scrollX:true,
+          snap:true,
+          momentum:false,//启动拖动惯性
+        });
+      }
     },
     created:function(){
       let count=10;
@@ -121,7 +168,7 @@
     mounted:function(){
       this.createScrollY();//生成Y轴方向的滚动区域
       this.createScrollX();//生成X轴方向的滚动区域
-
+      this.createScrollSnap();//生成X轴方向的区块滚动
     },
     computed:{
       count:function(){
@@ -145,6 +192,9 @@
 
   .main-cont{
     padding:pxToRem(20);
+    h4{
+      line-height: pxToRem(100);
+    }
   }
   dl{
     dt{
@@ -192,5 +242,21 @@
         width: 200px;
       }
     }
+  }
+  .snap-scroll{
+    width: 100%;
+    height: pxToRem(300);
+    overflow: hidden;
+    ul{
+      width: 300%;
+      height: 100%;
+      li{
+        height: 100%;
+        width: 33.333%;
+        display: block;
+        float: left;
+      }
+    }
+
   }
 </style>
