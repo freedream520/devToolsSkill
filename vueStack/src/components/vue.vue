@@ -18,6 +18,11 @@
       <dd>6.表单校验（vue-validator）</dd>
       <dd>7.ui组件 Mint-ui</dd>
     </dl>
+    <dl>
+      <dt>常见功能</dt>
+      <dd>1.饿了么的移动端网站</dd>
+      <dd>2.顶部筛选功能</dd>
+    </dl>
     <p v-text="userName"></p>
     <h4>区域滚动Y（兼下拉刷新）</h4>
     <div class="area-scroll" id="scrollY">
