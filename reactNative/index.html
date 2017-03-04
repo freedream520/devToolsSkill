@@ -13,6 +13,7 @@
 </head>
 <body>
 	<a href="http://chenpeng.info/html/3507">详情链接</a>
+	<h4>window上流程</h4>
 	<ul>
 		<li>
 			<h4>1.安装javaJDK</h4>
@@ -68,6 +69,20 @@
 				可以使用安卓模拟器 bluestacks  ：需要设置模拟器的dev地址   ip:8081的格式（抖动模拟器，进行设置）
 			</p>
 		</li>
+	</ul>
+
+	<h4>mac上流程</h4>
+	<ul>
+		<li>必须的软件 Homebrew node react－native－cli xcode</li>
+		<li>1.安装 Homebrew</li>
+		<li>2.brew install nvm  安装nvm同时配置nvm环境变量</li>
+		<li>3.nvm install stable 安装node同时配置node环境变量</li>
+		<li>4.nrm切换淘宝源镜像</li>
+		<li>5.npm install react-native-cli -g</li>
+		<li>6.react-native init testProject</li>
+		<li>7.react-native run-ios 打包编译文件</li>
+		<li>8.使用xcode打开目录下的.xcodeproj文件 并修改RCTWebSocketExecutor.m文件的localhost为 ip：port</li>
+		<!-- 无法在模拟环境中打开的原因一般有 1.没有配置环境变量 2.没有修改localhost文件 -->
 	</ul>
 </body>
 </html>
