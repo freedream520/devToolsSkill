@@ -4,11 +4,20 @@
   "description": "",
   "main": "getdirs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpackW": "webpack -w"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "css-loader": "^0.26.2",
+    "glob": "^7.1.1",
+    "json-loader": "^0.5.4",
+    "scss-loader": "0.0.1",
+    "style-loader": "^0.13.2",
+    "url-loader": "^0.5.8",
     "webpack": "^2.2.1"
   }
 }
