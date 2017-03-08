@@ -5,6 +5,7 @@
 //publicPath 表示资源的发布地址，当配置过该属性后，打包文件中所有通过相对路径引用的资源都会被配置的路径所替换
 //include 是包含的文件使用指定的loader编译，否则不编译，但是还是会打包的
 //webpack.optimize.CommonsChunkPlugin会提取公共模块，生成一个单独文件，虽然会多一个请求，但是会缓存在浏览器中
+// vendor: ['zepto', 'flexible'],在entry中进行手工配置公共模块的打包
 /** 难点在于图片  单页  多页   单页和多页面混合 开发环境和线上环境的正确配置 **/
 
 
@@ -102,8 +103,9 @@ var entries= function (root) {
    }
    return map;
 }
-const jsFiles=entries(JS_ENTRY_PATH);
+var jsFiles=entries(JS_ENTRY_PATH);
 const cssFiles=entries(CSS_ENTRY_PATH);
+jsFiles.vendor=['zepto',"flexible"];
 
 
 console.log(jsFiles);
@@ -177,10 +179,10 @@ module.exports={
     // }),
     // new webpack.optimize.DedupePlugin(),//插件去重
     // new ExtractTextPlugin("style.css"),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'commons',
-      filename: 'commons.js',
-      minChunks: 2,
-    })
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'commons',
+    //   filename: 'commons.js',
+    //   minChunks: 2,
+    // })
   ],
 }
