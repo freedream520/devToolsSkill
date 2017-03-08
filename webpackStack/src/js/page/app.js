@@ -2,6 +2,7 @@
 
 require("flexible");
 import $ from "zepto";
+
 // import data from "json-loader!../test.json";
 import "../../style/test.css";
 import "../../style/main.scss";
