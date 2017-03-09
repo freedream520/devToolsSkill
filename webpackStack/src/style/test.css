@@ -1,5 +1,7 @@
 body{
 	background-color:#3f3;
+	background-image:url("../images/avator.jpg");
+	background-repeat: no-repeat;
 }
 
 .flex{

@@ -9,6 +9,7 @@
 /** 难点在于图片  单页  多页   单页和多页面混合 开发环境和线上环境的正确配置 **/
 // npm包的具体使用细则可以去官网查看api  不要胡乱猜测
 
+
 /**     css scss样式编译
 css兼容性自动处理 postcss-loader autoprefixer(是postcss-loader的插件)
 webpack2需要配置为sass-loader  不能用scss-loader
@@ -37,6 +38,9 @@ css中引用的文件
 js中的图片
 
 图片大小超出url-loader中的limit的时候，会报错
+url-loader超出尺寸的图片的存放路径问题？
+output.path+imageName
+
 **/
 
 
@@ -112,21 +116,20 @@ var entries= function (root) {
    }
    return map;
 }
+
 var jsFiles=entries(JS_ENTRY_PATH);
-
-jsFiles.vendor=['zepto',"flexible"];//设置共有模块的提取
-
-
 console.log(jsFiles);
 
 
 module.exports={
 	context: __dirname,
-	entry:jsFiles,
+	entry:Object.assign(jsFiles,{
+		vendor:['zepto',"flexible"]
+	}),
 	output:{
 		path:JS_OUT_PATH,
 		filename:"[name].min.js",
-		publicPath:"./public/",
+		publicPath:"/public/",
 		chunkFilename:"/chunk/[id].common.js?[chunkhash]"//非主文件的命名规则
 	},
 	module:{
@@ -157,7 +160,7 @@ module.exports={
 			{
 				test:/\.(png|jpg|jpeg|gif)$/,
 				use:function(){
-					return "url-loader?limit=8100&name=images/[hash:8].[name].[ext]"
+					return "url-loader?limit=810&name=/[path][name].[ext]"
 				}
 			},
 			{
@@ -179,11 +182,11 @@ module.exports={
 		}
 	},
 	plugins: [
-     new WebPlugin({
-     	template: __dirname + "/template.html",
-     	filename:"../../../index0.html",
-     	requires:Object.keys(jsFiles)
-     }),
+     // new WebPlugin({
+     // 	template: __dirname + "/template.html",
+     // 	filename:"../../../index0.html",
+     // 	requires:Object.keys(jsFiles)
+     // }),
     // new webpack.optimize.UglifyJsPlugin({
 	   //  beautify: true,// 最紧凑的输出
 	   //  comments: false,// 删除所有的注释
