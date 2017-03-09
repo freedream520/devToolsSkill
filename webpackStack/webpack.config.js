@@ -1,26 +1,32 @@
 //webpack是模块处理工具，最好不要像gulp一样去批处理压缩文件  可以结合使用
-//实现入口文件的可配置性 自动载入入口文件
-//实现类似于gulp的打包方式 
-//报错位置的提示
-//publicPath 表示资源的发布地址，当配置过该属性后，打包文件中所有通过相对路径引用的资源都会被配置的路径所替换
+//publicPath 表示资源的发布地址，当配置过该属性后，打包文件中所有通过相对路径引用的资源都会被配置的路径所替换 
 //include 是包含的文件使用指定的loader编译，否则不编译，但是还是会打包的
 //webpack.optimize.CommonsChunkPlugin会提取公共模块，生成一个单独文件，虽然会多一个请求，但是会缓存在浏览器中
-// vendor: ['zepto', 'flexible'],在entry中进行手工配置公共模块的打包
+
+// vendor: ['zepto', 'flexible'],在entry中进行手工配置公共模块的打包 打包文件是一个数组，有id的索引，根据命令行打包信息可以知道都有哪些模块被打包进去了
+//webpack2的use可以是字符串，数组，对象 ，函数 大大的提升了可配置性
+
 /** 难点在于图片  单页  多页   单页和多页面混合 开发环境和线上环境的正确配置 **/
+// npm包的具体使用细则可以去官网查看api  不要胡乱猜测
 
-
-/**     样式编译
+/**     css scss样式编译
 css兼容性自动处理 postcss-loader autoprefixer(是postcss-loader的插件)
 webpack2需要配置为sass-loader  不能用scss-loader
 webpack2不能使用postcss
 需要用cnpm@4.2.0安装node－sass
-
 配置css-loader?minimize  实现样式压缩
+
+css公有模块抽离
+使用 extract-text-webpack-plugin  自己没有提取成功过
 **/
 
 
 /**     js编译
 需要babel-loader babel-core babel-preset-es2015或者babel-preset-2016.....
+
+	公有模块分离
+1.通过入口文件的vendor 实现自定义
+2.通过webpack.optimize.CommonsChunkPlugin 自动实现公有模块打包 只需要在pligins中设置即可
 
 */
 
@@ -33,7 +39,8 @@ js中的图片
 图片大小超出url-loader中的limit的时候，会报错
 **/
 
-/**j    son文件
+
+/**       json文件
 
 
 **/
@@ -77,6 +84,8 @@ ejs-loader....等loader
 var webpack=require("webpack");
 var webWebpackPlugin=require("web-webpack-plugin");
 const { WebPlugin, AutoWebPlugin } = webWebpackPlugin;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 var path=require("path");
 var glob = require('glob')
@@ -104,52 +113,60 @@ var entries= function (root) {
    return map;
 }
 var jsFiles=entries(JS_ENTRY_PATH);
-const cssFiles=entries(CSS_ENTRY_PATH);
-jsFiles.vendor=['zepto',"flexible"];
+
+jsFiles.vendor=['zepto',"flexible"];//设置共有模块的提取
 
 
 console.log(jsFiles);
 
 
 module.exports={
-	// context:__dirname,
+	context: __dirname,
 	entry:jsFiles,
 	output:{
 		path:JS_OUT_PATH,
 		filename:"[name].min.js",
 		publicPath:"./public/",
-		// chunkFilename:"/chunk/[id].common.js?[chunkhash]"//非主文件的命名规则
+		chunkFilename:"/chunk/[id].common.js?[chunkhash]"//非主文件的命名规则
 	},
 	module:{
-		loaders:[
+		rules:[
 			{
 				test:/\.css$/,
-				loader:["style-loader","css-loader?minimize"]
+				use:["style-loader","css-loader?minimize"]
 			},
 			{
 				test:/\.scss$/,
-				loader:["style-loader","css-loader?minimize","sass-loader"]
+				use:ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use:["css-loader","sass-loader"],
+					publicPath:"./public/css/"
+				})
 			},
 			{
 				test: /\.js$/,
-				loader: "babel-loader?cacheDirectory",
+				use:{
+					loader:"babel-loader?cacheDirectory",
+					options:{
+						presets:["es2015"]
+					}
+				},
 				include:"./src",//只对项目目录下src目录里的代码进行babel编译
-				exclude:"./node_modules/",
-				query:{
-					"presets":"es2015"
-				}
+				exclude:["./node_modules/"],
 			},
 			{
 				test:/\.(png|jpg|jpeg|gif)$/,
-				loader:"url-loader?limit=8100&name=images/[hash:8].[name].[ext]"
+				use:function(){
+					return "url-loader?limit=8100&name=images/[hash:8].[name].[ext]"
+				}
 			},
 			{
 				test:/\.html$/,
-				loaders:["html-loader"]
+				use:"html-loader"
 			},
 			{
 				test:/\.ejs$/,
-				loaders:["ejs-loader"]
+				use:["ejs-loader"]
 			}
 		]
 	},
@@ -164,7 +181,7 @@ module.exports={
 	plugins: [
      new WebPlugin({
      	template: __dirname + "/template.html",
-     	filename:"index0.html",
+     	filename:"../../../index0.html",
      	requires:Object.keys(jsFiles)
      }),
     // new webpack.optimize.UglifyJsPlugin({
@@ -178,7 +195,10 @@ module.exports={
 	   //  }
     // }),
     // new webpack.optimize.DedupePlugin(),//插件去重
-    // new ExtractTextPlugin("style.css"),
+   new ExtractTextPlugin({
+      filename: '[name].bundle.css',
+      allChunks: true
+   }),
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'commons',
     //   filename: 'commons.js',

@@ -1,4 +1,5 @@
 // import template from "template";
+import "../style/base.scss";
 import $ from "zepto";
 
 import tpl from "./header.ejs";
