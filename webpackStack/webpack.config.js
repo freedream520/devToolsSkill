@@ -96,13 +96,13 @@ var glob = require('glob')
 var autoprefixer=require("autoprefixer");
 
 //入口
-const JS_ENTRY_PATH="./src/js/page/";
+const JS_ENTRY_PATH="./src/";
 const CSS_ENTRY_PATH="./src/style/";
 const IMAGE_ENTRY_PATH="./src/images/";
 
 //出口
-const JS_OUT_PATH="./public/js/page";
-const CSS_OUT_PATH="./public/css/";
+const JS_OUT_PATH="./public/";
+const CSS_OUT_PATH="./public/";
 
 
 
