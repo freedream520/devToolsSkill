@@ -8,7 +8,7 @@
 
 /** 难点在于图片  单页  多页   单页和多页面混合 开发环境和线上环境的正确配置 **/
 // npm包的具体使用细则可以去官网查看api  不要胡乱猜测
-
+//src目录下的图片 js css  和dist中的一致，这样引用的时候不会搞混
 
 /**     css scss样式编译
 css兼容性自动处理 postcss-loader autoprefixer(是postcss-loader的插件)
@@ -95,30 +95,30 @@ var path=require("path");
 var glob = require('glob')
 var autoprefixer=require("autoprefixer");
 
+
 //入口
-const JS_ENTRY_PATH="./src/";
-const CSS_ENTRY_PATH="./src/style/";
-const IMAGE_ENTRY_PATH="./src/images/";
+const ENTRY_PATH="./src/";
+const JS_ENTRY_PATH="./src/js/page/";
 
 //出口
-const JS_OUT_PATH="./public/";
-const CSS_OUT_PATH="./public/";
-
+const OUT_PATH="./public/";
 
 
 var entries= function (root) {
    var entryFiles = glob.sync(root + '**/*.{js,jsx}');//获取某个路径下的所有文件名称及对应的文件路径
+   console.log(entryFiles);
    var map = {};
    for (var i = 0; i < entryFiles.length; i++) {
-      var filePath = entryFiles[i].substring(root.length,entryFiles[i].lastIndexOf("\."));
+      var filePath = entryFiles[i].substring(ENTRY_PATH.length,entryFiles[i].lastIndexOf("\."));
       var filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf("\."));
       map[filePath] = entryFiles[i];
    }
+   console.log(map);
    return map;
 }
 
 var jsFiles=entries(JS_ENTRY_PATH);
-console.log(jsFiles);
+
 
 
 module.exports={
@@ -127,9 +127,9 @@ module.exports={
 		vendor:['zepto',"flexible"]
 	}),
 	output:{
-		path:JS_OUT_PATH,
+		path:OUT_PATH,
 		filename:"[name].min.js",
-		publicPath:"/public/",
+		publicPath:"./public/",
 		chunkFilename:"/chunk/[id].common.js?[chunkhash]"//非主文件的命名规则
 	},
 	module:{
@@ -143,7 +143,7 @@ module.exports={
 				use:ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use:["css-loader","sass-loader"],
-					publicPath:"./public/css/"
+					// publicPath:"./public/css/"
 				})
 			},
 			{
@@ -159,9 +159,17 @@ module.exports={
 			},
 			{
 				test:/\.(png|jpg|jpeg|gif)$/,
-				use:function(){
-					return "url-loader?limit=810&name=/[path][name].[ext]"
-				}
+				use:function(pathObj){
+					console.log(pathObj);
+					var path=pathObj.resource.substring((__dirname+"/src/").length,pathObj.resource.lastIndexOf("\/"))
+					return {
+						loader:"url-loader",
+						options:{
+							limit:1000,
+							name:path+"/[name].[ext]"
+						}
+					}
+				},
 			},
 			{
 				test:/\.html$/,

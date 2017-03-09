@@ -928,6 +928,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 .icon-yuyin:before {
   content: "\E688"; }
+
+body div {
+  font-size: 20px; }
 @charset "UTF-8";
 .row {
   padding-top: 0px;
@@ -1858,6 +1861,3 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 .icon-yuyin:before {
   content: "\E688"; }
-
-body div {
-  font-size: 20px; }
