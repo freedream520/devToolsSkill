@@ -124,7 +124,7 @@ var jsFiles=entries(JS_ENTRY_PATH);
 module.exports={
 	context: __dirname,
 	entry:Object.assign(jsFiles,{
-		vendor:['zepto',"flexible"]
+		"js/vendor":['zepto',"flexible"]
 	}),
 	output:{
 		path:OUT_PATH,
@@ -139,7 +139,7 @@ module.exports={
 				use:["style-loader","css-loader?minimize"]
 			},
 			{
-				test:/\.scss$/,
+				test:/\.scss$/,//js中引用的css公共模块生成路径不对
 				use:ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use:["css-loader","sass-loader"],
@@ -163,7 +163,7 @@ module.exports={
 					console.log(pathObj);
 					var path=pathObj.resource.substring((__dirname+"/src/").length,pathObj.resource.lastIndexOf("\/"))
 					return {
-						loader:"url-loader",
+						loader:["url-loader"],
 						options:{
 							limit:1000,
 							name:path+"/[name].[ext]"
