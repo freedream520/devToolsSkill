@@ -95,13 +95,14 @@ var path=require("path");
 var glob = require('glob')
 var autoprefixer=require("autoprefixer");
 
+const delimiter=path.delimiter;//;window系统 :liunx系统
 
 //入口
 const ENTRY_PATH="./src/";
 const JS_ENTRY_PATH="./src/js/page/";
 
 //出口
-const OUT_PATH="./public/";
+const OUT_PATH=path.resolve(__dirname,"./dist/");
 
 
 var entries= function (root) {
@@ -119,6 +120,7 @@ var entries= function (root) {
 
 var jsFiles=entries(JS_ENTRY_PATH);
 
+const publicPath= process.env.NODE_ENV != "production"?"./dist/":"http://192.168.1.144:8010/dist/";
 
 
 module.exports={
@@ -129,14 +131,23 @@ module.exports={
 	output:{
 		path:OUT_PATH,
 		filename:"[name].min.js",
-		publicPath:"./public/",
+		publicPath:publicPath,
 		chunkFilename:"/chunk/[id].common.js?[chunkhash]"//非主文件的命名规则
 	},
 	module:{
 		rules:[
+			// {
+			// 	test:/\.css$/,
+			// 	use:["style-loader","css-loader?minimize"]
+			// },
 			{
 				test:/\.css$/,
-				use:["style-loader","css-loader?minimize"]
+				use:["style-loader",{
+					loader:"css-loader",
+					options:{
+						minimize:true
+					}
+				}]
 			},
 			{
 				test:/\.scss$/,//js中引用的css公共模块生成路径不对
@@ -160,13 +171,20 @@ module.exports={
 			{
 				test:/\.(png|jpg|jpeg|gif)$/,
 				use:function(pathObj){
-					console.log(pathObj);
-					var path=pathObj.resource.substring((__dirname+"/src/").length,pathObj.resource.lastIndexOf("\/"))
+					var resource=pathObj.resource;
+					var dir;
+					if(delimiter==";"){
+						dir=resource.substring((__dirname+"\\src\\").length,resource.lastIndexOf("\\")).replace("\\","\/");
+					}
+					else{
+						dir=resource.substring((__dirname+"/src/").length,resource.lastIndexOf("/"));
+					}
+					// "image-webpack?bypassOnDebug&optimizationLevel=9&interlaced=false"
 					return {
 						loader:["url-loader"],
 						options:{
 							limit:1000,
-							name:path+"/[name].[ext]"
+							name:dir+"/[name].[ext]"
 						}
 					}
 				},

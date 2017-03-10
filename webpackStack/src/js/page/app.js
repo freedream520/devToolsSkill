@@ -11,7 +11,7 @@ import Header from "../../components/header.js";//组件
 // console.log(data);
 
 $(document).on("click",function(){
-	alert("tap");
+	alert("213");
 });
 
 var header=new Header({title:"title"});

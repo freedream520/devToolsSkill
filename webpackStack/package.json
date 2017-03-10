@@ -5,7 +5,7 @@
   "main": "getdirs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpackW": "webpack -w"
+    "dev": "webpack -w"
   },
   "author": "",
   "license": "ISC",
