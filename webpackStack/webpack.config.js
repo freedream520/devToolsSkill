@@ -153,16 +153,18 @@ module.exports={
 				test:/\.scss$/,//js中引用的css公共模块生成路径不对
 				use:ExtractTextPlugin.extract({
 					fallback: 'style-loader',
-					use:["css-loader","sass-loader"],
+					// use:["css-loader","sass-loader"],
+					use:[{loader:"css-loader"},{loader:"sass-loader"}]
 					// publicPath:"./dist/css/"
 				})
 			},
 			{
 				test: /\.js$/,
 				use:{
-					loader:"babel-loader?cacheDirectory",
+					loader:"babel-loader",
 					options:{
-						presets:["es2015"]
+						presets:["es2015"],
+						cacheDirectory:true
 					}
 				},
 				include:"./src",//只对项目目录下src目录里的代码进行babel编译
