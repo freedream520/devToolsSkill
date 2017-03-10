@@ -226,7 +226,7 @@ module.exports={
     // new webpack.optimize.DedupePlugin(),//插件去重
    new ExtractTextPlugin({
       filename:function(getpath){
-      	var distPath=getpath("css/[name]").replace("js/page/","");
+      	var distPath=getpath("css/[name]").replace("js/page","common");
       	console.log(distPath);
       	return distPath+"-common.css";
       },
