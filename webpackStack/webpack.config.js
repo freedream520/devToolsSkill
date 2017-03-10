@@ -154,7 +154,7 @@ module.exports={
 				use:ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use:["css-loader","sass-loader"],
-					// publicPath:"./public/css/"
+					// publicPath:"./dist/css/"
 				})
 			},
 			{
@@ -225,7 +225,11 @@ module.exports={
     // }),
     // new webpack.optimize.DedupePlugin(),//插件去重
    new ExtractTextPlugin({
-      filename: '[name].bundle.css',
+      filename:function(getpath){
+      	var distPath=getpath("css/[name]").replace("js/page/","");
+      	console.log(distPath);
+      	return distPath+"-common.css";
+      },
       allChunks: true
    }),
     // new webpack.optimize.CommonsChunkPlugin({
