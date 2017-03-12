@@ -202,6 +202,7 @@ module.exports={
 		]
 	},
 	resolve:{
+		modules: [path.resolve(__dirname, './src'), 'node_modules'],//模块的查找顺序
 		extensions:[".css",".scss",".js",".vue"],
 		alias:{
 			"zepto":path.resolve(__dirname,"./src/js/plugins/zepto/zepto.min.js"),
