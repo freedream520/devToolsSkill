@@ -4,8 +4,8 @@ var remoteServer = {
     host: '121.196.201.74',
     remotePath: '/',
     user: 'root',
-    pass: '123456',
-    port:14147
+    // pass: '123456',
+    port:21
 };
 
 
