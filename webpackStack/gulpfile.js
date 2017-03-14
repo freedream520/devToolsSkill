@@ -22,7 +22,7 @@ gulp.task("hint",function(){
 gulp.task('clean', ['hint'], function () {
     // console.log(process.argv.slice(1));
     var clean = require('gulp-clean');
-    return gulp.src(DEST+"/***", {read: true}).pipe(clean())
+    return gulp.src(DEST+"**/*", {read: true}).pipe(clean())
 });
 
 
@@ -38,6 +38,11 @@ gulp.task('pack', ['clean'], function (done) {
         gutil.log('[webpack]', stats.toString({colors: true}))
         done()
     });
+});
+
+gulp.task('watch', function (done) {
+    var _conf =webpackConfigDev;
+    gulp.watch(SRC+"**/*",["pack"]);
 });
 
 

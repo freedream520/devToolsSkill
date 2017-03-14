@@ -41,7 +41,7 @@ module.exports=function(_config){
 	// const publicPath= process.env.NODE_ENV != "production"?"./dist/":"http://121.196.201.74/dist/";
 
 	const publicPath=debug?"./dist/":"http://121.196.201.74:1000/";
-	
+
 	return {
 		context: __dirname,
 		entry:Object.assign(jsFiles,{
@@ -89,8 +89,9 @@ module.exports=function(_config){
 					include:"./src",//只对项目目录下src目录里的代码进行babel编译
 					exclude:["./node_modules/"],
 				},
-				{
+				{	
 					test:/\.(png|jpg|jpeg|gif)$/,
+					// test:/\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
 					use:function(pathObj){
 						var resource=pathObj.resource;
 						var dir;

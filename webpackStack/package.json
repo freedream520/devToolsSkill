@@ -5,6 +5,7 @@
   "main": "getdirs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "watch":"gulp watch  --env dev",
     "buildD": "gulp pack --env dev",
     "buildP": "gulp pack --env production",
     "dev": "webpack -w"
