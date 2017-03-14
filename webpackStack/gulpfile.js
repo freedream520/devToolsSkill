@@ -13,7 +13,7 @@ const DEST="./dist/";
 gulp.task("hint",function(){
     var jshint=require("gulp-jshint");
     var stylish=require("jshint-stylish");
-    gulp.src(["!"+SRC+"js/plugins/**/*.js",SRC+"js/page/**/*.js"])
+    gulp.src(["!"+SRC+"js/plugins/***.js",SRC+"js/page/***.js"])
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
 });
@@ -22,17 +22,24 @@ gulp.task("hint",function(){
 gulp.task('clean', ['hint'], function () {
     // console.log(process.argv.slice(1));
     var clean = require('gulp-clean');
-    return gulp.src(DEST+"**/*", {read: true}).pipe(clean())
+    return gulp.src(DEST+"***", {read: true}).pipe(clean())
 });
 
 
-var webpackConfig=require("./webpack.config");
-var webpackConfigDev=require("./webpack.config.dev");
+// var webpackConfig=require("./webpack.config");
+// var webpackConfigDev=require("./webpack.config.dev");
 
 
 gulp.task('pack', ['clean'], function (done) {
-    var env=process.argv[3];//dev 或者production
-    var _conf =env=="dev"?webpackConfigDev:webpackConfig;
+    var env=process.argv[4];//dev 或者production
+    console.log(process.argv,"env:"+env);
+    var _conf;
+    if(env=="dev"){
+    	_conf=require("./webpack.config.dev");
+    }
+    else{
+    	_conf=require("./webpack.config")
+    }
     webpack(_conf, function (err, stats) {
         if (err) throw new gutil.PluginError('webpack', err)
         gutil.log('[webpack]', stats.toString({colors: true}))
@@ -42,7 +49,7 @@ gulp.task('pack', ['clean'], function (done) {
 
 gulp.task('watch', function (done) {
     var _conf =webpackConfigDev;
-    gulp.watch(SRC+"**/*",["pack"]);
+    gulp.watch(SRC+"***",["pack"]);
 });
 
 

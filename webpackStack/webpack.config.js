@@ -1,2 +1,2 @@
-var webpack_config = require('./webpack.config.allion')   
+var webpack_config = require('./webpack.config.create')   
 module.exports = webpack_config({debug:false});

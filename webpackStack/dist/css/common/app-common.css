@@ -752,6 +752,13 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .over-x-auto {
   overflow-x: auto; }
 
+@font-face {
+  font-family: "iconfont";
+  src: url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.eot);
+  /* IE9*/
+  src: url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.eot#iefix) format("embedded-opentype"), url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.woff) format("woff"), url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.ttf) format("truetype"), url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.svg#iconfont) format("svg");
+  /* iOS 4.1- */ }
+
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -1691,6 +1698,13 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 .over-x-auto {
   overflow-x: auto; }
+
+@font-face {
+  font-family: "iconfont";
+  src: url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.eot);
+  /* IE9*/
+  src: url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.eot#iefix) format("embedded-opentype"), url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.woff) format("woff"), url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.ttf) format("truetype"), url(/Users/wangyu/github/devToolsSkill/webpackStack/dist/style/icon/iconfont.svg#iconfont) format("svg");
+  /* iOS 4.1- */ }
 
 .iconfont {
   font-family: "iconfont" !important;

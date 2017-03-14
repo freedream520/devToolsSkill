@@ -18,7 +18,7 @@ $("#loadSyncModule").on("click",function(){
 	console.log("click sync");
 	require.ensure(["swiper"],function(swiper){
 		window.swiper=swiper;
-	})
+	});
 });
 
 var header=new Header({title:"title"});

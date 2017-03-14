@@ -25,23 +25,23 @@ module.exports=function(_config){//_config {debug:boolen}
 
 	var entries= function (root) {
 	   var entryFiles = glob.sync(root + '**/*.{js,jsx}');//获取某个路径下的所有文件名称及对应的文件路径
-	   console.log(entryFiles);
+	   // console.log(entryFiles);
 	   var map = {};
 	   for (var i = 0; i < entryFiles.length; i++) {
 	      var filePath = entryFiles[i].substring(ENTRY_PATH.length,entryFiles[i].lastIndexOf("\."));
 	      var filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf("\."));
 	      map[filePath] = entryFiles[i];
 	   }
-	   console.log(map);
+	   // console.log(map);
 	   return map;
 	}
 
 	var jsFiles=entries(JS_ENTRY_PATH);
 
 	// const publicPath= process.env.NODE_ENV != "production"?"./dist/":"http://121.196.201.74/dist/";
-
-	const publicPath=debug?"./dist/":"http://121.196.201.74:1000/";
-
+	console.log("debug:"+debug);
+	const publicPath=debug?path.resolve(__dirname,"./dist/")+"/":"http://121.196.201.74:1000/";
+	
 	return {
 		context: __dirname,
 		entry:Object.assign(jsFiles,{
@@ -73,8 +73,8 @@ module.exports=function(_config){//_config {debug:boolen}
 					use:ExtractTextPlugin.extract({
 						fallback: 'style-loader',
 						// use:["css-loader","sass-loader"],
-						use:[{loader:"css-loader"},{loader:"sass-loader"}]
-						// publicPath:"./dist/css/"
+						use:[{loader:"css-loader"},{loader:"sass-loader"}],
+						publicPath:publicPath,//生成的公有样式表引用的图片或者字体文件路径
 					})
 				},
 				{
@@ -90,8 +90,8 @@ module.exports=function(_config){//_config {debug:boolen}
 					exclude:["./node_modules/"],
 				},
 				{	
-					test:/\.(png|jpg|jpeg|gif)$/,
-					// test:/\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
+					// test:/\.(png|jpg|jpeg|gif)$/,
+					test:/\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
 					use:function(pathObj){
 						var resource=pathObj.resource;
 						var dir;
@@ -101,7 +101,6 @@ module.exports=function(_config){//_config {debug:boolen}
 						else{
 							dir=resource.substring((__dirname+"/src/").length,resource.lastIndexOf("/"));
 						}
-						// "image-webpack?bypassOnDebug&optimizationLevel=9&interlaced=false"
 						return {
 							loader:["url-loader"],
 							options:{
