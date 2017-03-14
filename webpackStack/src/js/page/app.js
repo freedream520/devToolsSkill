@@ -11,13 +11,12 @@ import Header from "../../components/header.js";//组件
 // console.log(data);
 
 $(document).on("click",function(){
-	alert("213");
+	console.log("213");
 });
 
 $("#loadSyncModule").on("click",function(){
 	console.log("click sync");
-	require.ensure([],function(){
-		var swiper=require("swiper");
+	require.ensure(["swiper"],function(swiper){
 		window.swiper=swiper;
 	})
 });
