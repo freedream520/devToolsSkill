@@ -14,5 +14,12 @@ $(document).on("click",function(){
 	alert("213");
 });
 
+$("#loadSyncModule").on("click",function(){
+	console.log("click sync");
+	require.ensure([],function(){
+		var moduleA=require("swiper");
+	})
+});
+
 var header=new Header({title:"title"});
 document.getElementById("header").innerHTML=header.tpl;

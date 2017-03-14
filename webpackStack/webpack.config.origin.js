@@ -120,9 +120,9 @@ var entries= function (root) {
 
 var jsFiles=entries(JS_ENTRY_PATH);
 
-// const publicPath= process.env.NODE_ENV != "production"?"./dist/":"http://121.196.201.74/dist/";
+const publicPath= process.env.NODE_ENV != "production"?"./dist/":"http://121.196.201.74/dist/";
 
-const publicPath="http://121.196.201.74:1000/";
+// const publicPath="http://121.196.201.74:1000/";
 
 module.exports={
 	context: __dirname,
@@ -133,7 +133,7 @@ module.exports={
 		path:OUT_PATH,
 		filename:"[name].min.js",
 		publicPath:publicPath,
-		chunkFilename:"/chunk/[id].common.js?[chunkhash]"//非主文件的命名规则
+		chunkFilename:"/chunk/[id].chunk.js?[chunkhash]"//异步加载的文件名称 require.ensure生成的文件
 	},
 	module:{
 		rules:[
