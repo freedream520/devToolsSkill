@@ -17,7 +17,8 @@ $(document).on("click",function(){
 $("#loadSyncModule").on("click",function(){
 	console.log("click sync");
 	require.ensure([],function(){
-		var moduleA=require("swiper");
+		var swiper=require("swiper");
+		window.swiper=swiper;
 	})
 });
 
