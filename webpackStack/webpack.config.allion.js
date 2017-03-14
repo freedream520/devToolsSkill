@@ -1,4 +1,4 @@
-module.exports=function(_config){
+module.exports=function(_config){//_config {debug:boolen}
 	var config=_config||{};
 	var debug=config.debug;
 	

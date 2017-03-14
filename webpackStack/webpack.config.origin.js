@@ -120,9 +120,9 @@ var entries= function (root) {
 
 var jsFiles=entries(JS_ENTRY_PATH);
 
-const publicPath= process.env.NODE_ENV != "production"?"./dist/":"http://121.196.201.74/dist/";
+// const publicPath= process.env.NODE_ENV != "production"?"./dist/":"http://121.196.201.74/dist/";
 
-// const publicPath="http://121.196.201.74:1000/";
+const publicPath="./dist/";
 
 module.exports={
 	context: __dirname,
