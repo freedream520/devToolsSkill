@@ -26,7 +26,12 @@ $("#loadSyncModule").on("click",function(){
 
 
 
-
+if(console.log("hello")){
+	console.log("hello");
+}
+else{
+	console.log("world");
+}
 
 
 if((function(){console.log("hello");return false;})()){
@@ -36,6 +41,7 @@ else{
 	console.log("world");
 }
 
+
 if(setTimeout(function(){
 	console.log("world");
 },0)){
@@ -44,3 +50,14 @@ if(setTimeout(function(){
 else{
 	console.log("world");
 }
+
+function *yids(){
+    var a=0;
+    var b=1;
+    while(true){
+        yield a;
+        [a,b]=[b,a+b]
+    }
+}
+var [a,b,c,d,e,f]=yids();
+console.log(a,b,c,d,e,f);
