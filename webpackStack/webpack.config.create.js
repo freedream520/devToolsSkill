@@ -38,9 +38,10 @@ module.exports=function(_config){//_config {debug:boolen}
 
 	var jsFiles=entries(JS_ENTRY_PATH);
 
+	//publicPath如何保证在多页应用中页面层级发生改变的时候也可已正确引用
 	// const publicPath= process.env.NODE_ENV != "production"?"./dist/":"http://121.196.201.74/dist/";
 	console.log("debug:"+debug);
-	const publicPath=debug?path.resolve(__dirname,"./dist/")+"/":"http://121.196.201.74:1000/";
+	const publicPath=debug?(path.resolve(__dirname,"./dist/")+"/").replace(/\\/g,"/"):"http://121.196.201.74:1000/";
 	
 	return {
 		context: __dirname,
@@ -148,7 +149,8 @@ module.exports=function(_config){//_config {debug:boolen}
 	    // new webpack.optimize.DedupePlugin(),//插件去重
 	   new ExtractTextPlugin({
 	      filename:function(getpath){
-	      	var distPath=getpath("css/[name]").replace("js/page","common");
+	      	console.log("name:"+getpath("css/[name]"));
+	      	var distPath=getpath("css/[name]").replace("js/page","");
 	      	console.log(distPath);
 	      	return distPath+"-common.css";
 	      },

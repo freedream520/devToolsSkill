@@ -94,6 +94,31 @@ gulp.task("jsWatch",function(){
 });
 
 
+//替换目标文件的路径引用  替换MD5版本号  由于manifest文件中始终是a.css a-dewd3ed32.css   所以只会在第一次的时候进行替换
+//一旦替换完成后  后面就不会再次替换了 而且 每次更改文件名称后  并不会覆盖原文件  所以需要先删除文件  这样就必须保证编译后的文件夹必须是纯净版的
+gulp.task("makeVersion",function(){//这个任务是为了替换页面中的版本号
+	var now = Math.round(1000*Math.random());
+	var now = new Date();
+	var year = now.getFullYear();
+	var month=formate(now.getMonth()+1);
+	var date=formate(now.getDate());
+	var h=formate(now.getHours());
+	var m=formate(now.getMinutes());
+
+	var version=year+month+date+h+m;
+
+	console.log(version);
+	gulp.src(["WEB-INF/html/**/*.html"])
+	.pipe(plugins.replace(/\.css(\?v=\d+)?/g,".css?v="+version))//替换原理
+	.pipe(plugins.replace(/\.js(\?v=\d+)?/g,".js?v="+version))//替换原理
+	.pipe(gulp.dest("./html/"));
+
+	function formate(num){
+		return num<10?"0"+num:num+"";
+	}
+});
+
+
 
 //监听所有改动  js  css scss
 gulp.task("allWatch",function(){

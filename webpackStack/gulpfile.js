@@ -38,7 +38,7 @@ gulp.task('pack', ['clean'], function (done) {
     	_conf=require("./webpack.config.dev");
     }
     else{
-    	_conf=require("./webpack.config")
+    	_conf=require("./webpack.config.prod")
     }
     webpack(_conf, function (err, stats) {
         if (err) throw new gutil.PluginError('webpack', err)
