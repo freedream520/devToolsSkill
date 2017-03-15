@@ -4,9 +4,9 @@
 // import $ from "zepto";
 
 // import data from "json-loader!../test.json";
-import "../../style/test.css";
+
 import "../../style/main.scss";
-import Header from "../../components/header.js";//组件
+import Header from "../../components/header/header.js";//组件
 
 // console.log(data);
 
@@ -16,7 +16,8 @@ $(document).on("click",function(){
 
 $("#loadSyncModule").on("click",function(){
 	console.log("click load");
-	require.ensure(["swiper"],function(swiper){
+	require.ensure(["swiper"],function(swiper,Header){
+		console.log(arguments);
 		window.swiper=swiper;
 		var header=new Header({title:"title"});
 		$("#header").html(header.tpl);

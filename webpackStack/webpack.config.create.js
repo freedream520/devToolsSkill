@@ -1,3 +1,18 @@
+
+/**
+技巧：
+1.不要使用抽离css的模块
+2.把公有的js（zepto...） 和公有的css（base.scss）放到一个js vendor中,在页面中只需要引用一个公有文件即可做到公有js和css一起加载的效果
+3.异步加载模版可以使用不同的模板loader加载 比如ejs模板 hbs模板
+
+
+难点：
+1.如何实现点击的时候加载私有模板
+2.如何动态修改页面中的引用路径
+
+
+**/
+
 module.exports=function(_config){//_config {debug:boolen}
 	var config=_config||{};
 	var debug=config.debug;
@@ -46,20 +61,16 @@ module.exports=function(_config){//_config {debug:boolen}
 	return {
 		context: __dirname,
 		entry:Object.assign(jsFiles,{
-			"js/vendor":['zepto',"flexible"]
+			"js/flexible-zepto":["flexible",'zepto',"commonCss"]
 		}),
 		output:{
 			path:OUT_PATH,
 			filename:"[name].min.js",
 			publicPath:publicPath,
-			chunkFilename:"/chunk/[id].common.js?[chunkhash]"//非主文件的命名规则
+			chunkFilename:"/async/[id].common.js?[chunkhash]"//非主文件的命名规则
 		},
 		module:{
 			rules:[
-				// {
-				// 	test:/\.css$/,
-				// 	use:["style-loader","css-loader?minimize"]
-				// },
 				{
 					test:/\.css$/,
 					use:["style-loader",{
@@ -71,13 +82,25 @@ module.exports=function(_config){//_config {debug:boolen}
 				},
 				{
 					test:/\.scss$/,//js中引用的css公共模块生成路径不对
-					use:ExtractTextPlugin.extract({
-						fallback: 'style-loader',
-						// use:["css-loader","sass-loader"],
-						use:[{loader:"css-loader"},{loader:"sass-loader"}],
-						publicPath:publicPath,//生成的公有样式表引用的图片或者字体文件路径
-					})
+					use:["style-loader",
+						{
+							loader:"css-loader",
+							options:{
+								minimize:true
+							}
+						},
+						"sass-loader"
+					]
 				},
+				// {
+				// 	test:/\.scss$/,//js中引用的css公共模块生成路径不对
+				// 	use:ExtractTextPlugin.extract({
+				// 		fallback: 'style-loader',
+				// 		// use:["css-loader","sass-loader"],
+				// 		use:[{loader:"css-loader"},{loader:"sass-loader"}],
+				// 		publicPath:publicPath,//生成的公有样式表引用的图片或者字体文件路径
+				// 	})
+				// },
 				{
 					test: /\.js$/,
 					use:{
@@ -118,6 +141,15 @@ module.exports=function(_config){//_config {debug:boolen}
 				{
 					test:/\.ejs$/,
 					use:["ejs-loader"]
+				},
+				{
+					test:/\.tpl$/,
+					use:{
+						loader:"art-template-loader",
+						options:{
+							
+						}
+					}
 				}
 			]
 		},
@@ -128,6 +160,7 @@ module.exports=function(_config){//_config {debug:boolen}
 				"zepto":path.resolve(__dirname,"./src/js/plugins/zepto/zepto.min.js"),
 				"swiper" : path.resolve(__dirname,"./src/js/plugins/swiper/swiper.min.js"),
 				"flexible":path.resolve(__dirname,'./src/js/plugins/flexible/flexible.js'),
+				"commonCss":path.resolve(__dirname,'./src/js/plugins/commonCss.js'),
 			}
 		},
 		plugins: [
@@ -147,15 +180,15 @@ module.exports=function(_config){//_config {debug:boolen}
 		   //  }
 	    // }),
 	    // new webpack.optimize.DedupePlugin(),//插件去重
-	   new ExtractTextPlugin({
-	      filename:function(getpath){
-	      	console.log("name:"+getpath("css/[name]"));
-	      	var distPath=getpath("css/[name]").replace("js/page","");
-	      	console.log(distPath);
-	      	return distPath+"-common.css";
-	      },
-	      allChunks: true
-	   }),
+	   // new ExtractTextPlugin({
+	   //    filename:function(getpath){
+	   //    	console.log("name:"+getpath("css/[name]"));
+	   //    	var distPath=getpath("css/[name]").replace("js/page","");
+	   //    	console.log(distPath);
+	   //    	return distPath+"-common.css";
+	   //    },
+	   //    // allChunks: true
+	   // }),
 	    // new webpack.optimize.CommonsChunkPlugin({
 	    //   name: 'commons',
 	    //   filename: 'commons.js',

@@ -1,0 +1,15 @@
+
+
+.about-container{
+	background-image:url("../../images/avator.jpg");
+	background-repeat: no-repeat;
+}
+.btn{
+	display: block;
+	margin:120px 20px;
+	line-height:40px;
+	text-align:center;
+	&.btn-blue{
+		background-color:#33f; 
+	}
+}

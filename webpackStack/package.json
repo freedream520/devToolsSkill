@@ -5,7 +5,7 @@
   "main": "getdirs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch":"gulp watch  --env dev",
+    "watch": "gulp watch  --env dev",
     "buildD": "gulp pack --env dev",
     "buildP": "gulp pack --env production",
     "dev": "webpack -w"
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "art-template-loader": "^0.2.0",
     "autoprefixer": "^6.7.6",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.0",
