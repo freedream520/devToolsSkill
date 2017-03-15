@@ -68,7 +68,7 @@ module.exports=function(_config){//_config {debug:boolen}
 			path:OUT_PATH,
 			filename:"[name].min.js",
 			publicPath:publicPath,
-			chunkFilename:"/async/[id].common.js?[chunkhash]"//非主文件的命名规则
+			chunkFilename:"/async/[name]-[id].common.js?[chunkhash]"//require.ensure指定的异步模块
 		},
 		module:{
 			rules:[
