@@ -3,13 +3,14 @@
 技巧：
 1.不要使用抽离css的模块
 2.把公有的js（zepto...） 和公有的css（base.scss）放到一个js vendor中,在页面中只需要引用一个公有文件即可做到公有js和css一起加载的效果
-3.异步加载模版可以使用不同的模板loader加载 比如ejs模板 hbs模板
+3.异步加载模版可以使用不同的模板loader加载 比如ejs模板 hbs模板  
 
 
 难点：
 1.如何实现点击的时候加载私有模板
 2.如何动态修改页面中的引用路径
-
+3.实现可调试map
+4.加载异步模板或者组件 
 
 **/
 
@@ -147,7 +148,7 @@ module.exports=function(_config){//_config {debug:boolen}
 					use:{
 						loader:"art-template-loader",
 						options:{
-							
+
 						}
 					}
 				}
