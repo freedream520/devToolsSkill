@@ -15,11 +15,32 @@ $(document).on("click",function(){
 });
 
 $("#loadSyncModule").on("click",function(){
-	console.log("click sync");
+	console.log("click load");
 	require.ensure(["swiper"],function(swiper){
 		window.swiper=swiper;
+		var header=new Header({title:"title"});
+		$("#header").html(header.tpl);
+		console.log("click loaded");
 	});
 });
 
-var header=new Header({title:"title"});
-document.getElementById("header").innerHTML=header.tpl;
+
+
+
+
+
+if((function(){console.log("hello");return false;})()){
+	console.log("hello");
+}
+else{
+	console.log("world");
+}
+
+if(setTimeout(function(){
+	console.log("world");
+},0)){
+	console.log("hello");
+}
+else{
+	console.log("world");
+}
