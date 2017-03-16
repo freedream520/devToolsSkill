@@ -10,7 +10,10 @@
 1.如何实现点击的时候加载私有模板
 2.如何动态修改页面中的引用路径
 3.实现可调试map
-4.加载异步模板或者组件 
+4.加载异步模板或者组件  
+	--对于独立的可执行js 直接引用即可
+	--对于引用了其他模板或者样式的js   需要用es6 export出来，因为es6是引用加载 会把文件的执行环境也加载进来 引用的时候 需要用default
+
 
 **/
 
@@ -61,6 +64,7 @@ module.exports=function(_config){//_config {debug:boolen}
 	
 	return {
 		context: __dirname,
+		devtool:debug?"cheap-module-source-map":false,
 		entry:Object.assign(jsFiles,{
 			"js/flexible-zepto":["flexible",'zepto',"commonCss"]
 		}),

@@ -1,46 +1,38 @@
-webpackJsonp([0],{
+webpackJsonp([0,5],{
 
-/***/ 23:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(module) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_tpl__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_tpl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__list_tpl__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__list_scss__);
-
-
+/***/ 2:
+/***/ (function(module, exports) {
 
 module.exports={
-	tpl:__WEBPACK_IMPORTED_MODULE_0__list_tpl___default.a
-};
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(32)(module)))
-
-/***/ }),
-
-/***/ 28:
-/***/ (function(module, exports, __webpack_require__) {
-
-var template = __webpack_require__(29)
-
-module.exports = function($data,$filename
-/**/) {
-'use strict';var $utils=template.utils,$helpers=$utils.$helpers,$each=$utils.$each,dataLists=$data.dataLists,$value=$data.$value,$index=$data.$index,$escape=$utils.$escape,$out='';$out+='<ul class="lists">\n	';
-$each(dataLists,function($value,$index){
-$out+='\n		<li>';
-$out+=$escape($value.name);
-$out+=':';
-$out+=$escape($index);
-$out+='</li>\n	';
-});
-$out+='\n</ul>\n';
-return new String($out);
+	dataLists:[
+		{name:"李明"},{name:"angle"}
+	]
 }
 
 /***/ }),
 
 /***/ 29:
+/***/ (function(module, exports, __webpack_require__) {
+
+var template = __webpack_require__(30)
+
+module.exports = function($data,$filename
+/**/) {
+'use strict';var $utils=template.utils,$helpers=$utils.$helpers,$each=$utils.$each,dataLists=$data.dataLists,$value=$data.$value,$index=$data.$index,$escape=$utils.$escape,$out='';$out+='<ul class="lists">\r\n	';
+$each(dataLists,function($value,$index){
+$out+='\r\n		<li>';
+$out+=$escape($value.name);
+$out+=':';
+$out+=$escape($index);
+$out+='</li>\r\n	';
+});
+$out+='\r\n</ul>\r\n';
+return new String($out);
+}
+
+/***/ }),
+
+/***/ 30:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*!art-template - Template Engine | http://aui.github.com/artTemplate/*/
@@ -49,7 +41,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!art-template - Template Engine | http://aui
 
 /***/ }),
 
-/***/ 30:
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
@@ -64,13 +56,13 @@ exports.push([module.i, "ul.lists li{line-height:40px;text-indent:20px}", ""]);
 
 /***/ }),
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(30);
+var content = __webpack_require__(31);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -91,35 +83,24 @@ if(false) {
 
 /***/ }),
 
-/***/ 32:
-/***/ (function(module, exports) {
+/***/ 4:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = function(originalModule) {
-	if(!originalModule.webpackPolyfill) {
-		var module = Object.create(originalModule);
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		Object.defineProperty(module, "exports", {
-			enumerable: true,
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_tpl__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_tpl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__list_tpl__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__list_scss__);
+
+
+
+var tpl={
+	tpl:__WEBPACK_IMPORTED_MODULE_0__list_tpl___default.a
 };
-
+/* harmony default export */ __webpack_exports__["default"] = tpl; 
 
 /***/ })
 
 });
+//# sourceMappingURL=0-0.common.js.map?8f4c3847809115070717

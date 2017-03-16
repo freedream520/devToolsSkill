@@ -48,7 +48,7 @@ gulp.task('pack', ['clean'], function (done) {
 });
 
 gulp.task('watch', function (done) {
-    var _conf =webpackConfigDev;
+    var _conf =require("./webpack.config.dev");
     gulp.watch(SRC+"***",["pack"]);
 });
 

@@ -1,6 +1,7 @@
 import listTpl from "./list.tpl";
 import "./list.scss";
 
-module.exports={
+var tpl={
 	tpl:listTpl
 };
+export default tpl; 
