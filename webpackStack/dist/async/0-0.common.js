@@ -1,13 +1,23 @@
 webpackJsonp([0,5],{
 
-/***/ 2:
-/***/ (function(module, exports) {
+/***/ 24:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports={
-	dataLists:[
-		{name:"李明"},{name:"angle"}
-	]
-}
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_tpl__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_tpl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__list_tpl__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__list_scss__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return a; });
+
+
+
+var a=213;
+var tpl={
+	tpl:__WEBPACK_IMPORTED_MODULE_0__list_tpl___default.a
+};
+/* harmony default export */ __webpack_exports__["default"] = tpl; 
 
 /***/ }),
 
@@ -28,6 +38,17 @@ $out+='</li>\n	';
 });
 $out+='\n</ul>\n';
 return new String($out);
+}
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports) {
+
+module.exports={
+	dataLists:[
+		{name:"李明"},{name:"angle"}
+	]
 }
 
 /***/ }),
@@ -81,28 +102,7 @@ if(false) {
 	module.hot.dispose(function() { update(); });
 }
 
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_tpl__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_tpl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__list_tpl__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__list_scss__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return a; });
-
-
-
-var a=213;
-var tpl={
-	tpl:__WEBPACK_IMPORTED_MODULE_0__list_tpl___default.a
-};
-/* harmony default export */ __webpack_exports__["default"] = tpl; 
-
 /***/ })
 
 });
-//# sourceMappingURL=0-0.common.js.map?b5143904b81db55d9c67
+//# sourceMappingURL=0-0.common.js.map?5f0c9597566b883e9bed
