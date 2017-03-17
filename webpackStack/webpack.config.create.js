@@ -178,7 +178,6 @@ module.exports=function(_config){//_config {debug:boolen}
 			}
 		},
 		plugins: [
-			// require("autoprefixer"),
 			new webpack.LoaderOptionsPlugin({
 				options:{
 					postcss:function(){

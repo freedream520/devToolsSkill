@@ -10,14 +10,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__list_scss__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return a; });
+/* harmony export (immutable) */ __webpack_exports__["aaa"] = aaa;
 
 
 
-var a=213;
+// export var a=213;
+var a=123;
+
+
+// export {//这种写法是不行的
+// 	b:"bbb"
+// }
+
+// export function(){//这种写法也是不对的
+// 	console.log("aaa");
+// }
+
+function aaa(){
+	console.log("aaa");
+}
+
 var tpl={
 	tpl:__WEBPACK_IMPORTED_MODULE_0__list_tpl___default.a
 };
 /* harmony default export */ __webpack_exports__["default"] = tpl; 
+setTimeout(function(){
+	a=2342343;
+},6000);
 
 /***/ }),
 
@@ -28,13 +47,19 @@ var template = __webpack_require__(30)
 
 module.exports = function($data,$filename
 /**/) {
-'use strict';var $utils=template.utils,$helpers=$utils.$helpers,$each=$utils.$each,dataLists=$data.dataLists,$value=$data.$value,$index=$data.$index,$escape=$utils.$escape,$out='';$out+='<ul class="lists">\r\n	';
+'use strict';var $utils=template.utils,$helpers=$utils.$helpers,$each=$utils.$each,dataLists=$data.dataLists,$value=$data.$value,$index=$data.$index,$escape=$utils.$escape,row=$data.row,i=$data.i,$out='';$out+='<ul class="lists">\r\n	';
 $each(dataLists,function($value,$index){
-$out+='\r\n		<li>';
-$out+=$escape($value.name);
-$out+=':';
+$out+='\r\n		<p>';
 $out+=$escape($index);
-$out+='</li>\r\n	';
+$out+='</p>\r\n		';
+$each($value,function(row,i){
+$out+='\r\n			<span>';
+$out+=$escape(row.name);
+$out+=':';
+$out+=$escape(i);
+$out+='</span>\r\n		';
+});
+$out+='\r\n	';
 });
 $out+='\r\n</ul>\r\n';
 return new String($out);
@@ -47,7 +72,9 @@ return new String($out);
 
 module.exports={
 	dataLists:[
-		{name:"李明"},{name:"angle"}
+		[{name:"李明0"},{name:"angle0"}],
+		[{name:"李明1"},{name:"angle1"}],
+		[{name:"李明2"},{name:"angle2"}]
 	]
 }
 
@@ -105,4 +132,4 @@ if(false) {
 /***/ })
 
 });
-//# sourceMappingURL=0-0.common.js.map?5581002a3761f3c3a925
+//# sourceMappingURL=0-0.common.js.map?7cde68059b04066b035c
