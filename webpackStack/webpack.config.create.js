@@ -4,6 +4,7 @@
 1.不要使用抽离css的模块
 2.把公有的js（zepto...） 和公有的css（base.scss）放到一个js vendor中,在页面中只需要引用一个公有文件即可做到公有js和css一起加载的效果
 3.异步加载模版可以使用不同的模板loader加载 比如ejs模板 hbs模板  
+4.只要被监听的文件引用了scss，不管被引用的scss的层级有多深，都会被编译，反之，没有被引用的scss发生改变是不会触发watch监听的
 
 
 难点：
@@ -13,7 +14,9 @@
 4.加载异步模板或者组件  
 	--对于独立的可执行js 直接引用即可
 	--对于引用了其他模板或者样式的js   需要用es6 export出来，因为es6是引用加载 会把文件的执行环境也加载进来 引用的时候 需要用default
-
+5.postcss自动化处理样式兼容
+6.sourcemap调试
+7.为什么scss改变也会触发watch改变  只要文件引用到scss
 
 **/
 
@@ -94,7 +97,13 @@ module.exports=function(_config){//_config {debug:boolen}
 								minimize:true
 							}
 						},
-						"sass-loader"
+						"sass-loader",
+						{
+							loader:"postcss-loader",
+							options:{
+								browsers:["last 10 versions"]
+							}
+						}
 					]
 				},
 				// {
@@ -169,6 +178,16 @@ module.exports=function(_config){//_config {debug:boolen}
 			}
 		},
 		plugins: [
+			// require("autoprefixer"),
+			new webpack.LoaderOptionsPlugin({
+				options:{
+					postcss:function(){
+						var precss=require("precss");
+						var autoprefixer=require("autoprefixer");
+						return [autoprefixer];
+					}
+				}
+			})
 	     // new WebPlugin({
 	     // 	template: __dirname + "/template.html",
 	     // 	filename:"../../../index0.html",
@@ -198,7 +217,9 @@ module.exports=function(_config){//_config {debug:boolen}
 	    //   name: 'commons',
 	    //   filename: 'commons.js',
 	    //   minChunks: 2,
-	    // })
+	    // }),
+		
+		
 	  ],
 	}
 }

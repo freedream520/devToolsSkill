@@ -28,15 +28,15 @@ var template = __webpack_require__(30)
 
 module.exports = function($data,$filename
 /**/) {
-'use strict';var $utils=template.utils,$helpers=$utils.$helpers,$each=$utils.$each,dataLists=$data.dataLists,$value=$data.$value,$index=$data.$index,$escape=$utils.$escape,$out='';$out+='<ul class="lists">\n	';
+'use strict';var $utils=template.utils,$helpers=$utils.$helpers,$each=$utils.$each,dataLists=$data.dataLists,$value=$data.$value,$index=$data.$index,$escape=$utils.$escape,$out='';$out+='<ul class="lists">\r\n	';
 $each(dataLists,function($value,$index){
-$out+='\n		<li>';
+$out+='\r\n		<li>';
 $out+=$escape($value.name);
 $out+=':';
 $out+=$escape($index);
-$out+='</li>\n	';
+$out+='</li>\r\n	';
 });
-$out+='\n</ul>\n';
+$out+='\r\n</ul>\r\n';
 return new String($out);
 }
 
@@ -70,7 +70,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "ul.lists li{line-height:40px;text-indent:20px}", ""]);
+exports.push([module.i, "ul.lists li{line-height:80px;text-indent:20px;border-radius:4px;display:-webkit-box;display:-ms-flexbox;display:flex}", ""]);
 
 // exports
 
@@ -92,8 +92,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/sass-loader/lib/loader.js!./list.scss", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/sass-loader/lib/loader.js!./list.scss");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/postcss-loader/index.js??ref--1-3!./list.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--1-1!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/postcss-loader/index.js??ref--1-3!./list.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -105,4 +105,4 @@ if(false) {
 /***/ })
 
 });
-//# sourceMappingURL=0-0.common.js.map?5f0c9597566b883e9bed
+//# sourceMappingURL=0-0.common.js.map?5581002a3761f3c3a925

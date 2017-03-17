@@ -1,6 +1,8 @@
 ul.lists{
 	li{
-		line-height: 40px;
+		line-height: 80px;
 		text-indent:20px;
+		border-radius: 4px;
+		display: flex;
 	}
 }
