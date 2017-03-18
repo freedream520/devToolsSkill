@@ -22,43 +22,7 @@ $("#loadSyncModule").on("click",function(){
 		var header=new Header({title:"title"});
 		$("#header").html(header.tpl);
 		console.log("click loaded");
-	});
+	},"swiper");
 });
 
 
-
-if(console.log("hello")){
-	console.log("hello");
-}
-else{
-	console.log("world");
-}
-
-
-if((function(){console.log("hello");return false;})()){
-	console.log("hello");
-}
-else{
-	console.log("world");
-}
-
-
-if(setTimeout(function(){
-	console.log("world");
-},0)){
-	console.log("hello");
-}
-else{
-	console.log("world");
-}
-
-function *yids(){
-    var a=0;
-    var b=1;
-    while(true){
-        yield a;
-        [a,b]=[b,a+b]
-    }
-}
-var [a,b,c,d,e,f]=yids();
-console.log(a,b,c,d,e,f);

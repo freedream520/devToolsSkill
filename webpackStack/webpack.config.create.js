@@ -24,6 +24,7 @@ module.exports=function(_config){//_config {debug:boolen}
 	var config=_config||{};
 	var debug=config.debug;
 	
+	
 
 	var webpack=require("webpack");
 	var webWebpackPlugin=require("web-webpack-plugin");
@@ -69,13 +70,13 @@ module.exports=function(_config){//_config {debug:boolen}
 		context: __dirname,
 		devtool:debug?"cheap-module-source-map":false,
 		entry:Object.assign(jsFiles,{
-			"js/flexible-zepto":["flexible",'zepto',"commonCss"]
+			"js/js-css-base":["flexible",'zepto',"commonCss"]
 		}),
 		output:{
 			path:OUT_PATH,
 			filename:"[name].min.js",
 			publicPath:publicPath,
-			chunkFilename:"/async/[name]-[id].common.js?[chunkhash]"//require.ensure指定的异步模块
+			chunkFilename:"/async/[name]-[id].common.js?[chunkhash]"//require.ensure指定的异步模块 name是ensure的第三个参数的名字 id是模块id
 		},
 		module:{
 			rules:[
@@ -101,7 +102,7 @@ module.exports=function(_config){//_config {debug:boolen}
 						{
 							loader:"postcss-loader",
 							options:{
-								browsers:["last 10 versions"]
+								browsers:["last 2 Chrome versions", "last 5 Firefox versions", "Safari >= 6", "ie > 8"]
 							}
 						}
 					]
@@ -186,22 +187,22 @@ module.exports=function(_config){//_config {debug:boolen}
 						return [autoprefixer];
 					}
 				}
-			})
+			}),
 	     // new WebPlugin({
 	     // 	template: __dirname + "/template.html",
 	     // 	filename:"../../../index0.html",
 	     // 	requires:Object.keys(jsFiles)
 	     // }),
-	    // new webpack.optimize.UglifyJsPlugin({
-		   //  beautify: true,// 最紧凑的输出
-		   //  comments: false,// 删除所有的注释
-		   //  compress: {
-		   //    warnings: false,// 在UglifyJs删除没有用到的代码时不输出警告  
-		   //    drop_console: true,// 删除所有的 `console` 语句
-		   //    collapse_vars: true,// 内嵌定义了但是只用到一次的变量
-		   //    reduce_vars: true,// 提取出出现多次但是没有定义成变量去引用的静态值
-		   //  }
-	    // }),
+	    new webpack.optimize.UglifyJsPlugin({
+		    beautify: debug? true :false,// 最紧凑的输出
+		    comments: debug? true :false,// 删除所有的注释
+		    compress: {
+		      warnings: false,// 在UglifyJs删除没有用到的代码时不输出警告  
+		      drop_console: false,// 删除所有的 `console` 语句
+		      collapse_vars: false,// 内嵌定义了但是只用到一次的变量
+		      reduce_vars: false,// 提取出出现多次但是没有定义成变量去引用的静态值
+		    }
+	    }),
 	    // new webpack.optimize.DedupePlugin(),//插件去重
 	   // new ExtractTextPlugin({
 	   //    filename:function(getpath){
