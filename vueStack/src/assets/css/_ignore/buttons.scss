@@ -1,16 +1,15 @@
-@import "./base";
 @import "./mixin";
 @import "./theme";
 
 //颜色   尺寸  整行块状按钮   边框式按钮   填充式按钮
-
+@include dpr(".btn",16px);
 .btn {
   	display: inline-block;
-  	padding: 6px 30px;
+  	padding: pxToRem(6) pxToRem(30);
   	margin-bottom: 0;
-  	font-size: 14px;
+  	// font-size: 14px;
   	font-weight: normal;
-  	line-height: 20px;
+  	line-height: pxToRem(50);
   	text-align: center;
   	white-space: nowrap;
   	vertical-align: middle;
@@ -23,7 +22,7 @@
           user-select: none;
   	background-image: none;
   	border: 1px solid transparent;
-  	border-radius: 4px;
+  	border-radius: pxToRem(6);
   	@include boxSizing(border-box);
 
   	&:focus{
@@ -36,10 +35,10 @@
 		text-decoration: none;
   	}
 
-
-	&.btn-outline {
-		transition: all .5s;
-	}
+    
+  	&.btn-outline {
+  		transition: all .5s;
+  	}
 
   	//颜色
   	&.btn-default {
@@ -113,10 +112,10 @@
 		}
   	}
 
-  	&.btn-block {
-	  	display: block;
-	  	width: 100%;
-	}
+  	&.btn-block{
+      display: block;
+      margin:pxToRem(30);
+    }
 	&.btn-block + &.btn-block {
 	  	margin-top: 7px;
 	}

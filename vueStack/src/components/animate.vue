@@ -23,7 +23,7 @@
         page:this.page,
         count:this.page*this.count
       };
-      this.$http.get(url,param).then(function(response){
+      this.$http.(url,param).then(function(response){
         console.log(response,response.body);
         alert(123);
       },function(error){
