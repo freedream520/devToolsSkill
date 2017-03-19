@@ -18,7 +18,6 @@
 </template>
 
 <script>
-  import footer from "components/footer.vue";
 
   export default {
     data:function(){
@@ -29,7 +28,7 @@
           {text:"vue",icon:"icon-shouye",link:"/vue"},
           {text:"router",icon:"icon-wodedingdan",link:"/router"},
           {text:"vuex",icon:"icon-wodeyouhuiquan",link:"/vuex"},
-          {text:"动画",icon:"icon-wodejuhuasuan",link:"/animate"},
+          {text:"电影",icon:"icon-wodejuhuasuan",link:"/lists"},
         ],
       }
     },

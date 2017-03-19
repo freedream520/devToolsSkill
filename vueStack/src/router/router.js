@@ -7,7 +7,7 @@ import RouterA from "components/RouterA";
 import RouterC from "components/RouterC";
 import Vuex from "components/vuex";
 
-const Animate = r => require.ensure([], () => r(require('components/animate')), 'animate');
+const lists = r => require.ensure([], () => r(require('components/lists/lists')), 'lists');
 const Login = function (resolve){
 	require.ensure([],function(){
 		resolve(require('components/login'));
@@ -76,8 +76,8 @@ const routes=[
 				}
 			},
 			{
-				path:"animate",
-				component:Animate
+				path:"lists",
+				component:lists
 			}
 		]
 	},
@@ -88,7 +88,7 @@ const routes=[
 	{
 		path:"/routerC",
 		component:RouterC
-	},
+	}
 ];
 
 export default routes;
