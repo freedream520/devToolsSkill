@@ -126,6 +126,10 @@ webpackJsonp([5],{
 	    }
 	  }, [_vm._v("跳转到本页路由(footer不会变)：/router1")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
 	    attrs: {
+	      "to": "/router/router1"
+	    }
+	  }, [_vm._v("跳转到本页路由(footer不会变)：/router/router1")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
+	    attrs: {
 	      "to": "/routerC"
 	    }
 	  }, [_vm._v("跳转到顶层路由：/routerC")])], 1), _vm._v(" "), _c('li', [_c('router-link', {

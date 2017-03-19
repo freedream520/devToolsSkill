@@ -9,7 +9,7 @@ webpackJsonp([4],{
 
 	var Component = __webpack_require__(18)(
 	  /* script */
-	  __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"!!babel-loader!../../node_modules/.npminstall/vue-loader/10.3.0/vue-loader/lib/selector?type=script&index=0!./animate.vue\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	  __webpack_require__(55),
 	  /* template */
 	  __webpack_require__(56),
 	  /* scopeId */
@@ -78,6 +78,46 @@ webpackJsonp([4],{
 
 	// exports
 
+
+/***/ },
+
+/***/ 55:
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  data: function data() {
+	    return {
+	      title: "animate",
+	      page: 1,
+	      count: 10
+	    };
+	  },
+	  created: function created() {
+
+	    var url = "https://m.qbm360.com/api/getBorrowList.html?currentPage=1&pernum=10000&requestType=new&brokers=0";
+	    var url = "http://m.maizuo.com/v4/api/film/now-playing";
+
+	    var param = {
+	      page: this.page,
+	      count: this.page * this.count
+	    };
+	    this.$http.get(url, param).then(function (response) {
+	      console.log(response, response.body);
+	      alert(123);
+	    }, function (error) {
+	      console.log(error);
+	      alert("error");
+	    });
+	  },
+	  methods: {},
+	  computed: {},
+	  components: {}
+	};
 
 /***/ },
 

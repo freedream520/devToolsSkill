@@ -12,6 +12,7 @@
       <li><router-link to="routerC">跳转到本页路由( header footer不会变)：routerC</router-link></li>
       <li><router-link to="/router/routerC">跳转到本页路由( header footer不会变)：/router/routerC</router-link></li>
       <li><router-link to="/router1">跳转到本页路由(footer不会变)：/router1</router-link></li>
+      <li><router-link to="/router/router1">跳转到本页路由(footer不会变)：/router/router1</router-link></li>
       <li><router-link to="/routerC">跳转到顶层路由：/routerC</router-link></li>
       <li><router-link to="/login">点击跳转到根路由：/login</router-link></li>
     </ul>

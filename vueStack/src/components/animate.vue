@@ -9,7 +9,7 @@
   export default {
     data:function(){
       return {
-        title:"我的",
+        title:"animate",
         page:1,
         count:10
       }
@@ -23,7 +23,7 @@
         page:this.page,
         count:this.page*this.count
       };
-      this.$http.(url,param).then(function(response){
+      this.$http.get(url,param).then(function(response){
         console.log(response,response.body);
         alert(123);
       },function(error){

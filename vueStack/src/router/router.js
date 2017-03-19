@@ -62,6 +62,10 @@ const routes=[
 				]
 			},
 			{
+				path:"/router/router1",
+				component:RouterC
+			},
+			{
 				path:"/router1",
 				component:RouterC
 			},

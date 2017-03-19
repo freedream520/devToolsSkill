@@ -7,7 +7,7 @@
     <div class="footer">
       <ul>
         <li v-for="(nav,i) in items" class="text-center"  >
-          <router-link :to="nav.link" exact>
+          <router-link :to="nav.link" >
             <i class="iconfont" :class="nav.icon"></i>
             <p v-text="nav.text"></p>
           </router-link>
@@ -27,7 +27,7 @@
         activeIndex:0,
         items:[
           {text:"vue",icon:"icon-shouye",link:"/vue"},
-          {text:"router",icon:"icon-wodedingdan",link:"/router/routerA"},
+          {text:"router",icon:"icon-wodedingdan",link:"/router"},
           {text:"vuex",icon:"icon-wodeyouhuiquan",link:"/vuex"},
           {text:"动画",icon:"icon-wodejuhuasuan",link:"/animate"},
         ],
