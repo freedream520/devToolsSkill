@@ -27,7 +27,7 @@
         activeIndex:0,
         items:[
           {text:"vue",icon:"icon-shouye",link:"/vue"},
-          {text:"router",icon:"icon-wodedingdan",link:"/router"},
+          {text:"router",icon:"icon-wodedingdan",link:"/router/routerA"},
           {text:"vuex",icon:"icon-wodeyouhuiquan",link:"/vuex"},
           {text:"动画",icon:"icon-wodejuhuasuan",link:"/animate"},
         ],

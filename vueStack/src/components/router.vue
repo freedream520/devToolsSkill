@@ -2,7 +2,7 @@
   <div>
     <div class="tab-wraper">
       <ul>
-        <li class="text-center"><router-link to="/router/routerA" replace>routerA</router-link></li>
+        <li class="text-center"><router-link to="routerA" replace>routerA</router-link></li>
         <li class="text-center"><router-link to="/router/routerB" replace>routerB</router-link></li>
       </ul>
     </div>
