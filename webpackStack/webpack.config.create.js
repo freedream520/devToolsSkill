@@ -188,11 +188,11 @@ module.exports=function(_config){//_config {debug:boolen}
 					}
 				}
 			}),
-	     // new WebPlugin({
-	     // 	template: __dirname + "/template.html",
-	     // 	filename:"../../../index0.html",
-	     // 	requires:Object.keys(jsFiles)
-	     // }),
+	     new WebPlugin({
+	     	template: __dirname + "/src/views/index.html",
+	     	filename:"../views/index.html",
+	     	requires:["js/js-css-base","js/page/app"]
+	     }),
 	    new webpack.optimize.UglifyJsPlugin({
 		    beautify: debug? true :false,// 最紧凑的输出
 		    comments: debug? true :false,// 删除所有的注释
