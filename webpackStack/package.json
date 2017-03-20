@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "webpack --config ./webpack.config.dev.js -w",
     "buildD": "gulp pack --env dev",
-    "buildP": "gulp pack --env production"
+    "buildP": "gulp pack --env production",
+    "server":"webpack-dev-server --inline --config ./webpack.config.dev.js"
   },
   "author": "",
   "license": "ISC",
@@ -45,6 +46,7 @@
     "template": "^0.17.5",
     "url-loader": "^0.5.8",
     "web-webpack-plugin": "^1.3.6",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2"
   }
 }

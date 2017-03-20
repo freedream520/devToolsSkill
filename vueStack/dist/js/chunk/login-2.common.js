@@ -1,17 +1,17 @@
 webpackJsonp([2],{
 
-/***/ 52:
+/***/ 57:
 /***/ function(module, exports, __webpack_require__) {
 
 	
 	/* styles */
-	__webpack_require__(53)
+	__webpack_require__(58)
 
 	var Component = __webpack_require__(18)(
 	  /* script */
-	  __webpack_require__(55),
+	  __webpack_require__(60),
 	  /* template */
-	  __webpack_require__(56),
+	  __webpack_require__(61),
 	  /* scopeId */
 	  "data-v-50465eac",
 	  /* cssModules */
@@ -39,13 +39,13 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 53:
+/***/ 58:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(54);
+	var content = __webpack_require__(59);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	if(content.locals) module.exports = content.locals;
 	// add the styles to the DOM
@@ -66,7 +66,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 54:
+/***/ 59:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(13)();
@@ -81,7 +81,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 55:
+/***/ 60:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -92,22 +92,28 @@ webpackJsonp([2],{
 	exports.default = {
 	  data: function data() {
 	    return {
-	      title: "登陆",
-	      name: "lucy12"
+	      title: "登陆"
+
 	    };
 	  },
 	  methods: {
 	    login: function login() {
+	      var user = this.$refs.user.value;
+	      this.$store.commit("USER", user);
 	      this.$router.replace("/");
 	    }
 	  },
-	  computed: {},
+	  computed: {
+	    user: function user() {
+	      return this.$store.state.user;
+	    }
+	  },
 	  components: {}
 	};
 
 /***/ },
 
-/***/ 56:
+/***/ 61:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -120,20 +126,21 @@ webpackJsonp([2],{
 	    directives: [{
 	      name: "model",
 	      rawName: "v-model",
-	      value: (_vm.name),
-	      expression: "name"
+	      value: (_vm.user),
+	      expression: "user"
 	    }],
+	    ref: "user",
 	    staticClass: "input",
 	    attrs: {
 	      "type": "text"
 	    },
 	    domProps: {
-	      "value": (_vm.name)
+	      "value": (_vm.user)
 	    },
 	    on: {
 	      "input": function($event) {
 	        if ($event.target.composing) { return; }
-	        _vm.name = $event.target.value
+	        _vm.user = $event.target.value
 	      }
 	    }
 	  }), _vm._v(" "), _c('span', {

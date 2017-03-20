@@ -5,8 +5,8 @@ vue.use(Vuex);
 
 //state
 const state={
-	count:0,
-	userName:"习大大"
+	count:localStorage.getItem("count")||0,
+	user:localStorage.getItem("user")||""
 };
 
 
@@ -14,8 +14,13 @@ const state={
 //mutations
 const mutations={
    ADD(state,payload) {
-   	console.log(payload);
-     	state.count+=payload;
+   	
+    state.count=state.count*1+payload*1;
+    localStorage.setItem("count",state.count);
+   },
+   USER(state,payload){
+   	state.user=payload;
+   	localStorage.setItem("user",payload);
    }
 };
 

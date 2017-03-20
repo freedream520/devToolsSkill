@@ -180,7 +180,7 @@
         return this.$store.state.count
       },
       userName(){
-        return this.$store.state.userName
+        return this.$store.state.user
       }
     },
     components:{

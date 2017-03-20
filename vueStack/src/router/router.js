@@ -8,6 +8,8 @@ import RouterC from "components/RouterC";
 import Vuex from "components/vuex";
 
 const lists = r => require.ensure([], () => r(require('components/lists/lists')), 'lists');
+const filmDetail = r => require.ensure([], () => r(require('components/lists/detail/detail')), 'filmDetail');
+
 const Login = function (resolve){
 	require.ensure([],function(){
 		resolve(require('components/login'));
@@ -88,7 +90,12 @@ const routes=[
 	{
 		path:"/routerC",
 		component:RouterC
-	}
+	},
+	{
+		path:"/film/detail/:index",
+		component:filmDetail
+	},
+	
 ];
 
 export default routes;

@@ -1,10 +1,13 @@
 <template>
-  <div class="detail_wraper">
-    <p class="back" @click="back">点击返回</p>
-    <img :src="filmMsg.image" alt="">
+  <div class="detail_wraper text-center">
+    <h3 class="back text-left" @click="back">点击返回</h3>
+    <p v-text="filmMsg.name" ></p>
+    <img :src="filmMsg.image" :alt="filmMsg.name">
+    <p v-text="filmMsg.desc"></p>
     <p v-text="filmMsg.info"></p>
     <p v-text="filmMsg.title"></p>
-    <img :src="filmMsg.image" alt="">
+    
+    <p>播放地址：<a :href="filmMsg.play_url">点击播放</a></p>
   </div>
 </template>
 
@@ -13,20 +16,33 @@
   export default {
     data:function(){
       return {
-        
+        filmMsg:{}
       }
     },
-    props:{
-      filmMsg:Object,
-      detailShow:Object
-    },
     created:function(){
-      this.filename=this.$route.params.name;
+      var self=this;
+      var url="http://rc.mgtv.com/msite/rank";
+      var index=this.$route.params.index;
+      index=index?index.split("-"):[0,0];
+      console.log(index);
+      var param={
+        c:3,
+        limit:4,
+        t:"day",
+        callback:"aaa"
+      };
+      this.$http.jsonp(url,param).then(function(response){
+        console.log(response.body.data);
+        this.filmMsg=response.body.data[index[0]].body[index[1]];
+      },function(error){
+        console.log("error:",error);
+      });
+      
     },
     methods:{
       back:function(){
-        console.log("back");
-        this.detailShow.show=false;
+        
+        this.$router.go(-1);
       }
     },
     computed:{
@@ -43,19 +59,15 @@
 <style scoped lang="sass">
   @import "../../../assets/css/_ignore/mixin";
   .detail_wraper{
+    img{
+      width: 7rem;
+    }
     .back{
       line-height: pxToRem(80);
     }
-    position: fixed;
-    z-index: 100;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    overflow-y: scroll;
-    top:0;
-    left:0;
-    img{
-      width: 100%;
+    >p{
+      line-height: pxToRem(50);
     }
+    
   }
 </style>

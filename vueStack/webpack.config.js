@@ -14,10 +14,10 @@ module.exports={
 		chunkFilename:"/chunk/[name]-[id].common.js?[chunkhash]"//非主文件的命名规则
 	},
 	module:{
-		loaders:[
-			{test:/\.css$/,loader:"!style!css"},
-			{test:/\.scss$/,loader:"!style!css!scss"},
-			{test: /\.json$/,loader: "json"},
+		rules:[
+			{test:/\.css$/,loader:["style-loader","css-loader"]},
+			{test:/\.scss$/,loader:["style-loader","css-loader","scss-loader"]},
+			{test: /\.json$/,loader: "json-loader"},
 			{test: /\.vue$/,loader: "vue-loader"},
 			{
 				test: /\.js$/,
@@ -26,12 +26,12 @@ module.exports={
 			},
 			{
 				test: /\.(png|jpe?g|eot|svg|ttf|woff2?)$/,
-            loader: "url?name=image/[name].[ext]"
+	            loader: "url-loader?name=image/[name].[ext]"
 			}
 		]
 	},
 	resolve:{
-		extensions:["",".css",".scss",".js",".vue"],
+		extensions:[".css",".scss",".js",".vue"],
 		alias:{
 			"components":path.resolve(__dirname,"./src/components/"),
 			"vue" : path.resolve(__dirname,'./node_modules/vue/dist/vue'),
@@ -45,8 +45,8 @@ module.exports={
     //     warnings: false
     //   }
     // }),
-    new webpack.optimize.DedupePlugin(),//插件去重
-    new ExtractTextPlugin("style.css"),
+    // new webpack.optimize.DedupePlugin(),//插件去重
+    // new ExtractTextPlugin("style.css"),
     // new webpack.optimize.CommonsChunkPlugin('common.js'),//公共模块的提取
   ],
 }
