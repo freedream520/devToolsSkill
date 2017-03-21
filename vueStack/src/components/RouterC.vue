@@ -1,6 +1,7 @@
 <template>
   <div>
     <h4 class="text-center" v-text="title"></h4>
+    <router-link to="testRelativePath" tag="h3" class="fc-link">点击查看该相对路由的最终生成路径 to:testRelativePath</router-link>
   </div>
 </template>
 

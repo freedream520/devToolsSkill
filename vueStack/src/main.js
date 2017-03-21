@@ -6,7 +6,6 @@ import Vue from 'vue';
 import vuex from "vuex";
 import Validator from "vue-validator";
 import routes from "./router/router";
-import App from './App';
 import store from "./store/store";
 
 Vue.use(vueRouter);
@@ -20,5 +19,4 @@ window.vm=new Vue({
   el: '#app',
   store,
   router,
-  components: {"v-app": App }
 })

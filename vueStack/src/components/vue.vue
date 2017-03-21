@@ -18,6 +18,9 @@
       <dd>6.表单校验（vue-validator）</dd>
       <dd>7.ui组件 Mint-ui</dd>
     </dl>
+
+    <router-link to="/router/routerB">点击跳转链接：／router/routerB</router-link>
+    
     <dl>
       <dt>常见功能</dt>
       <dd>1.饿了么的移动端网站</dd>

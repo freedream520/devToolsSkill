@@ -51,7 +51,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   data: function data() {
     return {
-      title: "路由跳转示例"
+      title: "路由A"
     };
   },
   methods: {},
@@ -69,7 +69,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "\n.link-lists[data-v-5c10dcfa] {\n  margin: 0.53333rem auto;\n  border: 1px solid #0f0;\n}\n.link-lists li[data-v-5c10dcfa] {\n    text-indent: 0.66667rem;\n    line-height: 1.06667rem;\n    border-bottom: 1px solid #2f6;\n}\n", ""]);
+exports.push([module.i, "\n.a-wrap[data-v-5c10dcfa] {\n  font-size: 16px;\n}\n[data-dpr=\"1\"] .a-wrap[data-v-5c10dcfa] {\n  font-size: 16px;\n}\n[data-dpr=\"2\"] .a-wrap[data-v-5c10dcfa] {\n  font-size: 32px;\n}\n[data-dpr=\"2.5\"] .a-wrap[data-v-5c10dcfa] {\n  font-size: 40px;\n}\n[data-dpr=\"2.75\"] .a-wrap[data-v-5c10dcfa] {\n  font-size: 44px;\n}\n[data-dpr=\"3\"] .a-wrap[data-v-5c10dcfa] {\n  font-size: 48px;\n}\n[data-dpr=\"4\"] .a-wrap[data-v-5c10dcfa] {\n  font-size: 64px;\n}\n.a-wrap dl dd[data-v-5c10dcfa] {\n  font-size: 14px;\n}\n[data-dpr=\"1\"] .a-wrap dl dd[data-v-5c10dcfa] {\n  font-size: 14px;\n}\n[data-dpr=\"2\"] .a-wrap dl dd[data-v-5c10dcfa] {\n  font-size: 28px;\n}\n[data-dpr=\"2.5\"] .a-wrap dl dd[data-v-5c10dcfa] {\n  font-size: 35px;\n}\n[data-dpr=\"2.75\"] .a-wrap dl dd[data-v-5c10dcfa] {\n  font-size: 38.5px;\n}\n[data-dpr=\"3\"] .a-wrap dl dd[data-v-5c10dcfa] {\n  font-size: 42px;\n}\n[data-dpr=\"4\"] .a-wrap dl dd[data-v-5c10dcfa] {\n  font-size: 56px;\n}\n.a-wrap[data-v-5c10dcfa] {\n  padding-bottom: 2.66667rem;\n}\ndl dt[data-v-5c10dcfa] {\n  line-height: 0.53333rem;\n  font-weight: 600;\n  margin: 0.26667rem 0;\n}\ndl dd[data-v-5c10dcfa] {\n  line-height: 0.53333rem;\n  margin: 0.13333rem 0;\n}\nul[data-v-5c10dcfa] {\n  margin-top: 0.66667rem;\n}\nul li[data-v-5c10dcfa] {\n    line-height: 0.66667rem;\n    margin: 0.26667rem 0;\n}\n", ""]);
 
 // exports
 
@@ -80,49 +80,42 @@ exports.push([module.i, "\n.link-lists[data-v-5c10dcfa] {\n  margin: 0.53333rem 
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h4', {
+  return _c('div', {
+    staticClass: "a-wrap"
+  }, [_c('h4', {
     domProps: {
       "textContent": _vm._s(_vm.title)
     }
-  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('ul', {
-    staticClass: "link-lists"
-  }, [_c('li', [_c('router-link', {
-    attrs: {
-      "to": "routerC"
-    }
-  }, [_vm._v("跳转到本页路由( header footer不会变)：routerC")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
-    attrs: {
-      "to": "/router/routerC"
-    }
-  }, [_vm._v("跳转到本页路由( header footer不会变)：/router/routerC")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
-    attrs: {
-      "to": "/router1"
-    }
-  }, [_vm._v("跳转到本页路由(footer不会变)：/router1")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
-    attrs: {
-      "to": "/router/router1"
-    }
-  }, [_vm._v("跳转到本页路由(footer不会变)：/router/router1")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
-    attrs: {
-      "to": "/routerC"
-    }
-  }, [_vm._v("跳转到顶层路由：/routerC")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
-    attrs: {
-      "to": "/login"
-    }
-  }, [_vm._v("点击跳转到根路由：/login")])], 1)]), _vm._v(" "), _c('ul', {
-    staticClass: "link-lists"
-  }, [_c('li', [_c('router-link', {
-    attrs: {
-      "to": "/"
-    }
-  }, [_vm._v("点击跳转到首页：/")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
-    attrs: {
-      "to": "/vuex"
-    }
-  }, [_vm._v("点击跳转到vuex：/vuex")])], 1)])])
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('p', [_vm._v("根页面需要有顶级的router－view ：指定顶极页面的渲染位置")]), _vm._v(" "), _c('p', [_vm._v("router里面规定了路由的层级以及在哪一个组件的router－view中渲染")]), _vm._v(" "), _c('p', [_vm._v("router－link中的to 可以是相对路径  也可以是绝对路径 但一定要和路由表中的一致")]), _vm._v(" "), _c('p', [_vm._v("如果是相对路径，如果该组件没有子路由，会渲染在什么地方呢？会渲染到替换该组件的router－view里面")]), _vm._v(" "), _c('p')])
+  return _c('dl', [_c('dt', [_vm._v("vue")]), _vm._v(" "), _c('dd', [_vm._v("（饿了么教程看明白，想通透）")]), _vm._v(" "), _c('dd'), _vm._v(" "), _c('dd', [_vm._v("组件的按需加载（减少主文件的体积，模块切割，按需加载）")]), _vm._v(" "), _c('dd', [_vm._v("热更新（单页应用中修改代码后实现局部更新）")]), _vm._v(" "), _c('dd', [_vm._v("node服务和java或者php服务的共存")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('dl', [_c('dt', [_vm._v("vue-router")]), _vm._v(" "), _c('dd', [_c('a', {
+    staticClass: "fc-link",
+    attrs: {
+      "href": "https://segmentfault.com/a/1190000008082838"
+    }
+  }, [_vm._v("单页面router教程")])]), _vm._v(" "), _c('dd', [_vm._v("router-link-active会根据router的名字匹配  /vue 和 /vuex 会同时拥有激活的类名")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('dl', [_c('dt', [_vm._v("node")]), _vm._v(" "), _c('dd', [_vm._v("node基础（深入浅出nodejs）")]), _vm._v(" "), _c('dd', [_vm._v("node连接mysql数据库")]), _vm._v(" "), _c('dd', [_vm._v("实现前后端分离，node作为作为中间服务器（渲染页面、转发请求....）"), _c('a', {
+    staticClass: "fc-link",
+    attrs: {
+      "href": "https://segmentfault.com/a/1190000007992200"
+    }
+  }, [_vm._v("教程地址")])]), _vm._v(" "), _c('dd')])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('dl', [_c('dt', [_vm._v("webpack")]), _vm._v(" "), _c('dd', [_c('a', {
+    staticClass: "fc-link",
+    attrs: {
+      "href": "https://segmentfault.com/a/1190000007892189"
+    }
+  }, [_vm._v("教程地址")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('dl', [_c('dt', [_vm._v("java")]), _vm._v(" "), _c('dd', [_vm._v("java基础，启动简单的服务器，处理请求，连接数据库，简单的sql查询等简单应用场景")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', [_c('li', [_vm._v("4.es6精通 （深入浅出es6）")]), _vm._v(" "), _c('li', [_vm._v("5.webpack精通 （问题收集，解决方案整理）")]), _vm._v(" "), _c('li', [_vm._v("6.单元测试的编写")]), _vm._v(" "), _c('li', [_vm._v("8.自动生成api文档")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', [_c('li', [_vm._v("可以做的事情")]), _vm._v(" "), _c('li', [_vm._v("1.看sagmentdefault上面的关于node、es6、vue的文章部分")]), _vm._v(" "), _c('li')])
 }]}
 module.exports.render._withStripped = true
 if (false) {

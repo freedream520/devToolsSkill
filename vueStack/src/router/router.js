@@ -54,11 +54,19 @@ const routes=[
 						}
 					},
 					{
+						path:"/routerC",
+						component:RouterC
+					},
+					{
 						path:"routerC",
 						component:RouterC
 					},
 					{
 						path:"/router/routerC",
+						component:RouterC
+					},
+					{
+						path:"router/routerC",
 						component:RouterC
 					},
 				]

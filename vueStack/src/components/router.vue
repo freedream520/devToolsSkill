@@ -2,7 +2,7 @@
   <div>
     <div class="tab-wraper">
       <ul>
-        <li class="text-center"><router-link to="routerA" replace>routerA</router-link></li>
+        <li class="text-center"><router-link to="/router/routerA" replace>routerA</router-link></li>
         <li class="text-center"><router-link to="/router/routerB" replace>routerB</router-link></li>
       </ul>
     </div>
@@ -72,13 +72,9 @@
   }
   .wraper{
     width: 100%;
-    position: absolute;
-    width: 100%;
     border:1px solid #f33;
-    padding:0 pxToRem(20) 0 pxToRem(20);
+    padding:0 pxToRem(20) pxToRem(100) pxToRem(20);
     box-sizing:border-box;
-    top:$headerH;
-    bottom:pxToRem(100);
   }
   .teach-link{
     line-height: pxToRem(60);
