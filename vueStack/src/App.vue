@@ -32,6 +32,7 @@
           {text:"router",icon:"icon-wodedingdan",link:"/router"},
           {text:"vuex",icon:"icon-wodeyouhuiquan",link:"/vuex"},
           {text:"电影",icon:"icon-wodejuhuasuan",link:"/lists"},
+          {text:"动画",icon:"icon-shouye",link:"/animation"},
         ],
       }
     },

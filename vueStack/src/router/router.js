@@ -9,6 +9,7 @@ import Vuex from "components/vuex";
 
 const lists = r => require.ensure([], () => r(require('components/lists/lists')), 'lists');
 const filmDetail = r => require.ensure([], () => r(require('components/lists/detail/detail')), 'filmDetail');
+const Animation = r => require.ensure([], () => r(require('components/animation/animation')), 'animation');
 
 const Login = function (resolve){
 	require.ensure([],function(){
@@ -103,7 +104,10 @@ const routes=[
 		path:"/film/detail/:index",
 		component:filmDetail
 	},
-	
+	{
+		path:"/animation",
+		component:Animation
+	},
 ];
 
 export default routes;
