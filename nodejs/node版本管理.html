@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no,minimum-scale=1.0, maximum-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h4>
+		nvm只适用于mac和linus版本<br>
+		windows只能安装nvmw才可以使用<br>
+		下载nvmw后将nvmw放于环境变量中，即可在命令行中使用
+	</h4>
+
+
+	<p>1. nvmw 下载到本地 git clone https://github.com/hakobera/nvmw.git</p>
+	<p>2.设置环境PATH 添加如上下载的路径（保证nvmw 在任何目录下都能访问）</p>
+	<p>3.nvmw  执行这个命令 查看帮助</p>
+	<p>4.nvmw
+	 install v0.10.21 安装版本（执行非常缓慢，建议在执行前 执行 set"NVMW_NODEJS_ORG_MIRROR=https://npm.taobao.org/dist",
+	 提升效率 ）</p>
+	<p>5.nvmw ls ：查看安装的版本</p>
+	<p>6.nvmw use 0.10.21（我个人发现 不能带版本号前面的v，不知道为什么帮助文档里面有v）</p>
+	<p>7.node -v 查看当前node 的版本号码</p>
+	
+
+	<h4>mac下的安装</h4>
+	<li>1.通过命令行或者brew install nvm</li>
+	<li>2.激活nvm  source ~/.nvm/nvm.sh 每次关掉命令行都需要执行，好蛋疼</li>
+	<li>3.nvm install stable</li>
+	<li>4.nvm ls</li>
+	<li>nvm ls－remote</li>
+	<li>nvm use version</li>	
+	添加环境变量的方法
+	在 ~/wangyu/ 目录下创建 .profile文件并写入环境变量配置
+	添加nvm和node变量
+	export NVM_DIR="/Users/wangyu/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+	export PATH=$PATH:/Users/wangyu/.nvm/versions/node/v7.7.1/bin
+
+
+	<h4>设置全部文件为可见</h4>
+	<li>终端输入如下命令</li>
+	<li>defaults write com.apple.finder AppleShowAllFiles -bool true</li>
+	<li>killall Finder</li>
+	
+
+
+	
+
+
+</body>
+</html>

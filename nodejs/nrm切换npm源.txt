@@ -1,0 +1,5 @@
+npm install -g nrm 			安装nrm至全局
+nrm --version				nrm 版本
+nrm --help					查看nrm的帮助文档
+nrm ls						查看所有的源列表
+nrm use resource			使用某一个源

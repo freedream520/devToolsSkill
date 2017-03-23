@@ -1,0 +1,29 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "nodejs学习中遇到的常见问题",
+  "main": "buffer.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wy2008826/nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wy2008826/nodejs/issues"
+  },
+  "homepage": "https://github.com/wy2008826/nodejs#readme",
+  "devDependencies": {
+    "express": "^4.13.4",
+    "koa": "^1.2.0",
+    "nodemailer": "^2.3.2",
+    "request-json": "^0.6.1",
+    "socket.io": "^1.4.5"
+  }
+}

@@ -1,0 +1,11 @@
+npm install -g supervisor
+supervisor process.js
+
+其他重要的参数
+
+-w | --watch   			supervisor -w a,app.js,server.js 		要监控的文件夹或者文件
+-e | --extensions												要监控的文件的扩展名
+-i | --ignore													要忽略的文件
+
+
+supervisor -w py_scripts -e 'py'								综合应用

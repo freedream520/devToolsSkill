@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"> 
+		<meta content="yes" name="apple-touch-fullscreen"> 
+		<meta content="telephone=no,email=no" name="format-detection"> 	
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="x5-fullscreen"content="true"/>
+		<meta name="full-screen"content="yes">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>npm命令集合</title>
+	</head>
+	<body>
+		<h4>可以查看npm官网的api列表</h4>
+		<a >具体细节可以参考阮一峰的标准参考教程</a>
+		
+		<ul>
+			<li>npm update module_name</li>
+			<li>npm install webpack@1.12.x  安装指定版本</li>
+			<li>npm ls -g </li>
+			<li>npm ls -depth 0 :依赖模块的深度展示</li>
+			<li>npm info module_name</li>
+			<li>npm search   (使用cnpm search可以在浏览器中显示搜索结果，很人性化)</li>
+			
+
+			<li>npm run (不加参数会列出所有的可执行命令，很有用哦)</li>
+			<li>npm run  comandName  (执行package.json文件中的scripts指令。会临时把本地模块添加到全局环境中，不用全局安装)</li>
+			<li>npm run build "build": "npm run build-js && npm run build-css" :先执行前者再执行后者</li>
+			<li>npm run build "build": "npm run build-js & npm run build-css" :两者并行执行</li>
+			<li>npm run test -- aa.js  如果要传递参数  需要在参数前面加两个-</li>
+			
+		</ul>
+	</body>
+</html>
+	

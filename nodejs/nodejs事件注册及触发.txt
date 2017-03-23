@@ -1,0 +1,15 @@
+var EventEmitter=require("events").EventEmitter;
+var event=new EventEmitter();
+
+event.on("click",callback);
+
+function callback(){
+  console.log("event has happened!");
+}
+
+setTimeout(function(){
+  event.emit("click");
+},1000);
+
+
+
