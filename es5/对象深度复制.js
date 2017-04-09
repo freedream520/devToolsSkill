@@ -1,4 +1,5 @@
 //数据格式局限于字符串 数字 对象 数组
+//for in 会导致数据的字段顺序被打乱  可以使用Object.keys(o);
 
 var origin={
 	name:"join",
@@ -51,8 +52,7 @@ function deepCopy(src){
 	if(isArray(src)){
 		dist=[];
 	}
-
-	for(key in src){
+	Object.keys(src).forEach(function(key){
 		var value=src[key];
 		if(isNotObject(value)){
 			dist[key]=value;
@@ -60,7 +60,16 @@ function deepCopy(src){
 		else{
 			dist[key]=deepCopy(value);
 		}
-	}
+	});
+	// for(key in src){
+	// 	var value=src[key];
+	// 	if(isNotObject(value)){
+	// 		dist[key]=value;
+	// 	}
+	// 	else{
+	// 		dist[key]=deepCopy(value);
+	// 	}
+	// }
 	return dist;
 }
 
