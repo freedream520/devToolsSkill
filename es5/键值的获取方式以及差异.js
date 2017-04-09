@@ -1,5 +1,9 @@
-//Object.keys() 获取不到原型链上的属性   属性顺序会被打乱
-// for in       可以获取到原型链上以及继承的父类的属性 属性顺序不会被打乱
+// 不可枚举属性   array的length
+
+//Object.keys() 获取不到原型链上的可枚举属性   属性顺序不会被打乱
+// Object.getOwnPropertyNames(obj) 包含对象自身的所有属性（包括不可枚举属性，不包含Symbol属性）
+// for in       可以获取到原型链上以及继承的父类的可枚举属性  属性顺序会被打乱
+
 
 function Walk(){
 	this.speed=100;
