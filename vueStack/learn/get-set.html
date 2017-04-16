@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>get-set</title>
+</head>
+<body>
+	
+	<script>
+		var o={
+			_name:"习大大",
+			name:"",
+			inner:{
+				age:""
+			},
+			arr:[]
+		}
+		Object.defineProperty(o,"name",{
+			get:function(){
+				console.log("get name");
+				return this._name;
+			},
+			set:function(a){
+				console.log(a,"set name");
+			}
+		});
+
+		Object.defineProperty(o,"inner",{
+			get:function(){
+				console.log("get inner");
+				return {age:""}
+				
+			},
+			set:function(a){
+				console.log(a,"set inner");
+			}
+		});
+
+		Object.defineProperty(o,"inner.age",{
+			get:function(){
+				console.log("get inner.age");
+				return 24;
+			},
+			set:function(a){
+				console.log(a,"set inner.age");
+			}
+		});
+
+		Object.defineProperty(o,"arr",{
+			get:function(){
+				console.log("get arr");
+				return [];
+			},
+			set:function(a){
+				console.log(a,"set arr");
+			}
+		});
+
+		console.log(o)
+	</script>
+</body>
+</html>
