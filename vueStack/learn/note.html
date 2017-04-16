@@ -6,6 +6,9 @@
 </head>
 <body>
   <ul>
+    <li>计算属性中所有的依赖都需要提前设置默认值，不然不会动态改变   </li>
+    <li>不能直接改计算属性的值 比如在arr中push成功了 但是刷新的时候由于是重新get  会重新计算并根据依赖生成新的值   就会覆盖掉直接修改的值</li>
+    <li>那么问题来了？data改变的时候  是怎么通知compute属性触发get的？</li>
    
     <li>数据  Arr 和 arr的区别？</li>
   </ul>
@@ -31,7 +34,10 @@
           isLogined:false,
           name:"习大大",
           age:50,
-          o:{},
+          o:{
+            "复投勋章":0,
+            "追加勋章":0
+          },
           Arr:[
             {name:"a"}
           ]
@@ -41,6 +47,7 @@
             return this.name+":"+this.age;
           },
           arr:function () {
+
             var text1=this.$data.isLogined?(this.$data.o["复投勋章"]==1?"已点亮":"未点亮"):"登录可见";
             var text2=this.$data.isLogined?(this.$data.o["追加勋章"]==1?"已点亮":"未点亮"):"登录可见";
             return [
