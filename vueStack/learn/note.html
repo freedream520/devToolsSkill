@@ -6,10 +6,15 @@
 </head>
 <body>
   <ul>
+    <li>数组会动态更新的  只是强制改变计算属性不会动态更新</li>
     <li>计算属性中所有的依赖都需要提前设置默认值，不然不会动态改变   </li>
-    <li>不能直接改计算属性的值 比如在arr中push成功了 但是刷新的时候由于是重新get  会重新计算并根据依赖生成新的值   就会覆盖掉直接修改的值</li>
+    <li>不能直接改计算属性的值 ，不会触发set，比如在arr中push成功了 但是刷新的时候由于是重新get  会重新计算并根据依赖生成新的值   就会覆盖掉直接修改的值</li>
+    <li>如果强制更新了计算属性  可以 使用vm.$forceUpdate()强制同步数据 强烈不建议这么做，因为任何改动data的地方都可能触发计算属性的重新计算，强制更新的数据就会被覆盖掉 </li>
+
+
     <li>那么问题来了？data改变的时候  是怎么通知compute属性触发get的？</li>
-   
+    <li>为什么islogined改变会触发更新  而o改变不会触发更新</li>
+
     <li>数据  Arr 和 arr的区别？</li>
   </ul>
 
@@ -35,8 +40,8 @@
           name:"习大大",
           age:50,
           o:{
-            "复投勋章":0,
-            "追加勋章":0
+            // "复投勋章":0,
+            // "追加勋章":0
           },
           Arr:[
             {name:"a"}
@@ -64,11 +69,11 @@
 
           //延时改变数据  arr会动态更新
           setTimeout(function(){
-            self.$data.isLogined=true;
-
-            self.nameAge="延时改变名字组合";
+            // self.$data.isLogined=true;//去掉就不会动态更新了
             self.$data.o["复投勋章"]=1;
             self.$data.o["追加勋章"]=0;
+
+            self.nameAge="延时改变名字组合";
             self.arr[0].city="延时内部改变城市名";
             self.arr.push({city:"延时内部push城市对象",persons:4000,text:123});
 
@@ -82,6 +87,7 @@
           //     console.log(data);
           //   },
           //   error:function(){
+          //     // self.$data.isLogined=true;  //加上会动态更新
           //     self.nameAge="异步改变名字组合";
           //     self.arr[0].city="异步内部改变城市名";
           //     self.arr.push({city:"异步内部push城市对象",persons:4000,text:123});
