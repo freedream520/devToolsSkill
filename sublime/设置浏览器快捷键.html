@@ -1,0 +1,21 @@
+在 Sublime Text 3 中，安装 SideBarEnhancements 侧边栏增强插件。
+
+SideBarEnhancements 插件安装完成后，首先为 SideBarEnhancements 指定默认浏览器。打开 " Preference --> Package Settings --> Side Bar --> Settings User-User"
+
+在打开的文件中添加：
+{
+  "default_browser": "chrome" //one of this list: firefox, aurora, chrome, canary, chromium, opera, safari
+}
+
+在 Sublime Text 3 中，打开 "Preference --> Package Settings --> Side Bar --> key Bindings-User"，在打开的文件中添加如下内容：
+[
+{
+        "keys": ["ctrl+b"],
+        "command": "side_bar_open_in_browser",
+        "args": {
+                    "paths": [],
+                    "type": "testing",
+                    "browser": ""
+                }
+    }
+]
