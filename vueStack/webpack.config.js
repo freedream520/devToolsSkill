@@ -8,10 +8,10 @@ module.exports={
 		"app":"./src/main.js",
 	},
 	output:{
-		path:"./dist/js/",
+		path:path.resolve(__dirname,"./dist/js/"),
 		filename:"[name].min.js",
-		publicPath:"./dist/js/",//公共文件存储位置 和下面的chunkFilename貌似没有关系  和图片的引用路径有关系
-		chunkFilename:"/chunk/[name]-[id].common.js?[chunkhash]"//非主文件的命名规则
+		publicPath:path.resolve(__dirname,"./dist/js/"),//公共文件存储位置 和下面的chunkFilename貌似没有关系  和图片的引用路径有关系
+		chunkFilename:"./chunk/[name]-[id].common.js?[chunkhash]"//非主文件的命名规则
 	},
 	module:{
 		rules:[

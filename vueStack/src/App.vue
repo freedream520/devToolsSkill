@@ -80,7 +80,7 @@
         flex:1;
         .router-link-active{
           i,p{
-            color:#f93;
+            color:#f87;
           }
         }
         img{

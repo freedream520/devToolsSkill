@@ -84,6 +84,9 @@ const routes=[
 				path:"vuex",
 				component:function(resolve,reject){
 					resolve(Vuex);
+				},
+				meta:{
+					needLogin:true
 				}
 			},
 			{
@@ -93,6 +96,7 @@ const routes=[
 		]
 	},
 	{
+		name:"login",
 		path:"/login",
 		component:Login
 	},
