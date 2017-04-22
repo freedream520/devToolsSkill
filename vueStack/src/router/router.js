@@ -46,7 +46,7 @@ const routes=[
 						path:"routerA",
 						component:function(resolve,reject){
 							require(['components/RouterA'],resolve);
-						}
+						},
 					},
 					{
 						path:"routerB",
@@ -60,6 +60,10 @@ const routes=[
 					},
 					{
 						path:"routerC",
+						component:RouterC
+					},
+					{
+						path:"routerA/routerC",
 						component:RouterC
 					},
 					{

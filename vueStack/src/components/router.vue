@@ -2,14 +2,15 @@
   <div>
     <div class="tab-wraper">
       <ul>
-        <li class="text-center"><router-link to="/router/routerA" replace>routerA</router-link></li>
-        <li class="text-center"><router-link to="/router/routerB" replace>routerB</router-link></li>
+        <li class="text-center"><router-link to="/router/routerA" exact replace>routerA</router-link></li>
+        <li class="text-center"><router-link to="/router/routerB" exact replace>routerB</router-link></li>
+        <li class="text-center"><router-link to="/router/routerA/routerC" exact replace>/router/routerA/routerC</router-link></li>
       </ul>
     </div>
     <div>
     <div class="wraper">
       <a class="fc-link teach-link" href="http://blog.csdn.net/sinat_17775997/article/details/52549123">实例教程</a>
-      <transition name="slide">
+      <transition name="fade">
         <router-view></router-view>
       </transition>
       
