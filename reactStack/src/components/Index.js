@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {Link} from "react-router";
-import "../assets/css/app.scss";
+import ind from "../assets/css/index.scss";
+
 
 export default class App extends Component{
 	constructor(props){
@@ -8,10 +9,10 @@ export default class App extends Component{
 	}
 	render() {
 		return (
-			<div id="app12">
+			<div className={ind.wraper}>
 			  	{this.props.children}
-			  	<ul>
-			  		<Link to="/react" >react</Link>
+			  	<ul className={ind.bottomNav}>
+			  		<Link to="/react" className={ind.a}>react</Link>
 			  		<Link to="/about" >about</Link>
 			  	</ul>
 			</div>

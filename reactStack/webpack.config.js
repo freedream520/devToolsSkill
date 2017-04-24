@@ -15,8 +15,8 @@ module.exports={
 	},
 	module:{
 		rules:[
-			{test:/\.css$/,loader:["style-loader","css-loader"]},
-			{test:/\.scss$/,loader:["style-loader","css-loader","sass-loader"]},
+			{test:/\.css$/,loader:["style-loader","css-loader?modules"]},
+			{test:/\.scss$/,loader:["style-loader","css-loader?modules","sass-loader?modules"]},
 			{test: /\.json$/,loader: "json-loader"},
 			{
 				test: /\.js$/,

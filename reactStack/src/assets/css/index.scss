@@ -1,0 +1,15 @@
+.wraper{
+	.bottomNav{
+		position: fixed;
+		width: 100%;
+		height: 0.6rem;
+		display: flex;
+		.a{
+			color:#f99;
+		}
+		>a{
+			display: block;
+			flex:1;
+		}
+	}
+}

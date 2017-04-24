@@ -1,6 +1,13 @@
-h1{
-	color:#f93;
-	span{
-		display: inline-block;
+.wraper{
+	h1{
+		color:#f93;
+		span{
+			color: #4f4;
+			display: inline-block;
+		}
 	}
+}
+
+:global(.test){
+	background-color:#f8f8f8;
 }

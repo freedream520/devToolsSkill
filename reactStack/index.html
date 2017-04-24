@@ -3,6 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>reactStack</title>
+	<script>
+	    (function() {
+	        var deviceWidth = document.documentElement.clientWidth;
+	        if(deviceWidth > 720) deviceWidth = 720;
+	        document.documentElement.style.fontSize = deviceWidth / 7.2 + 'px';
+	    })();
+	</script>
 </head>
 <body>
 	<div id="app"></div>
