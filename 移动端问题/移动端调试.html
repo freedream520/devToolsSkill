@@ -3,9 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>调试移动端页面</title>
+	<style>
+		li{line-height: 30px;}
+	</style>
 </head>
 <body>
+
 	<ul>
+		<h3>需求</h3>
 		<li>
 			1.抓包 window mac
 		</li>
@@ -13,9 +18,26 @@
 			<a href="http://www.cnblogs.com/zhoujg/p/4386611.html"></a>
 			<p>2.调试  iphone android</p>
 		</li>
+		<li>
+			线上环境有bug，直接修改返回结果进行调试
+		</li>
 	</ul>
 	
 	<ul>
+		<h3>应用</h3>
+		<li>
+			线上环境有bug，直接修改返回结果进行调试
+		</li>
+		<li>
+			调试android iphone端代码
+		</li>
+		<li>
+			
+		</li>
+	</ul>
+
+	<ul>
+		<h3>步骤</h3>
 		<li>
 			1 安装 Fiddler 
 		</li>
@@ -29,5 +51,35 @@
 		</li>
 	</ul>
 	
+	<br><br>
+	<ul>
+		<h3>技巧</h3>
+		<li>
+			如何断点调试 ？
+			<p>选择一个请求 > 右键save > 把结果保存到一个位置 </p>
+			<p>选择右边的autoResponder > 选择一个请求并点击add rules > 选中 enable rules和unmatched > 下方选择返回的本地文件 </p>
+			<p>修改本地文件   刷新页面  返回的就是本地的代码而不是远程代码</p>
+		</li>
+		<li>
+			2.如何设置代理，抓取到路由器的数据包？
+		</li>
+		<li>
+			
+			这几个命令主要用于批量设置断点
+
+			Bpafter xxx: 中断 URL 包含指定字符的全部 session 响应
+
+			Bps xxx: 中断 HTTP 响应状态为指定字符的全部 session 响应。
+
+			Bpv xxx: 中断指定请求方式的全部 session 响应
+
+			Bpm xxx: 中断指定请求方式的全部 session 响应。等同于bpv xxx
+
+			Bpu xxx:与bpafter类似。
+
+			当这些命令没有加参数时，会清空所有设置了断点的HTTP请求。
+
+		</li>
+	</ul>
 </body>
 </html>
