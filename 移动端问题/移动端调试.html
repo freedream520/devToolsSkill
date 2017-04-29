@@ -12,7 +12,7 @@
 	<ul>
 		<h3>需求</h3>
 		<li>
-			1.抓包 window mac
+			1.抓包 window 
 		</li>
 		<li>
 			<a href="http://www.cnblogs.com/zhoujg/p/4386611.html">调试  iphone android</a>
@@ -24,7 +24,13 @@
 			<a href="https://my.oschina.net/leejun2005/blog/399108">高级用法</a>
 		</li>
 	</ul>
-	
+	<ul>
+		<h3>mac</h3>
+		<li>1.安装 Charles  help 》ssl proxycing 》install  安装根证书   》安装好后单击证书 》查看简介 》 始终信任该证书</li>
+		<li>pc端 proxy 》 ssl proxying setings 设置enable  设置访问白名单 端口443   如 ＊.443(代理所有域名的443端口)</li>
+		<li>手机端设置wifi代理  </li>
+		<li>手机端访问  charlesproxy.com/getssl 安装手机证书</li>
+	</ul>
 	<ul>
 		<h3>应用</h3>
 		<li>
@@ -64,8 +70,8 @@
 		</li>
 		<li>
 			如何断点调试？
-			<p>dpu               	清除之前所有的断点调试</p>
-			<p>dpu www.baidu.com  	建立该链接的断点调试</p>
+			<p>bpu               	清除之前所有的断点调试</p>
+			<p>bpu www.baidu.com  	建立该链接的断点调试</p>
 			<p>打开该链接           请求列表中该链接被打断</p>
 			<p>点击右侧 inspectors下的webforms     修改请求参数</p>
 			<p>点击break on response  会在请求发出之前中断 同时数据返回后未到达浏览器之前再次中断</p>
