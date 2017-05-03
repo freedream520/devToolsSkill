@@ -558,7 +558,6 @@
 			},
 			reloaded:function(){
 				var self=this;
-				console.log("loaded");
 				self.refreshDom.innerHTML==self.options.refreshText.refreshEnd;
 				setTimeout(function(){
 					self.setTransition(self.inner,"ease",self.options.adjustTime,{x:0,y:0});
@@ -567,17 +566,17 @@
 				
 				self.reloading=false;
 			},
-			// moreloaded:function() {
-			// 	var self=this;
-			// 	console.log("loaded");
-			// 	self.moreDom.innerHTML==self.options.refreshText.refreshEnd;
-			// 	setTimeout(function(){
-			// 		self.setTransition(self.inner,"ease",self.options.adjustTime,{x:0,y:0});
-			// 		self.setTransition(self.refreshDom,"ease",self.options.adjustTime,{x:0,y:-self.refreshDom.offsetHeight});
-			// 	},200);
+			moreloaded:function() {
+				var self=this;
+				self.moreDom.innerHTML=="加载成功！";
+				sizeName=self.sizeName;
+				setTimeout(function(){
+					self.setTransition(self.inner,"ease",self.options.adjustTime,{x:0,y:self.wraper[sizeName]-self.inner[sizeName]});
+					self.setTransition(self.moreDom,"ease",self.options.adjustTime,{x:0,y:self.moreDom.offsetHeight});
+				},200);
 				
-			// 	self.reloading=false;
-			// }
+				self.loadingMore=false;
+			}
 		};
 
 		var wraper=document.getElementById("scrollWraper");
@@ -612,7 +611,7 @@
 			more:function () {
 				var self=this;
 				setTimeout(function(){
-					console.log(213);
+					console.log("more loadd");
 					self.moreloaded();
 				},2000);
 			}
