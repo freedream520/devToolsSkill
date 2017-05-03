@@ -590,7 +590,7 @@
 		//bug1  当快速滑动然后停止较长时间的时候   松开后仍然会滑动
 		//需求  需要有抵抗距离
 		//当内容高度太小的时候  也有问题
-
+		//当不需要下拉刷新的时候也有问题
 		scroller=new WYscroller({
 			el:document.getElementById("scrollWraper"),
 			refreshEle:document.querySelector("#scrollWraper .refresh"),
@@ -607,7 +607,7 @@
 				// console.log("start",pos);
 			},
 			touchmove:function(pos){
-				console.log("move",pos,this);
+				// console.log("move",pos,this);
 			},
 			touchend:function(pos){
 				// console.log("end",pos);
