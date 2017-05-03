@@ -110,7 +110,7 @@
 		<p class="more">加载更多</p>
 	</div>
 	
-	<div id="swiperWraper" class="swiper">
+	<div id="swiperWraper" class="swiper" style="display:none">
 		<ul id="scrollContent" >
 			<li class="gray">1</li>
 			<li class="orange">2</li>
@@ -159,14 +159,14 @@
 		};
 
 		var caculateSpeed=function(arr){//[{x:x,y:y,time:timeStap}]
-
-			var dur=arr[arr.length-1].time-arr[0].time;
-			var dis_x=arr[arr.length-1].x-arr[0].x;
-			var dis_y=arr[arr.length-1].y-arr[0].y;
+			var length=arr.length;
+			var dur=arr[length-1].time-arr[0].time;
+			var dis_x=arr[length-1].x-arr[0].x;
+			var dis_y=arr[length-1].y-arr[0].y;
 
 			return {
-				"speed-x":dis_x/dur,
-				"speed-y":dis_y/dur
+				"speed-x":length?dis_x/dur:0,
+				"speed-y":length?dis_y/dur:0
 			}
 		}
 
@@ -174,23 +174,26 @@
 		//1.执行刷新的动作在end事件里面  如果正在加载，不会多次调用
 		//2.企图刷新的话   move事件里面需要修改提示语
 
-		function WYscroller(el,options){
+		function WYscroller(options){
 			this.options={
 				startX:0,
 				startY:0,
 				scrollY: true,//滚动方向
 				adjustTime:"400ms",//松手后自适应时间
-				snapTime:"600ms",
 				scrollBar:false,//是否需要滚动条
-				snap:false,//是否分隔
-				loop:false,
-				autoPlay:false,
+				refreshText:{
+					normal:"下拉刷新",
+					release:"松开刷新",
+					refreshing:"刷新中，耐心等待",
+					refreshEnd:"刷新完成"
+				},
 				touchstart:function(){},
 				touchmove:function(){},
 				touchend:function(){},
 				reload:function(){},//在配置了下拉刷新的时候需要此配置项
+				more:function(){},
 			};
-			this.transType={
+			this.transTimeFun={
 				"ease":"cubic-bezier(.25,.1,.25,1)",
 				"linear":"cubic-bezier(0,0,1,1)",
 				"ease-in":"cubic-bezier(.42,0,1,1)",
@@ -199,12 +202,15 @@
 				"slowdown":"cubic-bezier(.33,.47,.35,.91)"
 			};
 			extend(this.options,options);
+			var el=this.options.el;
 			this.wraper=typeof el=="string"?document.queryselector(el):el;//外层元素
 			this.inner=this.wraper.children[0];//包含的滚动元素
 			this.refreshDom=this.options.refreshEle;
 			this.moreDom=this.options.moreEle;
-			var direction=this.direction=!this.options.scrollY?"x":"y";
+			var direction=this.direction=!this.options.scrollX?"y":"x";
 			this.sizeName=direction=="x"?"clientWidth":"clientHeight";
+
+
 			this.speed=0;//手指滑动速度
 			this.dragSlowLength=direction=="y"?this.wraper.offsetHeight*0.25:this.wraper.offsetWidth*0.25;//容器尺寸的4分之一
 			this.reloading=false;//正在下拉重新加载
@@ -232,65 +238,36 @@
 
 				//过渡函数 过渡时间 过渡终点位置
 
-				!self.options.snap&&self.setTransition(self.inner,"ease","0ms",{x:self.options.startX,y:self.options.startY});
-				self.options.snap&&self.initSnap();
+				self.setTransition(self.inner,"ease","0ms",{x:self.options.startX,y:self.options.startY});
 				
 				self.wraper.addEventListener("touchstart",self.startHandler.bind(self));
 				self.wraper.addEventListener("touchmove",self.moveHandler.bind(self));
 				self.wraper.addEventListener("touchend",self.endHandler.bind(self));
-				self.inner.addEventListener(prefixStyle("transitionEnd"),function(){//from to curIndex
-					// console.log("transitionEnd"+self.snapIndex);
-					self.snapIndex=self.getNearIndex(self.getRelativePos());
-					if(self.options.loop){
-						if(self.snapIndex==self.snapNum){
-							self.setTransition(self.inner,"ease","0ms",{x:0,y:0});
-							// self.snapIndex=0;
-						}
-					}
-				});
+				// self.inner.addEventListener(prefixStyle("transitionEnd"),function(){//from to curIndex
+				// 	// console.log("transitionEnd"+self.snapIndex);
+				// 	self.snapIndex=self.getNearIndex(self.getRelativePos());
+				// 	if(self.options.loop){
+				// 		if(self.snapIndex==self.snapNum){
+				// 			self.setTransition(self.inner,"ease","0ms",{x:0,y:0});
+				// 			// self.snapIndex=0;
+				// 		}
+				// 	}
+				// });
 			},
-			initRefresh:function(){
+			initRefresh:function(){//set refresh dom position
 				var self=this;
 				self.setTransition(self.refreshDom,"ease","0ms",{x:0,y:-self.refreshDom.offsetHeight});
 			},
-			initMore:function(){
+			initMore:function(){//set more dom position
 				var self=this;
 				self.setTransition(self.moreDom,"ease","0ms",{x:0,y:self.moreDom.offsetHeight});
 			},
-			initSnap:function(){//手指点住屏幕的时候如何中断滑动动画
-				var self=this;
-				var children=self.inner.children;
-				var itemNum=self.snapNum=children.length;
-				var innerItem0=children[0];
-				var copy0=innerItem0.cloneNode(true);
-				
-				self.snapIndex=self.options.startIndex||0;
-				var sizeName=self.sizeName;
-
-				self.innerSize=self.inner[sizeName];
-				self.innerItemSize=innerItem0[sizeName];
-				self.wraperSize=self.wraper[sizeName];
-				
-				if(self.options.loop){//循环
-					
-					self.inner.appendChild(copy0);
-
-					self.inner.style.width=(itemNum+1)*self.wraperSize+"px";
-					for(var i=0;i<itemNum+1;i++){
-						self.inner.children[i].style.width=self.wraperSize+"px";
-					}
-					
-				}
-
-				!self.options.autoPlay&&self.goIndex(self.snapIndex);
-				self.options.autoPlay&&self.play();
-			},
-			play:function(){
-				var self=this;
-				self.snapInterval=setInterval(function(){
-					!self.down&&self.next();
-				},3000);
-			},
+			// play:function(){
+			// 	var self=this;
+			// 	self.snapInterval=setInterval(function(){
+			// 		!self.down&&self.next();
+			// 	},3000);
+			// },
 			initScrollBar:function(){
 				var self=this;
 
@@ -323,7 +300,7 @@
 
 
 			},
-			startHandler:function(e){
+			startHandler:function(e){//touch or click start
 				e.preventDefault();
 				this.down=true;
 				var self=this;
@@ -337,9 +314,8 @@
 				self.fingerArray.push({x:click_finger_x,y:click_finger_y,time:new Date()*1});
 
 				self.setTransition(self.inner,"ease","0ms",{x:relative_pos.x,y:relative_pos.y});
-
 				self.options.touchstart&&self.options.touchstart.call(self,relative_pos);//滚动监听
-				// console.log(touch,click_finger_x,click_finger_y,self.client_pos,relative_pos);
+				
 			},
 			moveHandler:function(e){
 				e.preventDefault();
@@ -369,15 +345,6 @@
 				//边界拖动抵抗
 				var resistDistance=self.dragSlowLength;
 				
-				// if(relative_pos.y>resistDistance){
-				// 	var deta=resistDistance/(relative_pos.y-resistDistance);
-				// 	relative_pos.y=resistDistance+(relative_pos.y-resistDistance) * deta;
-
-
-				// 	// console.log("draft");
-				// 	// var deta=(relative_pos.y-resistDistance)/(resistDistance*resistDistance);
-				// 	// relative_pos.y-=relative_pos.y*deta;
-				// }
 
 				self.setTransform(self.inner,relative_pos);
 				
@@ -385,14 +352,25 @@
 				// console.log(self.move_finger_y,self.click_finger_y,self.click_relative_pos.y,relative_pos);
 
 
-				if(self.refreshDom){
-					if(relative_pos.y<=self.refreshDom[sizeName]){
+				if(self.refreshDom){//need refresh
+					if(relative_pos.y<=self.refreshDom[sizeName]){//need set refresh dom position
 						self.setTransform(self.refreshDom,{x:relative_pos.x,y:relative_pos.y-self.refreshDom[sizeName]});
-						!self.reloading&&!(self.refreshDom.innerHTML="下拉刷新123");
+						!self.reloading&&!(self.refreshDom.innerHTML=self.options.refreshText.normal);
 					}
-					else{
+					else{//satisfy reload  condition
 						self.setTransform(self.refreshDom,{x:relative_pos.x,y:0});
-						!self.reloading&&!(self.refreshDom.innerHTML="松开刷新");
+						!self.reloading&&!(self.refreshDom.innerHTML=self.options.refreshText.release);
+					}
+				}
+
+				if(self.moreDom&&self.inner[sizeName]>self.wraper[sizeName]){//need load more
+					if(relative_pos.y<=self.wraper[sizeName]-self.inner[sizeName]-self.moreDom[sizeName]){//need set refresh dom position
+						self.setTransform(self.moreDom,{x:relative_pos.x,y:0});
+						!self.loadingMore&&!(self.moreDom.innerHTML=self.options.refreshText.normal);
+					}
+					else{//satisfy reload  condition
+						self.setTransform(self.moreDom,{x:relative_pos.x,y:self.inner[sizeName]-self.wraper[sizeName]+relative_pos.y+self.moreDom[sizeName]});
+						!self.loadingMore&&!(self.moreDom.innerHTML=self.options.refreshText.release);
 					}
 				}
 				
@@ -414,6 +392,9 @@
 				var sizeName=self.sizeName;// clientWidth clientHeight
 
 				var tapType=self.tapType(self.fingerArray,new Date()*1);
+				// if(tapType=="tap"||tapType=="longtap"||tapType=="movestill"){//点按或者长按
+				// 	return ;
+				// }
 				if(tapType=="tap"||tapType=="longtap"){//点按或者长按
 					return ;
 				}
@@ -421,14 +402,13 @@
 					if(self.refreshDom){//需要下拉刷新 Y
 						if(relative_pos.y<self.refreshDom[sizeName]){
 							self.setTransition(self.inner,"ease",adjust,{x:0,y:0});
-							self.refreshDom&&self.setTransition(self.refreshDom,"ease",adjust,{x:0,y:-self.refreshDom[sizeName]});
-							// self.refreshDom&&self.setTransition(self.inner,"test",adjust,{x:0,y:self.refreshDom.offsetHeight});
+							self.setTransition(self.refreshDom,"ease",adjust,{x:0,y:-self.refreshDom[sizeName]});
 						}
 						else{//触发刷新动作
 
 							if(self.refreshDom){//需要下拉刷新
 								self.setTransition(self.inner,"ease",adjust,{x:0,y:self.refreshDom[sizeName]});
-								!self.reloading&&!(self.refreshDom.innerHTML="加载中");
+								!self.reloading&&!(self.refreshDom.innerHTML=self.options.refreshText.refreshing);
 								!self.reloading&&self.options.reload&&self.options.reload.apply(self);//执行重新加载回调函数
 								self.reloading=true;//正在加载
 							}
@@ -442,8 +422,19 @@
 						self.setTransition(self.inner,"ease",adjust,{x:0,y:0});
 					}
 				}
-				else if(self.wraper[sizeName]-relative_pos[self.direction]>self.inner[sizeName]){//企图加载更多 滑动超出了下方或者右侧尽头
-					self.setTransition(self.inner,"ease",adjust,{x:0,y:self.wraper[sizeName]-self.inner[sizeName]});
+				else if(relative_pos[self.direction]<self.wraper[sizeName]-self.inner[sizeName]){//企图加载更多 滑动超出了下方或者右侧尽头
+					if(self.moreDom){
+						if(relative_pos.y>self.wraper[sizeName]-self.inner[sizeName]-self.moreDom[sizeName]){
+							self.setTransition(self.inner,"ease",adjust,{x:0,y:self.wraper[sizeName]-self.inner[sizeName]});
+							self.setTransition(self.moreDom,"ease",adjust,{x:0,y:self.moreDom[sizeName]});
+						}
+						else{//触发加载动作
+							self.setTransition(self.inner,"ease",adjust,{x:0,y:self.wraper[sizeName]-self.inner[sizeName]-self.moreDom[sizeName]});
+							!self.loadingMore&&!(self.moreDom.innerHTML="加载中。。。");
+							!self.loadingMore&&self.options.more&&self.options.more.apply(self);//执行重新加载回调函数
+							self.loadingMore=true;//正在加载更多
+						}
+					}
 				}
 				else{//此处需要缓冲处理  中间态
 					//缓冲运动
@@ -486,15 +477,13 @@
 					}
 					else{
 
-						self.speed>0&&self.prev();
-						self.speed<0&&self.next();
+						// self.speed>0&&self.prev();
+						// self.speed<0&&self.next();
 					}
 					
 					
 				}
 
-				
-				console.log(self.speedX,slow_distance);
 				self.options.touchend&&self.options.touchend.call(self,relative_pos);
 			},
 			getTransform:function(dom){
@@ -505,7 +494,7 @@
 					return {x:parseFloat(translateArray[0]),y:parseFloat(translateArray[1]),z:parseFloat(translateArray[2])};
 				}
 				else{
-					dom.style[prefixStyle("transform")]="translate3d(0,0,0)";
+					self.setTransform(dom,{x:0,y:0,z:0});
 					return {x:0,y:0,z:0}
 				}
 			},
@@ -516,7 +505,7 @@
 			},
 			setTransition:function(dom,type,time,pos){
 				var self=this;
-				dom.style[prefixStyle("transitionTimingFunction")]=self.transType[type];
+				dom.style[prefixStyle("transitionTimingFunction")]=self.transTimeFun[type];
 				dom.style[prefixStyle("transitionDuration")]=time;
 				self.setTransform(dom,{x:pos.x,y:pos.y});
 
@@ -567,76 +556,45 @@
 					return durTime>300?"movestill":"move";
 				}
 			},
-			moveDirection:function(){
-
-			},
-			getNearIndex:function(rel_pos){
-				var self=this;
-				var offset=rel_pos[self.direction];
-				var index=0;
-				if(offset>=0){
-					index=0;
-				}
-				else{
-					index=Math.round(-offset / self.innerItemSize);
-				};
-				self.snapIndex=index;
-				return index;
-
-			},
-			goIndex:function(index){
-				var self=this;
-				var offset=-self.innerItemSize*index;
-				self.setTransition(self.inner,"ease",self.options.snapTime||self.adjustTime,{
-					x:self.direction=="x"?offset:0,
-					y:self.direction=="y"?offset:0,
-				});
-			},
-			next:function(){
-				var self=this;
-				var to=self.snapIndex+1;
-				if(self.options.loop){
-					if(to>self.snapNum){
-						to=1;
-					}
-				}
-				else{
-					if(to>self.snapNum-1){
-						to=0;
-					}
-				}
-				self.goIndex(to);
-			},
-			prev:function(){
-				var self=this;
-				var to=self.snapIndex-1;
-				if(to<0){
-					to=0;
-				}
-				self.goIndex(to);
-			},
 			reloaded:function(){
 				var self=this;
 				console.log("loaded");
-				self.refreshDom.innerHTML="加载完成!";
+				self.refreshDom.innerHTML==self.options.refreshText.refreshEnd;
 				setTimeout(function(){
 					self.setTransition(self.inner,"ease",self.options.adjustTime,{x:0,y:0});
 					self.setTransition(self.refreshDom,"ease",self.options.adjustTime,{x:0,y:-self.refreshDom.offsetHeight});
 				},200);
 				
 				self.reloading=false;
-			}
+			},
+			// moreloaded:function() {
+			// 	var self=this;
+			// 	console.log("loaded");
+			// 	self.moreDom.innerHTML==self.options.refreshText.refreshEnd;
+			// 	setTimeout(function(){
+			// 		self.setTransition(self.inner,"ease",self.options.adjustTime,{x:0,y:0});
+			// 		self.setTransition(self.refreshDom,"ease",self.options.adjustTime,{x:0,y:-self.refreshDom.offsetHeight});
+			// 	},200);
+				
+			// 	self.reloading=false;
+			// }
 		};
 
 		var wraper=document.getElementById("scrollWraper");
 
-		scroller=new WYscroller(wraper,{
+		//各项配置参数要详细测试
+		//bug1  当快速滑动然后停止较长时间的时候   松开后仍然会滑动
+		//需求  需要有抵抗距离
+		//当内容高度太小的时候  也有问题
+
+		scroller=new WYscroller({
+			el:wraper,
 			startY:0,
 			touchstart:function(pos){
 				// console.log("start",pos);
 			},
 			touchmove:function(pos){
-				// console.log("move",pos);
+				console.log("move",pos,this);
 			},
 			touchend:function(pos){
 				// console.log("end",pos);
@@ -644,26 +602,21 @@
 			refreshEle:document.querySelector("#scrollWraper .refresh"),
 			moreEle:document.querySelector("#scrollWraper .more"),
 			scrollBar:true,
-			reload:function(){
+			reload:function(){//页面滑动触发刷新的事件，如异步请求数据等操作
 				var self=this;
 				setTimeout(function(){
 					console.log(213);
 					self.reloaded();
 				},2000);
+			},
+			more:function () {
+				var self=this;
+				setTimeout(function(){
+					console.log(213);
+					self.moreloaded();
+				},2000);
 			}
 		});
-
-
-		var swiperWraper=document.getElementById("swiperWraper");
-		
-		swiper=new WYscroller(swiperWraper,{
-			scrollY:false,
-			snap:true,
-			startIndex:0,
-			loop:true,//是否循环
-			autoPlay:true,
-		});
-
 
 
 	</script>
