@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>垂直居中问题</title>
+	<style>
+		*{padding:0;margin:0;}
+		.wraper{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #d8d8d8;
+			position: relative;
+		}
+		.wraper .inner{
+			width: 50px;
+			height: 50px;
+			background-color: #f93;
+			top: 50%;
+			left: 50%;
+			position: absolute;
+			transform: translate3d(-50%,-50%,0);
+		}
+	</style>
+</head>
+<body>
+	
+
+	<div class="wraper">
+		<div class="inner"></div>
+	</div>
+	<ul>
+		<li>1. absolute 和margin － 0.5＊size 结合使用  局限于内部元素尺寸固定的情况</li>
+		<li>2.absolute和trransform - 50% 结合使用   内部元素尺寸不固定</li>
+
+	</ul>
+</body>
+</html>

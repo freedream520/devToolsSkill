@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>svg动画</title>
+	<style>
+		
+		*{margin:0;padding: 0}
+		svg{display: block;}
+		.animate{
+			animation: run 3s infinite forwards;
+			stroke-dasharray:563px;
+			stroke-dashoffset:-563px;
+		}
+		@keyframes run{
+			to{
+				stroke-dashoffset:0px;
+			}
+		}
+		.stop {
+		    animation-play-state: paused;
+		}
+	</style>
+</head>
+<body>
+	<p>
+		path.getTotalLength();可以获取到path的实际长度
+	</p>
+	<p>
+		stroke-dasharray 表示虚线描边。可选值为：none, dasharray, inherit. 其中，none表示不是虚线；dasharray 为一个逗号或空格分隔的数值列表。表示各个虚线端的长度。可以是固定的长度值，也可以是百分比值；inherit表继承。
+	</p>
+	<p>
+		stroke-dashoffset 表示虚线的起始偏移。可选值为：percentage, length, inherit. 百分比值，长度值，继承。
+	</p>
+	<svg width="500" height="500"  xmlns="http://www.w3.org/2000/svg">
+		<path id="path" class="animate" d="M153 334C153 334 151 334 151 334C151 339 153 344 156 344C164 344 171 339 171 334
+C171 322 164 314 156 314
+C142 314 131 322 131 334
+C131 350 142 364 156 364
+C175 364 191 350 191 334
+C191 311 175 294 156 294
+C131 294 111 311 111 334
+C111 361 131 384 156 384
+C186 384 211 361 211 334
+C211 300 186 274 156 274" style="fill:#fff;stroke:red;stroke-width:2"/>
+	</svg>
+	
+	<script>
+		var svg=document.getElementsByTagName('svg')[0];
+		var path=document.getElementById("path");
+		var length=path.getTotalLength();//获取path的实际长度
+
+		svg.onclick=function () {
+			var state=path.getAttribute("state");
+			console.log(state);
+			if(!state){
+				path.classList.add("stop");
+				path.setAttribute("state","1");
+			}
+			else{
+				path.classList.remove("stop");
+				path.setAttribute("state","");
+			}
+			
+		}
+
+	</script>
+</body>
+</html>
