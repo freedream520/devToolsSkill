@@ -15,7 +15,7 @@
 			list-style: none;
 		}
 		body{background-color: #f8f8f8;min-height: 500px;padding-bottom: 300px;}
-		#scrollWraper{width: 80%;margin:10px auto;border:1px solid #ccc;overflow: hidden;height: 300px;position: relative;}
+		#scrollWraper{width: 80%;margin:10px auto;border:1px solid #ccc;overflow: hidden;height: 300px;/*position: relative;*/}
 		#scrollWraper #scrollContent{background-color: #fff;z-index:1;position: relative;}
 		#scrollWraper .refresh{line-height: 40px;text-align: center;position: absolute;top:0;left:0;width: 100%;z-index:0;}
 		#scrollWraper .more{line-height: 40px;text-align: center;position: absolute;bottom:0;left:0;width: 100%;z-index:0;}
@@ -119,8 +119,32 @@
 	</div>
 
 	<script>
+		var ul=document.getElementById("scrollContent");
+		function createLists(){
+			ul.innerHTML="";
+			var num=Math.round(10+Math.random()*20);
+			for(var i=0;i<num;i++){
+				var li=document.createElement("li");
+				li.innerHTML=i;
+				ul.appendChild(li);
+			}
+		}
+		function moreLists(){
+			var num=ul.children.length;
+			var length=10;
+			for(var i=num;i<num+length;i++){
+				var li=document.createElement("li");
+				li.innerHTML=i;
+				ul.appendChild(li);
+			}
+		}
+		createLists();
+
+
+
 
 		function extend(target,src){//对象扩展
+
 			for(key in src){
 				target[key]=src[key];
 			}
@@ -187,6 +211,12 @@
 					refreshing:"刷新中，耐心等待",
 					refreshEnd:"刷新完成"
 				},
+				moreText:{
+					normal:"加载更多",
+					release:"松开加载",
+					loading:"加载中，耐心等待",
+					moreEnd:"加载完成"
+				},
 				touchstart:function(){},
 				touchmove:function(){},
 				touchend:function(){},
@@ -229,7 +259,10 @@
 				self.refreshDom&&self.initRefresh();
 				self.moreDom&&self.initMore();
 				self.options.scrollBar&&self.initScrollBar();
+				var pos=getComputedStyle(self.wraper).position;
 
+				(pos=="static"||!pos)&&!(self.wraper.style.position="relative");
+				
 			},
 			initScroll:function(){
 				var self=this;
@@ -243,16 +276,7 @@
 				self.wraper.addEventListener("touchstart",self.startHandler.bind(self));
 				self.wraper.addEventListener("touchmove",self.moveHandler.bind(self));
 				self.wraper.addEventListener("touchend",self.endHandler.bind(self));
-				// self.inner.addEventListener(prefixStyle("transitionEnd"),function(){//from to curIndex
-				// 	// console.log("transitionEnd"+self.snapIndex);
-				// 	self.snapIndex=self.getNearIndex(self.getRelativePos());
-				// 	if(self.options.loop){
-				// 		if(self.snapIndex==self.snapNum){
-				// 			self.setTransition(self.inner,"ease","0ms",{x:0,y:0});
-				// 			// self.snapIndex=0;
-				// 		}
-				// 	}
-				// });
+				
 			},
 			initRefresh:function(){//set refresh dom position
 				var self=this;
@@ -262,12 +286,6 @@
 				var self=this;
 				self.setTransition(self.moreDom,"ease","0ms",{x:0,y:self.moreDom.offsetHeight});
 			},
-			// play:function(){
-			// 	var self=this;
-			// 	self.snapInterval=setInterval(function(){
-			// 		!self.down&&self.next();
-			// 	},3000);
-			// },
 			initScrollBar:function(){
 				var self=this;
 
@@ -286,19 +304,9 @@
 				bar.style.backgroundColor="#e3e3e3";
 				bar.style.zIndex=innerIndex+1;
 				bar.style.borderRadius="2px";
-				self.wraper.style.position="relative";
 
 				self.barSize=barSize;
 				self.wraper.appendChild(bar);
-			},
-			scrollBar:function(){
-				var self=this;
-				var innerH=self.inner.offsetHeight;
-				var wraperH=self.wraper.offsetHeight;
-				var scale=innerH / wraperH;
-				var barSize=wraperH / scale;
-
-
 			},
 			startHandler:function(e){//touch or click start
 				e.preventDefault();
@@ -366,11 +374,11 @@
 				if(self.moreDom&&self.inner[sizeName]>self.wraper[sizeName]){//need load more
 					if(relative_pos.y<=self.wraper[sizeName]-self.inner[sizeName]-self.moreDom[sizeName]){//need set refresh dom position
 						self.setTransform(self.moreDom,{x:relative_pos.x,y:0});
-						!self.loadingMore&&!(self.moreDom.innerHTML=self.options.refreshText.normal);
+						!self.loadingMore&&!(self.moreDom.innerHTML=self.options.moreText.release);
 					}
 					else{//satisfy reload  condition
 						self.setTransform(self.moreDom,{x:relative_pos.x,y:self.inner[sizeName]-self.wraper[sizeName]+relative_pos.y+self.moreDom[sizeName]});
-						!self.loadingMore&&!(self.moreDom.innerHTML=self.options.refreshText.release);
+						!self.loadingMore&&!(self.moreDom.innerHTML=self.options.moreText.normal);
 					}
 				}
 				
@@ -395,6 +403,7 @@
 				// if(tapType=="tap"||tapType=="longtap"||tapType=="movestill"){//点按或者长按
 				// 	return ;
 				// }
+				self.lastInnerSize=self.inner[sizeName];
 				if(tapType=="tap"||tapType=="longtap"){//点按或者长按
 					return ;
 				}
@@ -423,14 +432,16 @@
 					}
 				}
 				else if(relative_pos[self.direction]<self.wraper[sizeName]-self.inner[sizeName]){//企图加载更多 滑动超出了下方或者右侧尽头
+
 					if(self.moreDom){
 						if(relative_pos.y>self.wraper[sizeName]-self.inner[sizeName]-self.moreDom[sizeName]){
 							self.setTransition(self.inner,"ease",adjust,{x:0,y:self.wraper[sizeName]-self.inner[sizeName]});
 							self.setTransition(self.moreDom,"ease",adjust,{x:0,y:self.moreDom[sizeName]});
+
 						}
 						else{//触发加载动作
 							self.setTransition(self.inner,"ease",adjust,{x:0,y:self.wraper[sizeName]-self.inner[sizeName]-self.moreDom[sizeName]});
-							!self.loadingMore&&!(self.moreDom.innerHTML="加载中。。。");
+							!self.loadingMore&&!(self.moreDom.innerHTML=self.options.moreText.loading);
 							!self.loadingMore&&self.options.more&&self.options.more.apply(self);//执行重新加载回调函数
 							self.loadingMore=true;//正在加载更多
 						}
@@ -446,42 +457,31 @@
 					var dist=relative_pos[self.direction]+slow_distance;//x或者y方向
 					var endDis=self.wraper[sizeName]-self.inner[sizeName];//滑动的终点差值
 					var needBar=self.options.scrollBar;//是否需要滚动条
-					if(!self.options.snap){
-						if(self.speed>0){//正速度
-							if(dist>=0){//头部尽头
-								self.setTransition(self.inner,"slowdown",adjust,{x:0,y:0});
-								needBar&&self.setTransition(self.bar,"slowdown",adjust,{x:0,y:0});
-							}
-							else{//往起始位置滑动
-								var top=-dist*self.barSize/self.wraper[sizeName];
-								self.setTransition(self.inner,"slowdown",adjust,{x:0,y:dist});
-								needBar&&self.setTransition(self.bar,"slowdown",adjust,{x:0,y:top});
-							}
-							// self.options.snap&&self.next();
+					
+					if(self.speed>0){//正速度
+						if(dist>=0){//头部尽头
+							self.setTransition(self.inner,"slowdown",adjust,{x:0,y:0});
+							needBar&&self.setTransition(self.bar,"slowdown",adjust,{x:0,y:0});
 						}
-						else{//负速度
-							
-							if(dist<endDis){
-								var top=-endDis*self.barSize/self.wraper[sizeName];
-								self.setTransition(self.inner,"slowdown",adjust,{x:0,y:endDis});
-								needBar&&self.setTransition(self.bar,"slowdown",adjust,{x:0,y:top});
-							}
-							else{//往终点位置滑动
-								var top=-dist*self.barSize/self.wraper[sizeName];
-								self.setTransition(self.inner,"slowdown",adjust,{x:0,y:dist});
-								needBar&&self.setTransition(self.bar,"slowdown",adjust,{x:0,y:top});
-
-							}
-							// self.options.snap&&self.prev();
+						else{//往起始位置滑动
+							var top=-dist*self.barSize/self.wraper[sizeName];
+							self.setTransition(self.inner,"slowdown",adjust,{x:0,y:dist});
+							needBar&&self.setTransition(self.bar,"slowdown",adjust,{x:0,y:top});
 						}
 					}
-					else{
-
-						// self.speed>0&&self.prev();
-						// self.speed<0&&self.next();
+					else{//负速度
+						
+						if(dist<endDis){
+							var top=-endDis*self.barSize/self.wraper[sizeName];
+							self.setTransition(self.inner,"slowdown",adjust,{x:0,y:endDis});
+							needBar&&self.setTransition(self.bar,"slowdown",adjust,{x:0,y:top});
+						}
+						else{//往终点位置滑动
+							var top=-dist*self.barSize/self.wraper[sizeName];
+							self.setTransition(self.inner,"slowdown",adjust,{x:0,y:dist});
+							needBar&&self.setTransition(self.bar,"slowdown",adjust,{x:0,y:top});
+						}
 					}
-					
-					
 				}
 
 				self.options.touchend&&self.options.touchend.call(self,relative_pos);
@@ -505,6 +505,7 @@
 			},
 			setTransition:function(dom,type,time,pos){
 				var self=this;
+				type=type||"ease";
 				dom.style[prefixStyle("transitionTimingFunction")]=self.transTimeFun[type];
 				dom.style[prefixStyle("transitionDuration")]=time;
 				self.setTransform(dom,{x:pos.x,y:pos.y});
@@ -556,9 +557,14 @@
 					return durTime>300?"movestill":"move";
 				}
 			},
+			moveTo:function(pos){
+				var self=this;
+				var time=self.options.adjustTime;
+				self.setTransition(self.inner,"ease",time,pos);
+			},
 			reloaded:function(){
 				var self=this;
-				self.refreshDom.innerHTML==self.options.refreshText.refreshEnd;
+				self.refreshDom.innerHTML=self.options.refreshText.refreshEnd;
 				setTimeout(function(){
 					self.setTransition(self.inner,"ease",self.options.adjustTime,{x:0,y:0});
 					self.setTransition(self.refreshDom,"ease",self.options.adjustTime,{x:0,y:-self.refreshDom.offsetHeight});
@@ -566,12 +572,12 @@
 				
 				self.reloading=false;
 			},
-			moreloaded:function() {
+			moreloaded:function(successText) {
 				var self=this;
-				self.moreDom.innerHTML=="加载成功！";
+				self.moreDom.innerHTML=successText||self.options.moreText.moreEnd;
 				sizeName=self.sizeName;
 				setTimeout(function(){
-					self.setTransition(self.inner,"ease",self.options.adjustTime,{x:0,y:self.wraper[sizeName]-self.inner[sizeName]});
+					self.setTransition(self.inner,"ease",self.options.adjustTime,{x:0,y:self.wraper[sizeName]-self.lastInnerSize});
 					self.setTransition(self.moreDom,"ease",self.options.adjustTime,{x:0,y:self.moreDom.offsetHeight});
 				},200);
 				
@@ -579,7 +585,6 @@
 			}
 		};
 
-		var wraper=document.getElementById("scrollWraper");
 
 		//各项配置参数要详细测试
 		//bug1  当快速滑动然后停止较长时间的时候   松开后仍然会滑动
@@ -587,8 +592,17 @@
 		//当内容高度太小的时候  也有问题
 
 		scroller=new WYscroller({
-			el:wraper,
+			el:document.getElementById("scrollWraper"),
+			refreshEle:document.querySelector("#scrollWraper .refresh"),
+			moreEle:document.querySelector("#scrollWraper .more"),
 			startY:0,
+			scrollBar:true,
+			refreshText:{
+				normal:"下拉刷新",
+				release:"松开刷新",
+				refreshing:"刷新中，耐心等待",
+				refreshEnd:"刷新完成"
+			},
 			touchstart:function(pos){
 				// console.log("start",pos);
 			},
@@ -598,21 +612,20 @@
 			touchend:function(pos){
 				// console.log("end",pos);
 			},
-			refreshEle:document.querySelector("#scrollWraper .refresh"),
-			moreEle:document.querySelector("#scrollWraper .more"),
-			scrollBar:true,
 			reload:function(){//页面滑动触发刷新的事件，如异步请求数据等操作
 				var self=this;
 				setTimeout(function(){
 					console.log(213);
 					self.reloaded();
+					createLists();
 				},2000);
 			},
 			more:function () {
 				var self=this;
 				setTimeout(function(){
 					console.log("more loadd");
-					self.moreloaded();
+					moreLists();
+					self.moreloaded("全部加载");
 				},2000);
 			}
 		});
