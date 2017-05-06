@@ -350,7 +350,7 @@
 					y:self.move_finger_y-self.click_finger_y+self.click_relative_pos.y
 				};
 
-				if(self.speed<=0&&self.inner[sizeName]<self.wraper[sizeName]){//内部尺寸小于包裹层尺寸
+				if(self.speed<=0&&self.inner[sizeName]<self.wraper[sizeName]&&relative_pos.y<=0){//内部尺寸小于包裹层尺寸
 					return;
 				}
 				//边界拖动抵抗
@@ -410,7 +410,7 @@
 				if(tapType=="tap"||tapType=="longtap"){//点按或者长按
 					return ;
 				}
-				if(self.speed<=0&&self.inner[sizeName]<self.wraper[sizeName]){//内部尺寸小于包裹层尺寸
+				if(self.speed<=0&&self.inner[sizeName]<self.wraper[sizeName]&&relative_pos.y<=0){//内部尺寸小于包裹层尺寸
 					return;
 				}
 				if(relative_pos[self.direction]>0){//企图刷新 顶部或左边漏出
