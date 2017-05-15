@@ -220,8 +220,8 @@
 				touchstart:function(){},
 				touchmove:function(){},
 				touchend:function(){},
-				reload:function(){},//在配置了下拉刷新的时候需要此配置项
-				more:function(){},
+				onreload:function(){},//在配置了下拉刷新的时候需要此配置项
+				onmore:function(){},
 			};
 			this.transTimeFun={
 				"ease":"cubic-bezier(.25,.1,.25,1)",
@@ -424,7 +424,7 @@
 							if(self.refreshDom){//需要下拉刷新
 								self.setTransition(self.inner,"ease",adjust,{x:0,y:self.refreshDom[sizeName]});
 								!self.reloading&&!(self.refreshDom.innerHTML=self.options.refreshText.refreshing);
-								!self.reloading&&self.options.reload&&self.options.reload.apply(self);//执行重新加载回调函数
+								!self.reloading&&self.options.onreload&&self.options.onreload.apply(self);//执行重新加载回调函数
 								self.reloading=true;//正在加载
 							}
 							else{
@@ -448,7 +448,7 @@
 						else{//触发加载动作
 							self.setTransition(self.inner,"ease",adjust,{x:0,y:self.wraper[sizeName]-self.inner[sizeName]-self.moreDom[sizeName]});
 							!self.loadingMore&&!(self.moreDom.innerHTML=self.options.moreText.loading);
-							!self.loadingMore&&self.options.more&&self.options.more.apply(self);//执行重新加载回调函数
+							!self.loadingMore&&self.options.onmore&&self.options.onmore.apply(self);//执行重新加载回调函数
 							self.loadingMore=true;//正在加载更多
 						}
 					}
@@ -618,7 +618,7 @@
 			touchend:function(pos){
 				// console.log("end",pos);
 			},
-			reload:function(){//页面滑动触发刷新的事件，如异步请求数据等操作
+			onreload:function(){//页面滑动触发刷新的事件，如异步请求数据等操作
 				var self=this;
 				setTimeout(function(){
 					console.log(213);
@@ -626,7 +626,7 @@
 					createLists();
 				},2000);
 			},
-			more:function () {
+			onmore:function () {
 				var self=this;
 				setTimeout(function(){
 					console.log("more loadd");
