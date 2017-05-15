@@ -122,7 +122,7 @@
 		var ul=document.getElementById("scrollContent");
 		function createLists(){
 			ul.innerHTML="";
-			var num=Math.round(1+Math.random()*10);
+			var num=Math.round(10+Math.random()*10);
 			for(var i=0;i<num;i++){
 				var li=document.createElement("li");
 				li.innerHTML=i;
@@ -307,6 +307,16 @@
 
 				self.barSize=barSize;
 				self.wraper.appendChild(bar);
+			},
+			refreshScrollBar:function(){
+				var self=this;
+				var innerH=self.inner.offsetHeight;
+				var wraperH=self.wraper.offsetHeight;
+				var scale=innerH / wraperH;
+				var barSize=wraperH / scale;
+				self.bar.style.height=barSize+"px";
+				console.log("refreshScrollBar",innerH);
+
 			},
 			startHandler:function(e){//touch or click start
 				e.preventDefault();
@@ -577,6 +587,7 @@
 				},200);
 				
 				self.reloading=false;
+				self.refreshScrollBar();
 			},
 			moreloaded:function(successText) {
 				var self=this;
@@ -588,6 +599,7 @@
 				},200);
 				
 				self.loadingMore=false;
+				self.refreshScrollBar();
 			}
 		};
 
@@ -621,9 +633,9 @@
 			onreload:function(){//页面滑动触发刷新的事件，如异步请求数据等操作
 				var self=this;
 				setTimeout(function(){
-					console.log(213);
-					self.reloaded();
 					createLists();
+					self.reloaded();
+					
 				},2000);
 			},
 			onmore:function () {
