@@ -16,7 +16,6 @@ render(
     <HashRouter>
         <div>
             <Route exact path="/" component={App} />
-            <Route exact path="/react" component={ReactC} />
             <Route exact path="/about" component={About} />
         </div>
         

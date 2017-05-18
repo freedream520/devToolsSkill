@@ -5,6 +5,14 @@ import { Route,Link} from 'react-router-dom';
 import ReactC from "./ReactC.js";
 import About from "./About.js";
 // <a href="http://www.cnblogs.com/cocoliu/p/6743330.html">详细使用</a>
+
+const Home = () => (
+  <div>
+    <h2>首页</h2>
+  </div>
+)
+
+
 export default class App extends Component{
 	constructor(props){
 		super(props);
@@ -20,7 +28,7 @@ export default class App extends Component{
 					<li><Link  to={`${this.props.match.url}react`} >react</Link></li>
 					<li><Link  to="/about" >about</Link></li>
 				</ul>
-				<Route exact path="{`${this.props.match.url}react`}" component={ReactC} />
+				<Route  path={`${this.props.match.url}react`} component={Home} />
 			</div>
 		);
 	}
