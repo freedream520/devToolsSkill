@@ -8,16 +8,19 @@ import About from "./About.js";
 export default class App extends Component{
 	constructor(props){
 		super(props);
+		console.log("props:",props);
+		// console.log("match:",match);
 	}
 	render() {
+		console.log("match:",this.props.match);
 		return (
 			<div>
 				
 				<ul>
-					<li><Link  to="/react" >react</Link></li>
+					<li><Link  to={`${this.props.match.url}react`} >react</Link></li>
 					<li><Link  to="/about" >about</Link></li>
 				</ul>
-				<Route exact path="/react" component={ReactC} />
+				<Route exact path="{`${this.props.match.url}react`}" component={ReactC} />
 			</div>
 		);
 	}
