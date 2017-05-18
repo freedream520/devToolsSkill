@@ -1,6 +1,6 @@
 import React from "react";
 import {render} from "react-dom";
-import {Router, Route, IndexRoute, hashHistory,browserHistory,IndexRedirect } from 'react-router';
+import {BrowserRouter , Router,HashRouter,Match, Route,Link,hashHistory,IndexLink} from 'react-router-dom';
 
 import App from "./components/App.js";
 import Index from "./components/Index.js";
@@ -11,19 +11,14 @@ import "./assets/css/base.scss";
 
 let rootElement=document.getElementById('app');
 
+
 render(
-  <Router history={hashHistory}>
-
-    <Route path="/" component={App}>
-    	<IndexRedirect  to="/react" />
-    	<Route path="/index" component={Index} >
-    		<IndexRoute  component={ReactC} />
-    		<Route path="/react" component={ReactC} />
-    		<Route path="/about" component={About} />
-    	</Route>
-    	<Route path="/login" component={Login} />
-
-    </Route>
-    
-  </Router>,
+    <HashRouter>
+        <div>
+            <Route exact path="/" component={App} />
+            <Route exact path="/react" component={ReactC} />
+            <Route exact path="/about" component={About} />
+        </div>
+        
+    </HashRouter>,
 rootElement);
