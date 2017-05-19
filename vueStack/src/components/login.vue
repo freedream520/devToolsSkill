@@ -7,7 +7,7 @@
 </template>
 
 <script>
- 
+
   export default {
     data:function(){
       return {
@@ -20,7 +20,7 @@
         var user=this.$refs.user.value;
         this.$store.commit("USER",user);
         this.$router.replace("/");
-        
+
       }
     },
     computed:{
@@ -29,16 +29,15 @@
       }
     },
     components:{
-      
+
     }
   }
 </script>
 
 
 
-<style scoped lang="sass">
+<style rel="stylesheet/scss" scoped lang="sass">
   @import "../assets/css/_ignore/mixin";
-
   h4{
     line-height: pxToRem(80);
   }

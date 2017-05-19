@@ -6,6 +6,7 @@
       <dt>vuex</dt>
       <dd> 1.vuex中的数据需要在组件的computed中引用</dd>
       <dd> 2.vuex的count数据：<span v-text="count"></span></dd>
+      <dd> 3.使webstorm支持vue的scss  style上面加上 rel=“stylesheet/scss”即可</dd>
       <dd v-on:click="add">3.点击添加vuex的count数据</dd>
     </dl>
     <dl>
@@ -41,7 +42,7 @@
         <li v-for="item in items" v-text="item.name"></li>
       </ul>
     </div>
-    
+
     <h4>区域区块滚动</h4>
     <div class="snap-scroll" id="scrollSnap">
       <ul class="snap">
@@ -101,7 +102,7 @@
         var pos_y=0;
         var touchEnd=false;
         //如何确保一次scroll只更新一次数据？
-        
+
         scrollY.on("scroll",function(pos){
           touchEnd=false;
           var y=pos_y=pos.y;
@@ -126,7 +127,7 @@
             setTimeout(function(){
               scrollDomUl.style.transform="translate(0px,"+titleH+"px) translateZ(0px)";
             },0);
-            
+
             console.log(scrollDomUl);
           }
         });
@@ -138,11 +139,11 @@
             self.refreshText="刷新中. . .";
             self.refreshing=true;
             self.refreshData();
-            
+
           }
         });
         scrollY.on("scrollEnd",function(pos){
-         
+
         });
       },
       createScrollX:function(){
@@ -187,14 +188,14 @@
       }
     },
     components:{
-      
+
     }
   }
 </script>
 
 
 
-<style scoped lang="sass">
+<style rel="stylesheet/scss" scoped lang="sass">
   @import "../assets/css/_ignore/mixin.scss";
   @include dpr("#scroll",12);
 
