@@ -19,7 +19,7 @@ module.exports={
 			{test:/\.scss$/,loader:["style-loader","css-loader?modules","sass-loader?modules"]},
 			{test: /\.json$/,loader: "json-loader"},
 			{
-				test: /\.js$/,
+				test: /\.jsx?$/,
 				loader: "babel-loader",
 				exclude: /node_modules/,
 				options: {
@@ -36,6 +36,7 @@ module.exports={
 		extensions:[".css",".scss",".js",".vue"],
 		alias:{
 			"components":path.resolve(__dirname,"./src/components/"),
+			"page":path.resolve(__dirname,"./src/page/"),
 			"vue" : path.resolve(__dirname,'./node_modules/vue/dist/vue'),
 			"flexible":path.resolve(__dirname,'./src/assets/js/plugins/flexible/flexible'),
 		}
