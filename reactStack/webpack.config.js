@@ -4,13 +4,14 @@ var path=require("path");
 
 
 module.exports={
+	devtool: 'source-map',
 	entry:{
 		"app":"./src/main.js",
 	},
 	output:{
 		path:path.resolve(__dirname,"./dist/js/"),
 		filename:"[name].min.js",
-		publicPath:path.resolve(__dirname,"./dist/js/"),//公共文件存储位置 和下面的chunkFilename貌似没有关系  和图片的引用路径有关系
+		publicPath:"/js/",//公共文件存储位置 和下面的chunkFilename貌似没有关系  和图片的引用路径有关系
 		chunkFilename:"./chunk/[name]-[id].common.js?[chunkhash]"//非主文件的命名规则
 	},
 	module:{
@@ -37,6 +38,7 @@ module.exports={
 		alias:{
 			"components":path.resolve(__dirname,"./src/components/"),
 			"page":path.resolve(__dirname,"./src/page/"),
+			"util":path.resolve(__dirname,"./src/util/"),
 			"vue" : path.resolve(__dirname,'./node_modules/vue/dist/vue'),
 			"flexible":path.resolve(__dirname,'./src/assets/js/plugins/flexible/flexible'),
 		}

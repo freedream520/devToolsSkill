@@ -17,10 +17,10 @@ export default class BottomNav extends Component{
 	}
 	render() {
 		console.log("match:",this.props.match);
-		var navs=this.state.navs.map(function(nav){
+		var navs=this.state.navs.map(function(nav,i){
 			return (
-				<li>
-					<NavLink to={nav.to} activeClassName={bottomNav.active}>{nav.text}</NavLink>
+				<li key={nav.text}>
+					<NavLink  to={nav.to} activeClassName={bottomNav.active}>{nav.text}</NavLink>
 				</li>
 			);
 		});
