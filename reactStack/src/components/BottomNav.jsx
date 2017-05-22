@@ -14,9 +14,9 @@ export default class BottomNav extends Component{
 				{to:"/index/me",text:"我的"},
 			]
 		};
+		console.log("bottomNav:",props);//这里也会有match等参数么
 	}
 	render() {
-		console.log("match:",this.props.match);
 		var navs=this.state.navs.map(function(nav,i){
 			return (
 				<li key={nav.text}>

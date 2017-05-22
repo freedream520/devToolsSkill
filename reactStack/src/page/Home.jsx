@@ -1,95 +1,58 @@
 import React,{Component} from "react";
 import { Route,Link} from 'react-router-dom';
 
-import axios from "axios";
+import Bundle from 'util/bundle.jsx';
 
 
-
-//react中任何标签都需要闭合，不然会编译报错
-
-
-
-
-const o=[
-	{text:"a",age:123},
-	{text:"b",age:234},
-];
-
-//调试
-const Dev=(props)=>(
-	<ul>
-		<h4>调试</h4>
-		<li>
-			1.github上下载 React Developer Tools  （需要翻墙）  <br />
-			2.插件设置为可以访问文件 <br />
-			3.控制台有react的选项   可以看到react源码
-		</li>
-	</ul>
-);
+import Index from "page/Index.jsx";
+// import Tender from "page/Tender.jsx";
+import Me from "page/Me.jsx";
+import BottomNav from "components/BottomNav.jsx";
 
 
+const TenderContainer =require('bundle-loader?lazy&name=app-[name]!page/Tender.jsx');
 
 
-class Test extends Component{
-	constructor(props){
-		super(props);
-	}
-	render(){
-		var arr=o.map(function(item){
-			return <p key={item.text} {...item}>{item.text}</p>
-		});
-		return <div>{arr}</div>;
-	}
-}
+const Tender = () => (
+    <Bundle load={TenderContainer}>
+        {(Tender) => <Tender />}
+    </Bundle>
+)
 
+
+// <a href="http://www.cnblogs.com/cocoliu/p/6743330.html">详细使用</a>
+
+//静态页面可以使用这种方式
 
 
 export default class Home extends Component{
+	/**
+		组件会默认把props数据对象传递进来  pros上面可以有任何属性 
+		因为用了router   组件上面会绑定特定的属性   如location match history等   所以会有解构取参数的情况
+		如果组件不是通过路由的方式引用，那么久得不到match等参数  如bottomNav组件是一个空对象参数
+	**/
+		
 	constructor(props){
 		super(props);
-		this.state= {
-			banner:[],
-			lists:[]
-		}
 	}
 	componentWillMount() {
-		var banner="/api/banner";
-		var homeListUrl="/api/homeList";
-
-		var self=this;
-
-		axios(banner).then(function(data){
-			self.setState({
-				banner:data.data.data
-			});
-		});
-
-
-		axios(homeListUrl).then(function(data){
-			self.setState({
-				lists:data.data.data.rows
-			});
-		});
+		console.log("componentWillMount:",this.props);
 	}
 	render() {
-		console.log(123,this.state);
-		var banner=this.state.banner.map(function(item){
-			return (<li key={item.name}>
-				<p>{item.name}</p>
-			</li>);
-		});
-
-		var lists=this.state.lists.map(function(list){
-			return (<li key={list.name}>
-				<h4>{list.name}</h4>
-			</li>)
-		});
+		var obj={
+			pathname:"/test",
+			state:{
+				modal:true
+			}
+		};
 		return (
 			<div>
-				<ul>{banner}</ul>
-				<ul>{lists}</ul>
-				<Dev />
-				<Test />
+				<Route exact path="/" component={Index} />
+				<Route exact path="/index" component={Index} />
+				<Route  path="/index/tender"  component={Tender} />
+				<Route  path="/index/me" component={Me} />
+
+				<BottomNav test={"aaa"}/>
 			</div>
 		);
 	}

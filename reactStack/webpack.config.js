@@ -6,7 +6,7 @@ var path=require("path");
 module.exports={
 	devtool: 'source-map',
 	entry:{
-		"app":"./src/main.js",
+		"app":"./src/App.js",
 	},
 	output:{
 		path:path.resolve(__dirname,"./dist/js/"),

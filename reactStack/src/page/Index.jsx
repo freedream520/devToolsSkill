@@ -1,44 +1,92 @@
 import React,{Component} from "react";
 import { Route,Link} from 'react-router-dom';
 
-import Bundle from 'util/bundle.jsx';
+import axios from "axios";
 
 
-import Home from "page/Home.jsx";
-// import Tender from "page/Tender.jsx";
-import Me from "page/Me.jsx";
-import BottomNav from "components/BottomNav.jsx";
+
+//react中任何标签都需要闭合，不然会编译报错
 
 
-const TenderContainer =require('bundle-loader?lazy&name=app-[name]!page/Tender.jsx');
 
 
-const Tender = () => (
-    <Bundle load={TenderContainer}>
-        {(Tender) => <Tender />}
-    </Bundle>
-)
+const o=[
+	{text:"a",age:123},
+	{text:"b",age:234},
+];
+
+//调试
+const Dev=(props)=>(
+	<ul>
+		<h4>调试</h4>
+		<li>
+			1.github上下载 React Developer Tools  （需要翻墙）  <br />
+			2.插件设置为可以访问文件 <br />
+			3.控制台有react的选项   可以看到react源码
+		</li>
+	</ul>
+);
 
 
-// <a href="http://www.cnblogs.com/cocoliu/p/6743330.html">详细使用</a>
 
-//静态页面可以使用这种方式
+
+class Test extends Component{
+	constructor(props){
+		super(props);
+	}
+	render(){
+		var arr=o.map(function(item){
+			return <p key={item.text} {...item}>{item.text}</p>
+		});
+		return <div>{arr}</div>;
+	}
+}
 
 
 export default class Index extends Component{
 	constructor(props){
 		super(props);
+		this.state= {
+			banner:[],
+			lists:[]
+		}
+	}
+	componentWillMount() {
+		var banner="/api/banner";
+		var homeListUrl="/api/homeList";
+
+		var self=this;
+
+		axios(banner).then(function(data){
+			self.setState({
+				banner:data.data.data
+			});
+		});
+
+
+		axios(homeListUrl).then(function(data){
+			self.setState({
+				lists:data.data.data.rows
+			});
+		});
 	}
 	render() {
-		
+		var banner=this.state.banner.map(function(item){
+			return (<li key={item.name}>
+				<p>{item.name}</p>
+			</li>);
+		});
+
+		var lists=this.state.lists.map(function(list){
+			return (<li key={list.name}>
+				<h4>{list.name}</h4>
+			</li>)
+		});
 		return (
 			<div>
-				<Route exact path="/" component={Home} />
-				<Route exact path="/index" component={Home} />
-				<Route  path="/index/tender"  component={Tender} />
-				<Route  path="/index/me" component={Me} />
-
-				<BottomNav />
+				<ul>{banner}</ul>
+				<ul>{lists}</ul>
+				<Dev />
 			</div>
 		);
 	}
