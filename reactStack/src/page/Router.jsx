@@ -3,10 +3,10 @@ import {Route,Link} from "react-router-dom";
 
 
 
-<!-- { path: '/contact',
-  sidebar: () => <div>联系我们!</div>,
-  main: () => <h2>联系我们</h2>
-} -->
+//  { path: '/contact',
+//   sidebar: () => <div>联系我们!</div>,
+//   main: () => <h2>联系我们</h2>
+// }
 
 
 export default class App extends Component {
