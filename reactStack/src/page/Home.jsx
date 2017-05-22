@@ -29,7 +29,7 @@ export default class Home extends Component{
 	/**
 		组件会默认把props数据对象传递进来  pros上面可以有任何属性 
 		因为用了router   组件上面会绑定特定的属性   如location match history等   所以会有解构取参数的情况
-		如果组件不是通过路由的方式引用，那么久得不到match等参数  如bottomNav组件是一个空对象参数
+		如果组件不是通过路由的方式引用，那么久得不到match等参数  如bottomNav组件是一个空对象
 	**/
 		
 	constructor(props){
@@ -47,7 +47,6 @@ export default class Home extends Component{
 		};
 		return (
 			<div>
-				<Route exact path="/" component={Index} />
 				<Route exact path="/index" component={Index} />
 				<Route  path="/index/tender"  component={Tender} />
 				<Route  path="/index/me" component={Me} />

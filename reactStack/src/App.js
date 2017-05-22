@@ -1,6 +1,6 @@
 import React from "react";
 import {render} from "react-dom";
-import {BrowserRouter, Router,HashRouter,Match, Route,Link,hashHistory,IndexLink} from 'react-router-dom';
+import {BrowserRouter, Router,HashRouter,Match, Route,Link,hashHistory,IndexLink,Redirect} from 'react-router-dom';
 
 
 import Home from "page/Home.jsx";
@@ -26,7 +26,9 @@ import "./assets/css/base.scss";
 render(
     <HashRouter>
         <div>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" render={()=>(
+                <Redirect to="/index" />
+            )} />
             <Route  path="/index" component={Home} />
             <Route  path="/about" component={About} />
             <Route  path="/login" component={Login} />
