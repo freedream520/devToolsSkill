@@ -10,7 +10,7 @@ export default class BottomNav extends Component{
 		this.state={
 			navs:[
 				{to:"/",text:"首页"},
-				{to:"/index/tender",text:"理财"},
+				{to:"/index/router",text:"路由"},
 				{to:"/index/me",text:"我的"},
 			]
 		};

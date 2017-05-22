@@ -10,15 +10,19 @@ import Me from "page/Me.jsx";
 import BottomNav from "components/BottomNav.jsx";
 
 
-const TenderContainer =require('bundle-loader?lazy&name=app-[name]!page/Tender.jsx');
+const TenderContainer =require('bundle-loader?lazy&name=app-[name]!page/Router.jsx');
 
 
-const Tender = () => (
+const RouteComp = () => (
     <Bundle load={TenderContainer}>
         {(Tender) => <Tender />}
     </Bundle>
 )
 
+
+const Test=()=>(
+	<h5>Test 同一个路由，渲染多个组件</h5>
+);
 
 // <a href="http://www.cnblogs.com/cocoliu/p/6743330.html">详细使用</a>
 
@@ -48,9 +52,11 @@ export default class Home extends Component{
 		return (
 			<div>
 				<Route exact path="/index" component={Index} />
-				<Route  path="/index/tender"  component={Tender} />
-				<Route  path="/index/me" component={Me} />
 
+				<Route  path="/index/router"  component={RouteComp} />
+				<Route  path="/index/router"  component={Test} />
+
+				<Route  path="/index/me" component={Me} />
 				<BottomNav test={"aaa"}/>
 			</div>
 		);
