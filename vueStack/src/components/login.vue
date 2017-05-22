@@ -35,8 +35,7 @@
 </script>
 
 
-
-<style rel="stylesheet/scss" scoped lang="scss">
+<style rel="stylesheet/scss" scoped lang="sass">
   @import "../assets/css/_ignore/mixin";
   h4{
     line-height: pxToRem(80);
