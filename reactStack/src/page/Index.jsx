@@ -3,7 +3,7 @@ import { Route,Link} from 'react-router-dom';
 
 import axios from "axios";
 
-
+import index from "../assets/css/Index.scss";
 
 //react中任何标签都需要闭合，不然会编译报错
 
@@ -43,10 +43,69 @@ class Test extends Component{
 }
 
 
+class Tips extends Component{
+	constructor(props) {
+		super(props);
+	}
+	render(){
+		return (
+			<ul>
+				<h4>注意事项：</h4>
+				<li>
+					1.如果数据依赖于老的数据，setState可以传递一个函数，该函数接受两个参数 prevState props  取数据的时候通过prevState而不是this.state
+				</li>
+				<li>
+					2.React中实现类似于计算属性需要绑定一个函数  该函数可以返回计算后的结果
+				</li>
+			</ul>
+		);
+	}
+}
+
+class Sum extends Component{
+	constructor(props) {
+		super(props);
+
+		this.state={
+			num1:this.props.sum,
+			num2:0
+		}
+	}
+	addNum1(e){
+		console.log(e,this);
+		this.setState({num1:this.state.num1+=1});
+		this.props.onUpdateSum(sum);
+	}
+	addNum2(e){
+		this.setState((prevState,props)=>{num2:prevState.num2++});
+		this.props.onUpdateSum(sum);
+	}
+	_computedSum(){
+		var sum=this.state.num1+this.state.num2;
+
+		return sum;
+	}
+	render() {
+
+		var state=this.state;
+		var _this=this;
+		return (
+			<p className={index.sumWraper}>
+				子组件Sum：
+				<span onClick={(e)=>_this.addNum1(e)}>{state.num1}</span>+
+				<span onClick={(e)=>_this.addNum2(e)}>{state.num2}</span>=
+				<span>{this._computedSum()}</span>
+			</p>
+		);
+	}	
+}
+
 export default class Index extends Component{
 	constructor(props){
 		super(props);
 		this.state= {
+			count:0,
+			sum:2,
 			banner:[],
 			lists:[]
 		}
@@ -70,6 +129,18 @@ export default class Index extends Component{
 			});
 		});
 	}
+	componentDidMount() {
+		var _this=this;
+		var count=this.state.count;
+		setInterval(function(){
+			_this.setState((prevState,props)=>{count:prevState.count++});
+		},1000);
+	}
+	UpdateSum(val){
+		this.setState({
+			sum:val
+		});
+	}
 	render() {
 		var banner=this.state.banner.map(function(item){
 			return (<li key={item.name}>
@@ -82,11 +153,20 @@ export default class Index extends Component{
 				<h4>{list.name}</h4>
 			</li>)
 		});
+
+		var state=this.state;
 		return (
-			<div>
+			<div className={index.wraper}>
 				<ul>{banner}</ul>
 				<ul>{lists}</ul>
 				<Dev />
+				<Tips />
+				<div className={index.testWraper}>
+					<h4>测试数据: {state.count}</h4>
+					<p>父组件sum:{state.sum}</p>
+
+					<Sum sum={state.sum} onUpdateSum={this.UpdateSum}/>
+				</div>
 			</div>
 		);
 	}
