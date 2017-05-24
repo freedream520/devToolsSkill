@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import {Route,Link} from "react-router-dom";
 
-
+import BottomNav from "components/BottomNav.jsx";
 
 //  { path: '/contact',
 //   sidebar: () => <div>联系我们!</div>,
@@ -36,6 +36,7 @@ export default class App extends Component {
 			  			</p>
 			  		</li>
 			  	</ul>
+			  	<BottomNav test={"aaa"}/>
 			</div>
 		)
 	}

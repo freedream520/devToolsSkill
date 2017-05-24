@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 
 import {Route,Link} from "react-router-dom";
+import BottomNav from "components/BottomNav.jsx";
 
 export default class App extends Component {
 	constructor(props){
@@ -15,6 +16,7 @@ export default class App extends Component {
 			  <p>3.如何避免css的污染问题？</p>
 
 			  <Link to="/login">点击登录</Link>
+			  <BottomNav test={"aaa"}/>
 			</div>
 		)
 	}

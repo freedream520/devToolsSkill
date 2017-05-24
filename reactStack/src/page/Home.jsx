@@ -7,7 +7,7 @@ import Bundle from 'util/bundle.jsx';
 import Index from "page/Index.jsx";
 // import Tender from "page/Tender.jsx";
 import Me from "page/Me.jsx";
-import BottomNav from "components/BottomNav.jsx";
+
 
 
 const TenderContainer =require('bundle-loader?lazy&name=app-[name]!page/Router.jsx');
@@ -52,12 +52,6 @@ export default class Home extends Component{
 		return (
 			<div>
 				<Route exact path="/index" component={Index} />
-
-				<Route  path="/index/router"  component={RouteComp} />
-				<Route  path="/index/router"  component={Test} />
-
-				<Route  path="/index/me" component={Me} />
-				<BottomNav test={"aaa"}/>
 			</div>
 		);
 	}

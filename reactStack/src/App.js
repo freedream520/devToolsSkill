@@ -2,10 +2,23 @@ import React from "react";
 import {render} from "react-dom";
 import {BrowserRouter, Router,HashRouter,Match, Route,Link,hashHistory,IndexLink,Redirect} from 'react-router-dom';
 
-
+import Index from "page/Index.jsx";
 import Home from "page/Home.jsx";
 import About from "page/About.jsx";
 import Login from "page/Login.jsx";
+import Me from "page/Me.jsx";
+
+import Bundle from 'util/bundle.jsx';
+
+const TenderContainer =require('bundle-loader?lazy&name=app-[name]!page/Router.jsx');
+
+
+const RouteComp = () => (
+    <Bundle load={TenderContainer}>
+        {(Tender) => <Tender />}
+    </Bundle>
+)
+
 
 import "./assets/css/base.scss";
 
@@ -29,7 +42,9 @@ render(
             <Route exact path="/" render={()=>(
                 <Redirect to="/index" />
             )} />
-            <Route  path="/index" component={Home} />
+            <Route  path="/index" component={Index} />
+            <Route  path="/router"  component={RouteComp} />
+            <Route  path="/me" component={Me} />
             <Route  path="/about" component={About} />
             <Route  path="/login" component={Login} />
         </div>

@@ -4,7 +4,7 @@ import { Route,Link} from 'react-router-dom';
 import axios from "axios";
 
 import index from "../assets/css/Index.scss";
-
+import BottomNav from "components/BottomNav.jsx";
 //react中任何标签都需要闭合，不然会编译报错
 
 
@@ -110,31 +110,32 @@ export default class Index extends Component{
 			lists:[]
 		}
 	}
-	componentWillMount() {
+	componentDidMount() {
+		var _this=this;
+		var count=this.state.count;
+
+		// setInterval(function(){
+		// 	_this.setState({count:_this.state.count++});
+		// },1000);
+
 		var banner="/api/banner";
 		var homeListUrl="/api/homeList";
 
-		var self=this;
+		
 
 		axios(banner).then(function(data){
-			self.setState({
+			_this.setState({
 				banner:data.data.data
 			});
 		});
 
 
 		axios(homeListUrl).then(function(data){
-			self.setState({
+			_this.setState({
 				lists:data.data.data.rows
 			});
 		});
-	}
-	componentDidMount() {
-		var _this=this;
-		var count=this.state.count;
-		setInterval(function(){
-			_this.setState((prevState,props)=>{count:prevState.count++});
-		},1000);
+
 	}
 	UpdateSum(val){
 		this.setState({
@@ -167,6 +168,7 @@ export default class Index extends Component{
 
 					<Sum sum={state.sum} onUpdateSum={this.UpdateSum}/>
 				</div>
+				<BottomNav test={"aaa"}/>
 			</div>
 		);
 	}

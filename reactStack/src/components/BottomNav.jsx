@@ -9,9 +9,9 @@ export default class BottomNav extends Component{
 		super(props);
 		this.state={
 			navs:[
-				{to:"/",text:"首页"},
-				{to:"/index/router",text:"路由"},
-				{to:"/index/me",text:"我的"},
+				{to:"/index",text:"首页"},
+				{to:"/router",text:"路由"},
+				{to:"/me",text:"我的"},
 			]
 		};
 		console.log("bottomNav:",props);//这里也会有match等参数么

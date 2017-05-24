@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 267:
+/***/ 269:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17,6 +17,10 @@ var _react = __webpack_require__(5);
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(24);
+
+var _BottomNav = __webpack_require__(66);
+
+var _BottomNav2 = _interopRequireDefault(_BottomNav);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -88,7 +92,8 @@ var App = function (_Component) {
 							"\u56E0\u4E3A\u6CA1\u6709\u914D\u7F6E\u6587\u4EF6\uFF0C\u6240\u4EE5\u7236\u5B50\u5173\u7CFB\u662F\u901A\u8FC7url\u8FDB\u884C\u5224\u5B9A  \u800Cvue-router\u5219\u662F\u901A\u8FC7\u914D\u7F6E\u6587\u4EF6\u58F0\u660E\u7236\u5B50\u5173\u7CFB\uFF0C\u6240\u4EE5\u548Curl\u6CA1\u6709\u5173\u7CFB \u6240\u4EE5\u5B50\u8DEF\u7531\u7684\u8DEF\u5F84\u5FC5\u987B\u5D4C\u5957\u5728\u7236\u8DEF\u7531\u4E0B\u9762"
 						)
 					)
-				)
+				),
+				_react2.default.createElement(_BottomNav2.default, { test: "aaa" })
 			);
 		}
 	}]);
@@ -102,4 +107,4 @@ exports.default = App;
 /***/ })
 
 });
-//# sourceMappingURL=app-Router-0.common.js.map?eb93df34a82d55d24ea3
+//# sourceMappingURL=app-Router-0.common.js.map?bb2614fbf841c3985b82
