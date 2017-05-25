@@ -19,18 +19,19 @@ class Sum extends Component{
 	}
 	addNum1(e){
 		let self=this;
-		console.log(e,this);
 		this.setState({num1:this.state.num1+=1});
 		this.props.dispatch(sumUpdate(self._computedSum()));
 		
 	}
 	addNum2(e){
-		this.setState((prevState,props)=>{num2:prevState.num2++});
+		let self=this;
+		this.setState({num2:this.state.num2+=1});
+		this.props.dispatch(sumUpdate(self._computedSum()));
 	}
 	_computedSum(){
 
 		var sum=this.state.num1+this.state.num2;
-		
+		console.log("sum:",sum)
 		return sum;
 	}
 	render() {
@@ -47,7 +48,7 @@ class Sum extends Component{
 		);
 	}	
 }
-Sum=connect((store) => (store))(Sum);
+Sum=connect((store) => ({store:store}))(Sum);
 
 
 // 使用NavLink可以高量化显示
@@ -55,17 +56,13 @@ class Redux extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			sum:this.props.sum,
-			// s : this.refs.s.getDomNode().innerHTML
+			sum:this.props.store.sum,
 		};
-		
-	}
-	componentDidMount() {
-		console.log("s:",this.refs.s.props.sum)
+		console.log("a:",this)
 	}
 	render() {
 		let state=this.state;
-		const {sum} = this.props;
+		const {sum}=this.props.store;
 		return (
 			<div className={redux.redux_wraper} >
 				<ul className={redux.redux_ul}>
@@ -75,10 +72,15 @@ class Redux extends Component{
 					<li>
 						2.通过react-redux 中的Provider和connect可以把store数据传递到组件中，使用了connect处理后的组件会接收dispatch参数在props中
 					</li>
+					<li>
+						3.connect其实是一个中间件  负责把数据导入到props里面  <br /> 
+						可以把store包装到一个对象中传递给props  这样render中的绑定就会动态
+					</li>
 				</ul>
 				<div className={redux.testWraper}>
-					<p>父组件sum:{state.sum}</p>
-					<Sum ref="s" sum={state.sum} />
+					<p>父组件sum:{this.props.store.sum}</p>
+					<Sum  sum={state.sum} />
+					<Sum  sum={this.props.store.sum} />
 					<Sum  sum={sum} />
 				</div>
 				<BottomNav />
@@ -86,11 +88,13 @@ class Redux extends Component{
 		);
 	}
 };
-const sum = (state) => {
-	console.log(state)
-	return {
-		sum : state.sum
-	}
-}
+
 //通过这种方式传递store会导致props不能传递和store里面一样的字段
-export default Redux=connect(sum)(Redux);
+// connect((store) => ({store:store}))(Redux);  负责把store传递到组件的props上
+
+
+export default Redux=connect((store) => ({store:store}))(Redux);
+
+
+
+

@@ -53,9 +53,8 @@ store.subscribe(function(){
 
 
 
-
 render(
-    <Provider store={store}>
+    <Provider store={store} o={{a:123,b:213123}}>
         <HashRouter>
             <div>
                 <Route exact path="/" render={()=>(
