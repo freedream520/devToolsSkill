@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 295:
+/***/ 315:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12,13 +12,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(24);
 
-var _BottomNav = __webpack_require__(71);
+var _BottomNav = __webpack_require__(76);
 
 var _BottomNav2 = _interopRequireDefault(_BottomNav);
 
@@ -107,4 +107,4 @@ exports.default = App;
 /***/ })
 
 });
-//# sourceMappingURL=app-Router-0.common.js.map?d0e655430322f6e26b8f
+//# sourceMappingURL=app-Router-0.common.js.map?3e75e35d06593fa595fb

@@ -1,13 +1,14 @@
 import React,{Component} from "react";
 import { Route,Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
 
 import axios from "axios";
 
 import index from "../assets/css/Index.scss";
 import BottomNav from "components/BottomNav.jsx";
 //react中任何标签都需要闭合，不然会编译报错
-
-
 
 
 const o=[
@@ -62,48 +63,15 @@ class Tips extends Component{
 	}
 }
 
-class Sum extends Component{
-	constructor(props) {
-		super(props);
 
-		this.state={
-			num1:this.props.sum,
-			num2:0
-		}
-	}
-	addNum1(e){
-		console.log(e,this);
-		this.setState({num1:this.state.num1+=1});
-		this.props.onUpdateSum(sum);
-	}
-	addNum2(e){
-		this.setState((prevState,props)=>{num2:prevState.num2++});
-		this.props.onUpdateSum(sum);
-	}
-	_computedSum(){
-		var sum=this.state.num1+this.state.num2;
 
-		return sum;
-	}
-	render() {
 
-		var state=this.state;
-		var _this=this;
-		return (
-			<p className={index.sumWraper}>
-				子组件Sum：
-				<span onClick={(e)=>_this.addNum1(e)}>{state.num1}</span>+
-				<span onClick={(e)=>_this.addNum2(e)}>{state.num2}</span>=
-				<span>{this._computedSum()}</span>
-			</p>
-		);
-	}	
-}
 
-export default class Index extends Component{
+class Index extends Component{
 	constructor(props){
 		super(props);
 		this.state= {
+			isLogined:false,
 			count:0,
 			sum:2,
 			banner:[],
@@ -162,14 +130,11 @@ export default class Index extends Component{
 				<ul>{lists}</ul>
 				<Dev />
 				<Tips />
-				<div className={index.testWraper}>
-					<h4>测试数据: {state.count}</h4>
-					<p>父组件sum:{state.sum}</p>
-
-					<Sum sum={state.sum} onUpdateSum={this.UpdateSum}/>
-				</div>
+				
 				<BottomNav test={"aaa"}/>
 			</div>
 		);
 	}
 }
+
+export default Index=connect()(Index);

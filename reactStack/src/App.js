@@ -1,7 +1,7 @@
 import React from "react";
 import {render} from "react-dom";
 import {BrowserRouter, Router,HashRouter,Match, Route,Link,hashHistory,IndexLink,Redirect} from 'react-router-dom';
-
+import { Provider } from 'react-redux'
 import {createStore} from "redux";
 
 import Index from "page/Index.jsx";
@@ -9,8 +9,7 @@ import Home from "page/Home.jsx";
 import About from "page/About.jsx";
 import Login from "page/Login.jsx";
 import Me from "page/Me.jsx";
-
-
+import ReduxComp from "page/Redux.jsx";
 
 
 import Bundle from 'util/bundle.jsx';
@@ -49,25 +48,26 @@ import {sumAdd,todoAdd} from "../actions/index.js";
 let store=createStore(reducers);
 
 store.subscribe(function(){
-    console.log(store.getState())
+    console.log(store.getState().sum)
 });
 
 
-store.dispatch(sumAdd(1));
-store.dispatch(todoAdd("哈哈"));
 
 
 render(
-    <HashRouter>
-        <div>
-            <Route exact path="/" render={()=>(
-                <Redirect to="/index" />
-            )} />
-            <Route  path="/index" component={Index} />
-            <Route  path="/router"  component={RouteComp} />
-            <Route  path="/me" component={Me} />
-            <Route  path="/about" component={About} />
-            <Route  path="/login" component={Login} />
-        </div>
-    </HashRouter>,
+    <Provider store={store}>
+        <HashRouter>
+            <div>
+                <Route exact path="/" render={()=>(
+                    <Redirect to="/index" />
+                )} />
+                <Route  path="/index" component={Index} />
+                <Route  path="/router"  component={RouteComp} />
+                <Route  path="/me" component={Me} />
+                <Route  path="/redux" component={ReduxComp} />
+                <Route  path="/about" component={About} />
+                <Route  path="/login" component={Login} />
+            </div>
+        </HashRouter>
+    </Provider>,
 document.getElementById('app'));

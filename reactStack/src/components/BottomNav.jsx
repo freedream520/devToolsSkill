@@ -11,6 +11,7 @@ export default class BottomNav extends Component{
 			navs:[
 				{to:"/index",text:"首页"},
 				{to:"/router",text:"路由"},
+				{to:"/redux",text:"redux"},
 				{to:"/me",text:"我的"},
 			]
 		};

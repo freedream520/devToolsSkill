@@ -38,6 +38,7 @@ module.exports={
 		alias:{
 			"components":path.resolve(__dirname,"./src/components/"),
 			"page":path.resolve(__dirname,"./src/page/"),
+			"actions":path.resolve(__dirname,"./actions/index.js"),
 			"util":path.resolve(__dirname,"./src/util/"),
 			"vue" : path.resolve(__dirname,'./node_modules/vue/dist/vue'),
 			"flexible":path.resolve(__dirname,'./src/assets/js/plugins/flexible/flexible'),
