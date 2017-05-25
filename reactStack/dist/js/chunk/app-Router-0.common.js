@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 269:
+/***/ 295:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18,7 +18,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(24);
 
-var _BottomNav = __webpack_require__(66);
+var _BottomNav = __webpack_require__(71);
 
 var _BottomNav2 = _interopRequireDefault(_BottomNav);
 
@@ -107,4 +107,4 @@ exports.default = App;
 /***/ })
 
 });
-//# sourceMappingURL=app-Router-0.common.js.map?bb2614fbf841c3985b82
+//# sourceMappingURL=app-Router-0.common.js.map?d0e655430322f6e26b8f

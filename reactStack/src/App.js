@@ -2,11 +2,16 @@ import React from "react";
 import {render} from "react-dom";
 import {BrowserRouter, Router,HashRouter,Match, Route,Link,hashHistory,IndexLink,Redirect} from 'react-router-dom';
 
+import {createStore} from "redux";
+
 import Index from "page/Index.jsx";
 import Home from "page/Home.jsx";
 import About from "page/About.jsx";
 import Login from "page/Login.jsx";
 import Me from "page/Me.jsx";
+
+
+
 
 import Bundle from 'util/bundle.jsx';
 
@@ -35,6 +40,22 @@ import "./assets/css/base.scss";
 6.react-router的路由地址 必须嵌套才可以用？  index的子路由  必须在index下面？
 
 **/
+
+
+import reducers from "../reducers/index.js";
+import {sumAdd,todoAdd} from "../actions/index.js";
+
+
+let store=createStore(reducers);
+
+store.subscribe(function(){
+    console.log(store.getState())
+});
+
+
+store.dispatch(sumAdd(1));
+store.dispatch(todoAdd("哈哈"));
+
 
 render(
     <HashRouter>
