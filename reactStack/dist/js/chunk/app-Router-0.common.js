@@ -18,7 +18,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(24);
 
-var _reactRedux = __webpack_require__(42);
+var _reactRedux = __webpack_require__(40);
 
 var _BottomNav = __webpack_require__(44);
 
@@ -119,4 +119,4 @@ exports.default = App = (0, _reactRedux.connect)(function (store) {
 /***/ })
 
 });
-//# sourceMappingURL=app-Router-0.common.js.map?22e20fa66566e4921a45
+//# sourceMappingURL=app-Router-0.common.js.map?a892818edcbca64bfcee

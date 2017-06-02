@@ -60,6 +60,23 @@ class Redux extends Component{
 		};
 		console.log("a:",this)
 	}
+	componentWillMount() {
+		var xhr=new XMLHttpRequest();
+		xhr.open("get","/api/testXHR");
+		xhr.setRequestHeader('X-Custom-Header', 'value',true);
+		xhr.send({
+			a:123
+		});
+		xhr.onreadystatechange=function(state){
+			console.log(state);
+			if(xhr.readyState ==4){
+
+			}
+		}
+		// xhr.on("data",function(data){
+		// 	console.log("data:",data)
+		// });
+	}
 	render() {
 		let state=this.state;
 		const {sum}=this.props.store;

@@ -39,7 +39,13 @@ app.use("/api/homeList",function(req,res){
 });
 
 
+app.use("/api/testXHR",function(req,res){
+	console.log(req.head,req.params,req.query);
+	res.json({
+		aaa:"aaa success!"
+	});
 
+});
 
 
 app.listen(3000);
