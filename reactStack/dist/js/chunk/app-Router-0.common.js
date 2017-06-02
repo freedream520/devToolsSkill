@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 313:
+/***/ 318:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17,6 +17,8 @@ var _react = __webpack_require__(4);
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(24);
+
+var _reactRedux = __webpack_require__(42);
 
 var _BottomNav = __webpack_require__(44);
 
@@ -48,6 +50,7 @@ var App = function (_Component) {
 	_createClass(App, [{
 		key: "render",
 		value: function render() {
+			console.log("router store:", this.props.store);
 			return _react2.default.createElement(
 				"div",
 				null,
@@ -93,6 +96,12 @@ var App = function (_Component) {
 						)
 					)
 				),
+				_react2.default.createElement(
+					"h4",
+					null,
+					"store.sum:",
+					this.props.store.sum
+				),
 				_react2.default.createElement(_BottomNav2.default, { test: "aaa" })
 			);
 		}
@@ -101,10 +110,13 @@ var App = function (_Component) {
 	return App;
 }(_react.Component);
 
-exports.default = App;
 ;
+
+exports.default = App = (0, _reactRedux.connect)(function (store) {
+	return { store: store };
+})(App);
 
 /***/ })
 
 });
-//# sourceMappingURL=app-Router-0.common.js.map?df8b9a0a177ad76c2e2c
+//# sourceMappingURL=app-Router-0.common.js.map?22e20fa66566e4921a45

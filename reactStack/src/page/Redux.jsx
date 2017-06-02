@@ -31,7 +31,7 @@ class Sum extends Component{
 	_computedSum(){
 
 		var sum=this.state.num1+this.state.num2;
-		console.log("sum:",sum)
+		// console.log("sum:",sum)
 		return sum;
 	}
 	render() {
@@ -63,6 +63,7 @@ class Redux extends Component{
 	render() {
 		let state=this.state;
 		const {sum}=this.props.store;
+		console.log("sum:"+sum);
 		return (
 			<div className={redux.redux_wraper} >
 				<ul className={redux.redux_ul}>

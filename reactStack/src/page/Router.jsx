@@ -1,5 +1,7 @@
 import React,{Component} from "react";
 import {Route,Link} from "react-router-dom";
+import { connect } from 'react-redux';
+
 
 import BottomNav from "components/BottomNav.jsx";
 
@@ -9,11 +11,12 @@ import BottomNav from "components/BottomNav.jsx";
 // }
 
 
-export default class App extends Component {
+class App extends Component {
 	constructor(props){
 		super(props);
 	}
 	render() {
+		console.log("router store:",this.props.store);
 		return (
 			<div >
 			  	<h1> Router!</h1>
@@ -36,9 +39,12 @@ export default class App extends Component {
 			  			</p>
 			  		</li>
 			  	</ul>
+			  	<h4>store.sum:{this.props.store.sum}</h4>
 			  	<BottomNav test={"aaa"}/>
 			</div>
 		)
 	}
 };
+
+export default App = connect((store)=>({store:store}))(App);
 

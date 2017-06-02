@@ -34,6 +34,7 @@ module.exports={
 		]
 	},
 	resolve:{
+		modules: [path.resolve(__dirname, './src'), 'node_modules'],//模块的查找顺序
 		extensions:[".css",".scss",".js",".vue"],
 		alias:{
 			"components":path.resolve(__dirname,"./src/components/"),
