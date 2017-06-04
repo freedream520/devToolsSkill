@@ -45,7 +45,9 @@
 			force = true  //后台运行
 
 			./lib/mongod -f ./conf/mongod.conf   //启动数据库
+			或者 ./mongod --dbpath ./data   启动数据库
 
+			
 			soft rlimits too low. Number of files is 256, should be at least 1000 这种报错的解决办法
 			｛解决办法：
 				1、关闭现在打开的mongodb 终端窗口
