@@ -14,7 +14,7 @@ export default class App extends Component {
 			  <p>1.如何异步按需加载？</p>
 			  <p>2.如何精确高亮导航？</p>
 			  <p>3.如何避免css的污染问题？</p>
-
+			  <div>children:{this.props.children}</div>
 			  <Link to="/login">点击登录</Link>
 			  <BottomNav test={"aaa"}/>
 			</div>
