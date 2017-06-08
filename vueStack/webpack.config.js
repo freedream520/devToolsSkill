@@ -38,6 +38,11 @@ module.exports={
 			"flexible":path.resolve(__dirname,'./src/assets/js/plugins/flexible/flexible'),
 		}
 	},
+	devServer: {
+	  contentBase: path.join(__dirname, "src"),
+	  compress: true,
+	  port: 9000
+	},
 	plugins: [
     // new HtmlWebpackPlugin({template: __dirname + "/view/index.html"}),
     // new webpack.optimize.UglifyJsPlugin({
