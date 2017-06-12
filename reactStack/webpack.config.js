@@ -13,9 +13,7 @@ module.exports=function(){
 	console.log("env:",process.env.NODE_ENV);
 	let env=process.env.NODE_ENV;
 
-	
-	return {
-		devtool: 'source-map',
+	let commonConfig={
 		entry:{
 			"app":"./src/App.js",
 			"about":"./src/About.js",
@@ -56,18 +54,32 @@ module.exports=function(){
 				"vue" : path.resolve(__dirname,'./node_modules/vue/dist/vue'),
 				"flexible":path.resolve(__dirname,'./src/assets/js/plugins/flexible/flexible'),
 			}
-		},
-		plugins: [
-	    // new HtmlWebpackPlugin({template: __dirname + "/view/index.html"}),
-	    // new webpack.optimize.UglifyJsPlugin({
-	    //   compress: {
-	    //     warnings: false
-	    //   }
-	    // }),
-	    // new webpack.optimize.DedupePlugin(),//插件去重
-	    // new ExtractTextPlugin("style.css"),
-	    // new webpack.optimize.CommonsChunkPlugin('common.js'),//公共模块的提取
-	  ],
+		}
+	};
+
+	let devConfig={
+			devtool: 'source-map',
+			plugins: [
+		    // new HtmlWebpackPlugin({template: __dirname + "/view/index.html"}),
+		    // new webpack.optimize.UglifyJsPlugin({
+		    //   compress: {
+		    //     warnings: false
+		    //   }
+		    // }),
+		    // new webpack.optimize.DedupePlugin(),//插件去重
+		    // new ExtractTextPlugin("style.css"),
+		    // new webpack.optimize.CommonsChunkPlugin('common.js'),//公共模块的提取
+		    new webpack.DefinePlugin({
+		      __DEV__: JSON.stringify(JSON.parse((process.env.NODE_ENV == 'dev') || 'false'))
+		    })
+		  ],
 	}
+
+	let prodConfig={
+
+	};
+	
+	return Object.assign(commonConfig,env=="dev"?devConfig:prodConfig);
+
 }
 
