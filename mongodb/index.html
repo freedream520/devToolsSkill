@@ -43,8 +43,9 @@
 			logpath =log／mongod.log
 			dbpath = data
 			force = true  //后台运行
-
-			./lib/mongod -f ./conf/mongod.conf   //启动数据库
+			
+			mongod --config mongodb.conf ／／不识别fork＝true
+			./lib/mongod -f ./conf/mongod.conf   //启动数据库  自动fork＝true 后台运行
 			或者 ./mongod --dbpath ./data   启动数据库
 
 			
@@ -58,6 +59,33 @@
 				　　ulimit -u 2048
 				3、重启终端
 				｝
+
+
+			如何查看后台运行的mongo服务
+			ps -ef | grep mongo  查看进程
+			kill pid（进程id）
+
+
+			建立超级用户，避免阿里云数据库被删除
+			use admin
+			db.createUser({
+				user:'',
+				pwd:'',
+				roles:[
+					{
+						role:'root',
+						db:'admin'
+					}
+				]
+			})
+			
+			在admin数据库下认证成功之后可以链接其他的所有数据库
+
+			mongoose连接
+
+			mongoose.connect("mongodb://user:pwd@127.0.0.1:27017/admin");//需要先认证
+			mongoose.connect("mongodb://user:pwd@127.0.0.1:27017/database");
+
 		</li>
 		<li>
 			4.运行mongo  输入mongo命令  链接到数据库
