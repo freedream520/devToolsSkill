@@ -88,6 +88,14 @@
 
 		</li>
 		<li>
+			配置mongod服务 以后台的形式运行mongodb 避免windows不支持fork的方式
+			管理员身份运行cmd 
+			mongod --dbpath D:\mongo_data\data --logpath D:\mongo_data\log\log.log --auth --serviceName MongoDB --install
+
+			net start mongodb 启动服务
+
+		</li>
+		<li>
 			4.运行mongo  输入mongo命令  链接到数据库
 			mongo 127.0.0.1:27017
 		</li>
