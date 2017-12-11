@@ -1,5 +1,6 @@
 active serverce
 
+http://idea.ibdyr.com  有效
 http://idea.imsxm.com/ 
 http://114.215.133.70:41017﻿/ 
 http://mcpmcc.com:1017 
