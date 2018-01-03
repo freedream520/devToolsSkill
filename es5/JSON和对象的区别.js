@@ -15,6 +15,7 @@ var o={
 	}
 };
 
+// 对象中可以放函数    json中没法放函数
 
 JSON.stringify(json);//正常序列化
 JSON.stringify(o);//会忽略掉f以及list中的function
