@@ -15,7 +15,7 @@ console.log(result);
 
 
 
-
+//举例  o2对o1的引用不会因为o1被重置而发生改变   依然指向{name:123} 内存中的对象
 var o1={name:123};
 
 var o2=o1;
