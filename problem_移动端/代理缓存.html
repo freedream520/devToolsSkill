@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>缓存代理</title>
+</head>
+<body>
+    <h4>
+        <a href="https://segmentfault.com/a/1190000012926332">代理缓存</a>
+    </h4>
+    <script>
+        //缓存代理   一旦结果已经处理过   就不再执行 直接返回上一次的结果
+        // 优点  减少了不必要的重复执行  但是增加了内存的占用空间  用到了闭包
+        // 一般需要缓存的地方都需要使用闭包处理
+
+
+        var multAdd = function() {
+            var res = 0;
+            for (var i = 0, l = arguments.length; i < l; i++) {
+                res = res + arguments[i]
+            }
+
+            return res;
+        };
+
+        var proxyAdd = (function() {
+            var cache = {};
+            return function() {
+                var args = Array.prototype.join.call(arguments, ',');
+                if(args in cache) {
+                    return cache[args];
+                }
+                return caches[args] = multAdd.apply(this, arguments);
+            }
+        })();
+
+        proxyAdd(1, 2, 3); // 6
+        proxyAdd(1, 2, 3); // 6
+    </script>
+</body>
+</html>
